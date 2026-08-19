@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Acceso_DAL/Acceso_DAL.csproj" Id="9f3ce110-51b0-4dcb-ad52-223af3cb6aa5" />
+  <Project Path="Entidad_BE/Entidad_BE.csproj" Id="0f3cf233-91c7-4990-92f2-da2ea11cc946" />
+  <Project Path="Negocio_BLL/Negocio_BLL.csproj" Id="7a5ed90e-9242-4b6e-8cd9-4bb3b4d2ae3c" />
+  <Project Path="Servicios/Servicios.csproj" Id="9f46ca28-e371-400a-bccf-fb13216ea2f4" />
+  <Project Path="TP_SanchezVillaverde/Presentacion.csproj" Id="7294386d-721e-4c3c-aebe-f8e93fa37d9d" />
+</Solution>
