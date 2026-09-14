@@ -244,6 +244,12 @@ namespace TP_SanchezVillaverde
             //OpenForm(tsPerfiles, new frmGestionPerfiles());
         }
 
+        private void productosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            frmSeleccionarProducto_883SC frmProducto = new frmSeleccionarProducto_883SC();
+            frmProducto.ShowDialog();
+        }
+
         private void hToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             frmHistorialUsuario_883SC frmhistorial = new frmHistorialUsuario_883SC();

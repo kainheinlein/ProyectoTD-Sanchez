@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetalleCarritoBE.cs" />
     <Compile Include="EventoBE.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="HistorialUsuarioBE.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="LoginResult.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="PermisoSimple.cs" />
+    <Compile Include="ProductoBE.cs" />
     <Compile Include="TipoAccion.cs" />
     <Compile Include="TipoPermiso.cs" />
     <Compile Include="UsuarioBE.cs" />

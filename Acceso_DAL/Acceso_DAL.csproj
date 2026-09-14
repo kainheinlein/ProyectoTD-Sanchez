@@ -45,6 +45,7 @@
     <Compile Include="IdiomaDAL.cs" />
     <Compile Include="MP_Bitacora.cs" />
     <Compile Include="MP_HistorialUsuario.cs" />
+    <Compile Include="MP_Producto.cs" />
     <Compile Include="MP_Usuario.cs" />
     <Compile Include="MP_VerificadorIntegridad.cs" />
     <Compile Include="PerfilDAL.cs" />
