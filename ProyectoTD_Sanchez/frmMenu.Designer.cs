@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmMenu
+    partial class frmMenu_883SC
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenu));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenu_883SC));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDeUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,28 +98,28 @@
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
             this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestion de Usuarios";
-            this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click);
+            this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click_883SC);
             // 
             // hToolStripMenuItem
             // 
             this.hToolStripMenuItem.Name = "hToolStripMenuItem";
             this.hToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.hToolStripMenuItem.Text = "Historial de Cambios";
-            this.hToolStripMenuItem.Click += new System.EventHandler(this.hToolStripMenuItem_Click);
+            this.hToolStripMenuItem.Click += new System.EventHandler(this.hToolStripMenuItem_Click_883SC);
             // 
             // tsPerfiles
             // 
             this.tsPerfiles.Name = "tsPerfiles";
             this.tsPerfiles.Size = new System.Drawing.Size(186, 22);
             this.tsPerfiles.Text = "Perfiles";
-            this.tsPerfiles.Click += new System.EventHandler(this.perfilesToolStripMenuItem_Click);
+            this.tsPerfiles.Click += new System.EventHandler(this.perfilesToolStripMenuItem_Click_883SC);
             // 
             // idiomasToolStripMenuItem
             // 
             this.idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
             this.idiomasToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.idiomasToolStripMenuItem.Text = "Idiomas";
-            this.idiomasToolStripMenuItem.Click += new System.EventHandler(this.idiomasToolStripMenuItem_Click);
+            this.idiomasToolStripMenuItem.Click += new System.EventHandler(this.idiomasToolStripMenuItem_Click_883SC);
             // 
             // backupToolStripMenuItem
             // 
@@ -138,7 +138,7 @@
             this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
             this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.bitacoraToolStripMenuItem.Text = "Bitacora";
-            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
+            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click_883SC);
             // 
             // tsInicio
             // 
@@ -156,21 +156,21 @@
             this.iniciarSesionToolStripMenuItem.Name = "iniciarSesionToolStripMenuItem";
             this.iniciarSesionToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.iniciarSesionToolStripMenuItem.Text = "Iniciar Sesion";
-            this.iniciarSesionToolStripMenuItem.Click += new System.EventHandler(this.iniciarSesionToolStripMenuItem_Click);
+            this.iniciarSesionToolStripMenuItem.Click += new System.EventHandler(this.iniciarSesionToolStripMenuItem_Click_883SC);
             // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar Sesion";
-            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click_883SC);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click_883SC);
             // 
             // tsUsuario
             // 
@@ -187,7 +187,7 @@
             this.cambiarClaveToolStripMenuItem.Name = "cambiarClaveToolStripMenuItem";
             this.cambiarClaveToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.cambiarClaveToolStripMenuItem.Text = "Cambiar Clave";
-            this.cambiarClaveToolStripMenuItem.Click += new System.EventHandler(this.cambiarClaveToolStripMenuItem_Click);
+            this.cambiarClaveToolStripMenuItem.Click += new System.EventHandler(this.cambiarClaveToolStripMenuItem_Click_883SC);
             // 
             // cambiarIdiomaToolStripMenuItem
             // 
@@ -293,7 +293,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FerreSV";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.frmMenu_Load);
+            this.Load += new System.EventHandler(this.frmMenu_Load_883SC);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

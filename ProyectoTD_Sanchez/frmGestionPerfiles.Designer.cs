@@ -1,6 +1,6 @@
 namespace TP_SanchezVillaverde
 {
-    partial class frmGestionPerfiles
+    partial class frmGestionPerfiles_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -105,7 +105,7 @@ namespace TP_SanchezVillaverde
             this.button1.TabIndex = 9;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click_883SC);
             //
             // btnEliminar
             //
@@ -119,7 +119,7 @@ namespace TP_SanchezVillaverde
             this.btnEliminar.TabIndex = 8;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_883SC);
             //
             // button7
             //
@@ -133,7 +133,7 @@ namespace TP_SanchezVillaverde
             this.button7.TabIndex = 7;
             this.button7.Text = "Guardar";
             this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.button7_Click_883SC);
             //
             // button5
             //
@@ -147,7 +147,7 @@ namespace TP_SanchezVillaverde
             this.button5.TabIndex = 6;
             this.button5.Text = "Crear";
             this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.button5_Click_883SC);
             //
             // rBRol
             //
@@ -198,7 +198,7 @@ namespace TP_SanchezVillaverde
             this.comboFamilias.Name = "comboFamilias";
             this.comboFamilias.Size = new System.Drawing.Size(250, 25);
             this.comboFamilias.TabIndex = 1;
-            this.comboFamilias.SelectedIndexChanged += new System.EventHandler(this.comboFamilias_SelectedIndexChanged);
+            this.comboFamilias.SelectedIndexChanged += new System.EventHandler(this.comboFamilias_SelectedIndexChanged_883SC);
             //
             // labelRol
             //
@@ -250,7 +250,7 @@ namespace TP_SanchezVillaverde
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(302, 465);
             this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect_883SC);
             //
             // frmGestionPerfiles
             //
@@ -267,7 +267,7 @@ namespace TP_SanchezVillaverde
             this.Name = "frmGestionPerfiles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestión de Perfiles";
-            this.Load += new System.EventHandler(this.frmGestionPerfiles_Load);
+            this.Load += new System.EventHandler(this.frmGestionPerfiles_Load_883SC);
             this.pPerfiles.ResumeLayout(false);
             this.gbDatos.ResumeLayout(false);
             this.gbDatos.PerformLayout();

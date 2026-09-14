@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmLogin
+    partial class frmLogin_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin_883SC));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cambiarIdiomaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -38,8 +38,8 @@
             this.lblContra = new System.Windows.Forms.Label();
             this.lblError = new System.Windows.Forms.Label();
             this.lblSinConexion = new System.Windows.Forms.Label();
-            this.txtContra = new ProyectoCampo_JuanFer.ucAlfaNum();
-            this.txtUsuario = new ProyectoCampo_JuanFer.ucAlfaNum();
+            this.txtContra = new ProyectoCampo_JuanFer.ucAlfaNum_883SC();
+            this.txtUsuario = new ProyectoCampo_JuanFer.ucAlfaNum_883SC();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +89,7 @@
             this.btnIniciar.TabIndex = 4;
             this.btnIniciar.Text = "Iniciar";
             this.btnIniciar.UseVisualStyleBackColor = false;
-            this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click);
+            this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click_883SC);
             // 
             // btnCancelar
             // 
@@ -105,7 +105,7 @@
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_883SC);
             // 
             // lblUsuario
             // 
@@ -150,33 +150,33 @@
             this.lblSinConexion.Size = new System.Drawing.Size(112, 15);
             this.lblSinConexion.TabIndex = 9;
             this.lblSinConexion.Text = "Iniciar sin conexion";
-            this.lblSinConexion.Click += new System.EventHandler(this.lblSinConexion_Click);
-            this.lblSinConexion.MouseLeave += new System.EventHandler(this.lblSinConexion_MouseLeave);
-            this.lblSinConexion.MouseHover += new System.EventHandler(this.lblSinConexion_MouseHover);
+            this.lblSinConexion.Click += new System.EventHandler(this.lblSinConexion_Click_883SC);
+            this.lblSinConexion.MouseLeave += new System.EventHandler(this.lblSinConexion_MouseLeave_883SC);
+            this.lblSinConexion.MouseHover += new System.EventHandler(this.lblSinConexion_MouseHover_883SC);
             // 
             // txtContra
             // 
-            this.txtContra.isPass = false;
+            this.txtContra.isPass_883SC = false;
             this.txtContra.Location = new System.Drawing.Point(73, 195);
             this.txtContra.Margin = new System.Windows.Forms.Padding(1);
             this.txtContra.Name = "txtContra";
-            this.txtContra.ok = false;
+            this.txtContra.ok_883SC = false;
             this.txtContra.Size = new System.Drawing.Size(179, 37);
             this.txtContra.TabIndex = 3;
-            this.txtContra.texto = "";
-            this.txtContra.Load += new System.EventHandler(this.txtContra_Load);
+            this.txtContra.texto_883SC = "";
+            this.txtContra.Load += new System.EventHandler(this.txtContra_Load_883SC);
             // 
             // txtUsuario
             // 
-            this.txtUsuario.isPass = false;
+            this.txtUsuario.isPass_883SC = false;
             this.txtUsuario.Location = new System.Drawing.Point(73, 146);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(1);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.ok = false;
+            this.txtUsuario.ok_883SC = false;
             this.txtUsuario.Size = new System.Drawing.Size(179, 37);
             this.txtUsuario.TabIndex = 2;
-            this.txtUsuario.texto = "";
-            this.txtUsuario.Leave += new System.EventHandler(this.txtUsuario_Leave);
+            this.txtUsuario.texto_883SC = "";
+            this.txtUsuario.Leave += new System.EventHandler(this.txtUsuario_Leave_883SC);
             // 
             // frmLogin
             // 
@@ -202,7 +202,7 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
+            this.Load += new System.EventHandler(this.frmLogin_Load_883SC);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -216,8 +216,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem cambiarIdiomaToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private ProyectoCampo_JuanFer.ucAlfaNum txtUsuario;
-        private ProyectoCampo_JuanFer.ucAlfaNum txtContra;
+        private ProyectoCampo_JuanFer.ucAlfaNum_883SC txtUsuario;
+        private ProyectoCampo_JuanFer.ucAlfaNum_883SC txtContra;
         private System.Windows.Forms.Button btnIniciar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblUsuario;

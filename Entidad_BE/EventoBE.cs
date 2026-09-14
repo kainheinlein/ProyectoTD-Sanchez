@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,48 +6,48 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public class EventoBE
+    public class EventoBE_883SC
     {
-		private int _registro;
+		private int _registro_883SC;
 
-		public int registro
+		public int registro_883SC
 		{
-			get { return _registro; }
-			set { _registro = value; }
+			get { return _registro_883SC; }
+			set { _registro_883SC = value; }
 		}
 
-		private string _usuario;
+		private string _usuario_883SC;
 
-		public string usuario
+		public string usuario_883SC
 		{
-			get { return _usuario; }
-			set { _usuario = value; }
+			get { return _usuario_883SC; }
+			set { _usuario_883SC = value; }
 		}
 
-		private TipoAccion _accion;
+		private TipoAccion_883SC _accion_883SC;
 
-		public TipoAccion accion
+		public TipoAccion_883SC accion_883SC
 		{
-			get { return _accion; }
-			set { _accion = value; }
+			get { return _accion_883SC; }
+			set { _accion_883SC = value; }
 		}
 
-		private DateTime _fecha;
+		private DateTime _fecha_883SC;
 
-		public DateTime fecha
+		public DateTime fecha_883SC
 		{
-			get { return _fecha; }
-			set { _fecha = value; }
+			get { return _fecha_883SC; }
+			set { _fecha_883SC = value; }
 		}
 
-		public EventoBE() { }
+		public EventoBE_883SC() { }
 
-		public EventoBE CrearRegistro(string[] datos)
+		public EventoBE_883SC CrearRegistro_883SC(string[] datos)
 		{
-			this.registro = Convert.ToInt32(datos[0]);
-			this.usuario = datos[3];
-			this.accion = (TipoAccion)Convert.ToInt32(datos[1]);
-			this.fecha = Convert.ToDateTime(datos[2]);
+			this.registro_883SC = Convert.ToInt32(datos[0]);
+			this.usuario_883SC = datos[3];
+			this.accion_883SC = (TipoAccion_883SC)Convert.ToInt32(datos[1]);
+			this.fecha_883SC = Convert.ToDateTime(datos[2]);
 			return this;
 		}
 	}

@@ -1,4 +1,4 @@
-﻿using ProyectoCampo_JuanFer;
+using ProyectoCampo_JuanFer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace TP_SanchezVillaverde
 {
-    internal static class Program
+    internal static class Program_883SC
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -17,7 +17,7 @@ namespace TP_SanchezVillaverde
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
+            Application.Run(new frmLogin_883SC());
         }
     }
 }

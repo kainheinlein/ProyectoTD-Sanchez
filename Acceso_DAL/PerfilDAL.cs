@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,11 +9,11 @@ using Entidad_BE;
 
 namespace Acceso_DAL
 {
-    public class PerfilDAL
+    public class PerfilDAL_883SC
     {
-        private AccesoDatos conexDB = new AccesoDatos();
+        private AccesoDatos_883SC conexDB_883SC = new AccesoDatos_883SC();
 
-        public List<Permiso> ListaPermisos(string tipo = "")
+        public List<Permiso_883SC> ListaPermisos_883SC(string tipo = "")
         {
             string command;
             SqlCommand cmd;
@@ -34,30 +34,30 @@ namespace Acceso_DAL
                 cmd = new SqlCommand(command);
             }
 
-            conexDB.AbrirConexion();
-            cmd.Connection = conexDB.conexion;
+            conexDB_883SC.AbrirConexion_883SC();
+            cmd.Connection = conexDB_883SC.conexion_883SC;
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adapter.Fill(ds);
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
 
-            List<Permiso> listaPermiso = new List<Permiso>();
+            List<Permiso_883SC> listaPermiso = new List<Permiso_883SC>();
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 if (dr[1].ToString() == "Simple")
                 {
-                    listaPermiso.Add(new PermisoSimple(dr[0].ToString()));
+                    listaPermiso.Add(new PermisoSimple_883SC(dr[0].ToString()));
                 }
                 else
                 {
                     if (bool.Parse(dr[2].ToString()))
                     {
-                        listaPermiso.Add(new Familia(dr[0].ToString(), true));
+                        listaPermiso.Add(new Familia_883SC(dr[0].ToString(), true));
                     }
                     else
                     {
-                        listaPermiso.Add(new Familia(dr[0].ToString(), false));
+                        listaPermiso.Add(new Familia_883SC(dr[0].ToString(), false));
                     }
                 }
             }
@@ -65,156 +65,156 @@ namespace Acceso_DAL
             return listaPermiso;
         }
 
-        public bool PerfilEnUso(string nombre)
+        public bool PerfilEnUso_883SC(string nombre)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
             string query = "SELECT * FROM Usuarios WHERE Rol = @Nombre";
-            SqlCommand cmd = new SqlCommand(query, conexDB.conexion);
+            SqlCommand cmd = new SqlCommand(query, conexDB_883SC.conexion_883SC);
             cmd.Parameters.AddWithValue("@Nombre", nombre);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adapter.Fill(ds);
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
 
             int count = ds.Tables[0].Rows.Count;
             return count > 0;
         }
 
-        public List<Permiso> ListaPermisosEnArbol()
+        public List<Permiso_883SC> ListaPermisosEnArbol_883SC()
         {
-            List<Permiso> todos = new List<Permiso>();
+            List<Permiso_883SC> todos = new List<Permiso_883SC>();
             Dictionary<string, string> padres = new Dictionary<string, string>();
 
             string command = "select * from Permiso";
-            conexDB.AbrirConexion();
-            SqlCommand cmd = new SqlCommand(command, conexDB.conexion);
+            conexDB_883SC.AbrirConexion_883SC();
+            SqlCommand cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adapter.Fill(ds);
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                Permiso p;
+                Permiso_883SC p;
                 if (dr[1].ToString() == "Simple")
                 {
-                    p = new PermisoSimple(dr[0].ToString());
+                    p = new PermisoSimple_883SC(dr[0].ToString());
                 }
                 else
                 {
-                    p = new Familia(dr[0].ToString(), bool.Parse(dr[2].ToString()));
+                    p = new Familia_883SC(dr[0].ToString(), bool.Parse(dr[2].ToString()));
                 }
 
                 todos.Add(p);
                 if (dr[3] != DBNull.Value)
                 {
-                    padres[p.Nombre] = dr[3].ToString();
+                    padres[p.Nombre_883SC] = dr[3].ToString();
                 }
             }
 
-            List<Familia> compuestos = todos.OfType<Familia>().ToList();
+            List<Familia_883SC> compuestos = todos.OfType<Familia_883SC>().ToList();
 
-            foreach (Permiso hijo in todos)
+            foreach (Permiso_883SC hijo in todos)
             {
-                if (padres.TryGetValue(hijo.Nombre, out string nombrePadre))
+                if (padres.TryGetValue(hijo.Nombre_883SC, out string nombrePadre))
                 {
-                    Familia padre = compuestos.Find(f => f.Nombre == nombrePadre);
-                    padre?.AgregarHijo(hijo);
+                    Familia_883SC padre = compuestos.Find(f => f.Nombre_883SC == nombrePadre);
+                    padre?.AgregarHijo_883SC(hijo);
                 }
             }
 
-            return compuestos.Cast<Permiso>().ToList();
+            return compuestos.Cast<Permiso_883SC>().ToList();
         }
 
-        public List<Permiso> ListaPermisosRaiz()
+        public List<Permiso_883SC> ListaPermisosRaiz_883SC()
         {
-            List<Permiso> arbol = ListaPermisosEnArbol();
+            List<Permiso_883SC> arbol = ListaPermisosEnArbol_883SC();
 
             HashSet<string> raices = new HashSet<string>();
-            conexDB.AbrirConexion();
-            SqlCommand cmd = new SqlCommand("Select Nombre_Permiso from Permiso where Nombre_PermisoPadre is null", conexDB.conexion);
+            conexDB_883SC.AbrirConexion_883SC();
+            SqlCommand cmd = new SqlCommand("Select Nombre_Permiso from Permiso where Nombre_PermisoPadre is null", conexDB_883SC.conexion_883SC);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adapter.Fill(ds);
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 raices.Add(dr[0].ToString());
             }
 
-            return arbol.Where(x => raices.Contains(x.Nombre)).ToList();
+            return arbol.Where(x => raices.Contains(x.Nombre_883SC)).ToList();
         }
 
-        public void AgregarFamilia(Familia pFamilia)
+        public void AgregarFamilia_883SC(Familia_883SC pFamilia)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
             string query = "INSERT INTO Permiso (Nombre_Permiso, Tipo, Rol) VALUES (@Nombre, 'Compuesto', @Rol)";
-            SqlCommand cmd = new SqlCommand(query, conexDB.conexion);
-            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre);
-            cmd.Parameters.AddWithValue("@Rol", pFamilia.EsRol ? 1 : 0);
+            SqlCommand cmd = new SqlCommand(query, conexDB_883SC.conexion_883SC);
+            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre_883SC);
+            cmd.Parameters.AddWithValue("@Rol", pFamilia.EsRol_883SC ? 1 : 0);
             cmd.ExecuteNonQuery();
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
         }
 
-        public void EliminarFamilia(Familia pFamilia)
+        public void EliminarFamilia_883SC(Familia_883SC pFamilia)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
 
             string command = "update Permiso set Nombre_PermisoPadre = null where Nombre_PermisoPadre = @Nombre";
-            SqlCommand cmd = new SqlCommand(command, conexDB.conexion);
-            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre);
+            SqlCommand cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
+            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre_883SC);
             cmd.ExecuteNonQuery();
 
             command = "delete from Permiso where Nombre_Permiso = @Nombre";
-            cmd = new SqlCommand(command, conexDB.conexion);
-            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre);
+            cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
+            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre_883SC);
             cmd.ExecuteNonQuery();
 
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
         }
 
-        public void ModificarFamilia(Familia pFamilia, List<string> permisos)
+        public void ModificarFamilia_883SC(Familia_883SC pFamilia, List<string> permisos)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
 
             string command = "update Permiso set Nombre_PermisoPadre = null where Nombre_PermisoPadre = @Nombre";
-            SqlCommand cmd = new SqlCommand(command, conexDB.conexion);
-            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre);
+            SqlCommand cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
+            cmd.Parameters.AddWithValue("@Nombre", pFamilia.Nombre_883SC);
             cmd.ExecuteNonQuery();
 
             foreach (var p in permisos)
             {
                 command = "update Permiso set Nombre_PermisoPadre = @Familia where Nombre_Permiso = @Permiso";
-                cmd = new SqlCommand(command, conexDB.conexion);
-                cmd.Parameters.AddWithValue("@Familia", pFamilia.Nombre);
+                cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
+                cmd.Parameters.AddWithValue("@Familia", pFamilia.Nombre_883SC);
                 cmd.Parameters.AddWithValue("@Permiso", p);
                 cmd.ExecuteNonQuery();
             }
 
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
         }
 
-        public void AgregarPermisoAFamilia(string familia, string permiso)
+        public void AgregarPermisoAFamilia_883SC(string familia, string permiso)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
             string command = "update Permiso set Nombre_PermisoPadre = @Familia where Nombre_Permiso = @Permiso";
-            SqlCommand cmd = new SqlCommand(command, conexDB.conexion);
+            SqlCommand cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
             cmd.Parameters.AddWithValue("@Familia", familia);
             cmd.Parameters.AddWithValue("@Permiso", permiso);
             cmd.ExecuteNonQuery();
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
         }
 
-        public void EliminarPermisoDeFamilia(string familia, string permiso)
+        public void EliminarPermisoDeFamilia_883SC(string familia, string permiso)
         {
-            conexDB.AbrirConexion();
+            conexDB_883SC.AbrirConexion_883SC();
             string command = "update Permiso set Nombre_PermisoPadre = null where Nombre_PermisoPadre = @Familia AND Nombre_Permiso = @Permiso";
-            SqlCommand cmd = new SqlCommand(command, conexDB.conexion);
+            SqlCommand cmd = new SqlCommand(command, conexDB_883SC.conexion_883SC);
             cmd.Parameters.AddWithValue("@Familia", familia);
             cmd.Parameters.AddWithValue("@Permiso", permiso);
             cmd.ExecuteNonQuery();
-            conexDB.CerrarConexion();
+            conexDB_883SC.CerrarConexion_883SC();
         }
     }
 }

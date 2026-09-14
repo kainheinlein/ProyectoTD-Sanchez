@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio_BLL", "Negocio_BLL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "Servicios\Servicios.csproj", "{9F46CA28-E371-400A-BCCF-FB13216EA2F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentacion", "TP_SanchezVillaverde\Presentacion.csproj", "{7294386D-721E-4C3C-AEBE-F8E93FA37D9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentacion", "ProyectoTD_Sanchez\Presentacion.csproj", "{7294386D-721E-4C3C-AEBE-F8E93FA37D9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

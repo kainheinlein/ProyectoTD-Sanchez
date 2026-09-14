@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmUsuario
+    partial class frmUsuario_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsuario));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsuario_883SC));
             this.pUsuario = new System.Windows.Forms.Panel();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -106,7 +106,7 @@
             this.btnSalir.TabIndex = 9;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             // 
             // btnCancelar
             // 
@@ -121,7 +121,7 @@
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_883SC);
             // 
             // btnGuardar
             // 
@@ -136,7 +136,7 @@
             this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_883SC);
             // 
             // btnDesbloquear
             // 
@@ -151,7 +151,7 @@
             this.btnDesbloquear.TabIndex = 6;
             this.btnDesbloquear.Text = "Desbloquear";
             this.btnDesbloquear.UseVisualStyleBackColor = false;
-            this.btnDesbloquear.Click += new System.EventHandler(this.btnDesbloquear_Click);
+            this.btnDesbloquear.Click += new System.EventHandler(this.btnDesbloquear_Click_883SC);
             // 
             // btnElimUs
             // 
@@ -166,7 +166,7 @@
             this.btnElimUs.TabIndex = 5;
             this.btnElimUs.Text = "Eliminar Usuario";
             this.btnElimUs.UseVisualStyleBackColor = false;
-            this.btnElimUs.Click += new System.EventHandler(this.btnElimUs_Click);
+            this.btnElimUs.Click += new System.EventHandler(this.btnElimUs_Click_883SC);
             // 
             // btnModUs
             // 
@@ -181,7 +181,7 @@
             this.btnModUs.TabIndex = 4;
             this.btnModUs.Text = "Modificar Usuario";
             this.btnModUs.UseVisualStyleBackColor = false;
-            this.btnModUs.Click += new System.EventHandler(this.btnModUs_Click);
+            this.btnModUs.Click += new System.EventHandler(this.btnModUs_Click_883SC);
             // 
             // btnCrearUs
             // 
@@ -196,7 +196,7 @@
             this.btnCrearUs.TabIndex = 3;
             this.btnCrearUs.Text = "Crear Usuario";
             this.btnCrearUs.UseVisualStyleBackColor = false;
-            this.btnCrearUs.Click += new System.EventHandler(this.btnCrearUs_Click);
+            this.btnCrearUs.Click += new System.EventHandler(this.btnCrearUs_Click_883SC);
             // 
             // label2
             // 
@@ -267,7 +267,7 @@
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsuarios.Size = new System.Drawing.Size(832, 327);
             this.dgvUsuarios.TabIndex = 0;
-            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
+            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick_883SC);
             // 
             // panel1
             // 
@@ -433,7 +433,7 @@
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(188, 24);
             this.cmbRol.TabIndex = 9;
-            this.cmbRol.SelectedValueChanged += new System.EventHandler(this.cmbRol_SelectedValueChanged);
+            this.cmbRol.SelectedValueChanged += new System.EventHandler(this.cmbRol_SelectedValueChanged_883SC);
             // 
             // txtMail
             // 
@@ -444,7 +444,7 @@
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(188, 23);
             this.txtMail.TabIndex = 8;
-            this.txtMail.TextChanged += new System.EventHandler(this.txtMail_TextChanged);
+            this.txtMail.TextChanged += new System.EventHandler(this.txtMail_TextChanged_883SC);
             // 
             // txtTel
             // 
@@ -455,7 +455,7 @@
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(188, 23);
             this.txtTel.TabIndex = 7;
-            this.txtTel.TextChanged += new System.EventHandler(this.txtTel_TextChanged);
+            this.txtTel.TextChanged += new System.EventHandler(this.txtTel_TextChanged_883SC);
             // 
             // txtDir
             // 
@@ -466,7 +466,7 @@
             this.txtDir.Name = "txtDir";
             this.txtDir.Size = new System.Drawing.Size(188, 23);
             this.txtDir.TabIndex = 6;
-            this.txtDir.TextChanged += new System.EventHandler(this.txtDir_TextChanged);
+            this.txtDir.TextChanged += new System.EventHandler(this.txtDir_TextChanged_883SC);
             // 
             // txtUsu
             // 
@@ -477,7 +477,7 @@
             this.txtUsu.Name = "txtUsu";
             this.txtUsu.Size = new System.Drawing.Size(188, 23);
             this.txtUsu.TabIndex = 5;
-            this.txtUsu.TextChanged += new System.EventHandler(this.txtUsu_TextChanged);
+            this.txtUsu.TextChanged += new System.EventHandler(this.txtUsu_TextChanged_883SC);
             // 
             // txtApe
             // 
@@ -488,7 +488,7 @@
             this.txtApe.Name = "txtApe";
             this.txtApe.Size = new System.Drawing.Size(188, 23);
             this.txtApe.TabIndex = 4;
-            this.txtApe.TextChanged += new System.EventHandler(this.txtApe_TextChanged);
+            this.txtApe.TextChanged += new System.EventHandler(this.txtApe_TextChanged_883SC);
             // 
             // txtNom
             // 
@@ -499,7 +499,7 @@
             this.txtNom.Name = "txtNom";
             this.txtNom.Size = new System.Drawing.Size(188, 23);
             this.txtNom.TabIndex = 3;
-            this.txtNom.TextChanged += new System.EventHandler(this.txtNom_TextChanged);
+            this.txtNom.TextChanged += new System.EventHandler(this.txtNom_TextChanged_883SC);
             // 
             // txtDoc
             // 
@@ -510,7 +510,7 @@
             this.txtDoc.Name = "txtDoc";
             this.txtDoc.Size = new System.Drawing.Size(188, 23);
             this.txtDoc.TabIndex = 2;
-            this.txtDoc.TextChanged += new System.EventHandler(this.txtDoc_TextChanged);
+            this.txtDoc.TextChanged += new System.EventHandler(this.txtDoc_TextChanged_883SC);
             // 
             // chkBloqueado
             // 
@@ -553,7 +553,7 @@
             this.Name = "frmUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Gestion Usuarios";
-            this.Load += new System.EventHandler(this.frmUsuario_Load);
+            this.Load += new System.EventHandler(this.frmUsuario_Load_883SC);
             this.pUsuario.ResumeLayout(false);
             this.pUsuario.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();

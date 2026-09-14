@@ -1,4 +1,4 @@
-﻿using Entidad_BE;
+using Entidad_BE;
 using Negocio_BLL;
 using Servicios;
 using System;
@@ -15,49 +15,49 @@ using System.Windows.Forms;
 
 namespace TP_SanchezVillaverde
 {
-    public partial class frmModClave : Form, IObservadorIdioma
+    public partial class frmModClave_883SC : Form, IObservadorIdioma_883SC
     {
-        public frmModClave()
+        public frmModClave_883SC()
         {
             InitializeComponent();
-            gestorIdioma.Suscribir(this);
-            this.FormClosed += frmModClave_FormClosed;
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmModClave_FormClosed_883SC;
         }
 
-        UsuarioBLL usuario = new UsuarioBLL();
-        BitacoraBLL bitacora = new BitacoraBLL();
-        UsuarioBE us = new UsuarioBE();
-        GestorDeIdioma gestorIdioma = GestorDeIdioma.GetInstance;
-        int verif = 0;
-        string patron = "^[A-Za-z0-9]+$";
+        UsuarioBLL_883SC usuario_883SC = new UsuarioBLL_883SC();
+        BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
+        UsuarioBE_883SC us_883SC = new UsuarioBE_883SC();
+        GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
+        int verif_883SC = 0;
+        string patron_883SC = "^[A-Za-z0-9]+$";
 
         #region Patron Observer - Idiomas
 
-        public void ActualizarTextos()
+        public void ActualizarTextos_883SC()
         {
-            this.Text = gestorIdioma.Traducir("CLAVE_TITULO");
-            lblActual.Text = gestorIdioma.Traducir("CLAVE_LBL_ACTUAL");
-            lblNuevo.Text = gestorIdioma.Traducir("CLAVE_LBL_NUEVA");
-            lblRep.Text = gestorIdioma.Traducir("CLAVE_LBL_REPETIR");
-            btnLogin.Text = gestorIdioma.Traducir("CLAVE_BTN_CONFIRMAR");
-            btnAceptar.Text = gestorIdioma.Traducir("COMUN_ACEPTAR");
-            btnCancel.Text = gestorIdioma.Traducir("COMUN_CANCELAR");
+            this.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_TITULO");
+            lblActual.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_LBL_ACTUAL");
+            lblNuevo.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_LBL_NUEVA");
+            lblRep.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_LBL_REPETIR");
+            btnLogin.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_BTN_CONFIRMAR");
+            btnAceptar.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_ACEPTAR");
+            btnCancel.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_CANCELAR");
             if (lblInstrucciones.Text != "")
             {
-                lblInstrucciones.Text = gestorIdioma.Traducir("CLAVE_MSG_INSTRUCCIONES");
+                lblInstrucciones.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_INSTRUCCIONES");
             }
         }
 
-        private void frmModClave_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmModClave_FormClosed_883SC(object sender, FormClosedEventArgs e)
         {
-            gestorIdioma.Desuscribir(this);
+            gestorIdioma_883SC.Desuscribir_883SC(this);
         }
 
         #endregion
 
 
         #region Modificadores Formulario
-        public void CambiarEnabled()
+        public void CambiarEnabled_883SC()
         {
             if (txtClave.Text != "" & txtClaveRep.Text != "")
             {
@@ -66,14 +66,14 @@ namespace TP_SanchezVillaverde
             else { btnAceptar.Enabled = false; }
         }
 
-        public void LimpiaClave()
+        public void LimpiaClave_883SC()
         {
             txtClave.Clear();
             txtClaveRep.Clear();
             txtClave.Focus();
         }
 
-        public void VerificarEnabled()
+        public void VerificarEnabled_883SC()
         {
             if (txtActual.Text != "")
             {
@@ -82,60 +82,60 @@ namespace TP_SanchezVillaverde
             else { btnLogin.Enabled = false; }
         }
 
-        private void txtActual_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtActual_KeyPress_883SC(object sender, KeyPressEventArgs e)
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                btnLogin_Click(sender, e);
+                btnLogin_Click_883SC(sender, e);
             }
         }
-        private void txtActual_TextChanged(object sender, EventArgs e)
+        private void txtActual_TextChanged_883SC(object sender, EventArgs e)
         {
-            VerificarEnabled();
+            VerificarEnabled_883SC();
             lblError.Text = "";
         }
 
-        private void txtClave_TextChanged(object sender, EventArgs e)
+        private void txtClave_TextChanged_883SC(object sender, EventArgs e)
         {
-            CambiarEnabled();
+            CambiarEnabled_883SC();
             lblError.Text = "";
         }
 
-        private void txtClaveRep_TextChanged(object sender, EventArgs e)
+        private void txtClaveRep_TextChanged_883SC(object sender, EventArgs e)
         {
-            CambiarEnabled();
+            CambiarEnabled_883SC();
             lblError.Text = "";
         }
 
-        private void txtClaveRep_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtClaveRep_KeyPress_883SC(object sender, KeyPressEventArgs e)
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                btnAceptar_Click(sender, e);
+                btnAceptar_Click_883SC(sender, e);
             }
         }
 
         #endregion
 
-        bool OkText(string text)
+        bool OkText_883SC(string text)
         {
-            return Regex.IsMatch(text, patron);
+            return Regex.IsMatch(text, patron_883SC);
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void btnLogin_Click_883SC(object sender, EventArgs e)
         {
-            if (OkText(txtActual.Text))
+            if (OkText_883SC(txtActual.Text))
             {
-                us.pass = txtActual.Text;
-                verif = usuario.VerifUsuario(us, 0);
+                us_883SC.pass_883SC = txtActual.Text;
+                verif_883SC = usuario_883SC.VerifUsuario_883SC(us_883SC, 0);
 
-                switch (verif)
+                switch (verif_883SC)
                 {
                     case 0:
                         txtActual.Clear();
                         txtActual.Focus();
-                        lblError.Text = string.Format(gestorIdioma.Traducir("CLAVE_ERR_INTENTOS"), usuario.maxIntentos.ToString());
-                        bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user, TipoAccion.LoginFail);
+                        lblError.Text = string.Format(gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_INTENTOS"), usuario_883SC.maxIntentos_883SC.ToString());
+                        bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.LoginFail);
                         //txtActual.Clear();
                         //txtActual.Focus();
                         //lblError.Text = $"Contraseña incorrecta, quedan {usuario.maxIntentos.ToString()} intentos";
@@ -149,13 +149,13 @@ namespace TP_SanchezVillaverde
                         lblRep.Visible = true;
                         txtClaveRep.Visible = true;
                         btnAceptar.Visible = true;
-                        lblInstrucciones.Text = gestorIdioma.Traducir("CLAVE_MSG_INSTRUCCIONES");
+                        lblInstrucciones.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_INSTRUCCIONES");
                         txtClave.Focus();
                         break;
                     case 2:
-                        MessageBox.Show(gestorIdioma.Traducir("CLAVE_MSG_BLOQUEADO"), gestorIdioma.Traducir("CLAVE_TIT_BLOQUEADO"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user, TipoAccion.BloqueoUsuario);
-                        usuario.Logout();
+                        MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_BLOQUEADO"), gestorIdioma_883SC.Traducir_883SC("CLAVE_TIT_BLOQUEADO"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.BloqueoUsuario);
+                        usuario_883SC.Logout_883SC();
                         Application.Exit();
                         break;
                 }
@@ -163,52 +163,52 @@ namespace TP_SanchezVillaverde
             else
             {
                 txtActual.Clear();
-                lblError.Text = gestorIdioma.Traducir("CLAVE_ERR_FORMATO");
+                lblError.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_FORMATO");
             }
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private void btnAceptar_Click_883SC(object sender, EventArgs e)
         {
-            if (OkText(txtClave.Text) && OkText(txtClaveRep.Text))
+            if (OkText_883SC(txtClave.Text) && OkText_883SC(txtClaveRep.Text))
             {
                 if (txtClave.Text == txtClaveRep.Text)
                 {
                     try
                     {
-                        us.pass = txtClave.Text;
-                        verif = usuario.VerifUsuario(us, 1);
+                        us_883SC.pass_883SC = txtClave.Text;
+                        verif_883SC = usuario_883SC.VerifUsuario_883SC(us_883SC, 1);
 
-                        if (verif == 1)
+                        if (verif_883SC == 1)
                         {
-                            LimpiaClave();
-                            gestorIdioma.Traducir("CLAVE_ERR_IGUAL_ANTERIOR");
+                            LimpiaClave_883SC();
+                            gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_IGUAL_ANTERIOR");
                         }
                         else
                         {
-                            MessageBox.Show(gestorIdioma.Traducir("CLAVE_MSG_OK"), gestorIdioma.Traducir("CLAVE_TIT_OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_OK"), gestorIdioma_883SC.Traducir_883SC("CLAVE_TIT_OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Close();
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(gestorIdioma.Traducir("COMUN_ERROR_BD") + ex.Message);
+                        MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
                         this.Close();
                     }
                 }
                 else
                 {
-                    LimpiaClave();
-                    lblError.Text = gestorIdioma.Traducir("CLAVE_ERR_DISTINTAS");
+                    LimpiaClave_883SC();
+                    lblError.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_DISTINTAS");
                 }
             }
             else
             {
-                LimpiaClave();
-                lblError.Text = gestorIdioma.Traducir("CLAVE_ERR_NO_FORMATO");
+                LimpiaClave_883SC();
+                lblError.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_NO_FORMATO");
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click_883SC(object sender, EventArgs e)
         {
             this.Close();
         }

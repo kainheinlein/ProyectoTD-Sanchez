@@ -1,4 +1,4 @@
-﻿using Entidad_BE;
+using Entidad_BE;
 using Negocio_BLL;
 using Servicios;
 using System.Drawing;
@@ -6,117 +6,117 @@ using System.Windows.Forms;
 
 namespace TP_SanchezVillaverde
 {
-    public partial class frmMenu : Form, IObservadorIdioma
+    public partial class frmMenu_883SC : Form, IObservadorIdioma_883SC
     {
-        public frmMenu()
+        public frmMenu_883SC()
         {
             InitializeComponent();
         }
 
-        public static ToolStripMenuItem opcActivo = null;
-        public static Form formActivo = null;
-        UsuarioBLL usuario = new UsuarioBLL();
-        BitacoraBLL bitacora = new BitacoraBLL();
-        VerificadorIntegridadBLL verIntegridad = new VerificadorIntegridadBLL();
-        PerfilBLL perfilBLL = new PerfilBLL();
-        GestorDeIdioma gestorIdioma = GestorDeIdioma.GetInstance;
+        public static ToolStripMenuItem opcActivo_883SC = null;
+        public static Form formActivo_883SC = null;
+        UsuarioBLL_883SC usuario_883SC = new UsuarioBLL_883SC();
+        BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
+        VerificadorIntegridadBLL_883SC verIntegridad_883SC = new VerificadorIntegridadBLL_883SC();
+        PerfilBLL_883SC perfilBLL_883SC = new PerfilBLL_883SC();
+        GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
 
-        private void frmMenu_Load(object sender, System.EventArgs e)
+        private void frmMenu_Load_883SC(object sender, System.EventArgs e)
         {
-            if (SessionManager.Logged())
+            if (SessionManager_883SC.Logged_883SC())
             {
-                FormConectado();
+                FormConectado_883SC();
             }
             else
             {
-                FormDesconectado();
+                FormDesconectado_883SC();
             }
-            CargarMenuIdiomas();
-            gestorIdioma.Suscribir(this);
-            this.FormClosed += frmMenu_FormClosed;
+            CargarMenuIdiomas_883SC();
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmMenu_FormClosed_883SC;
         }
 
-        private void frmMenu_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmMenu_FormClosed_883SC(object sender, FormClosedEventArgs e)
         {
-            gestorIdioma.Desuscribir(this);
+            gestorIdioma_883SC.Desuscribir_883SC(this);
         }
 
         #region Patron Observer - Idiomas
 
-        public void ActualizarTextos()
+        public void ActualizarTextos_883SC()
         {
-            tsInicio.Text = gestorIdioma.Traducir("MENU_TS_INICIO");
-            iniciarSesionToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_INICIAR_SESION");
-            cerrarSesionToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_CERRAR_SESION");
-            salirToolStripMenuItem.Text = gestorIdioma.Traducir("COMUN_SALIR");
-            tsAdmin.Text = gestorIdioma.Traducir("MENU_TS_ADMIN");
-            gestionDeUsuariosToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_GESTION_USUARIOS");
-            tsPerfiles.Text = gestorIdioma.Traducir("MENU_PERFILES");
-            idiomasToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_IDIOMAS");
-            backupToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_BACKUP");
-            restoreToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_RESTORE");
-            bitacoraToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_BITACORA");
-            tsUsuario.Text = gestorIdioma.Traducir("COMUN_USUARIO");
-            cambiarClaveToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_CAMBIAR_CLAVE");
-            cambiarIdiomaToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_CAMBIAR_IDIOMA");
-            tsVentas.Text = gestorIdioma.Traducir("MENU_TS_VENTAS");
-            llenarCarritoToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_LLENAR_CARRITO");
-            realizarVentaToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_REALIZAR_VENTA");
-            tsGestion.Text = gestorIdioma.Traducir("MENU_TS_GESTION");
-            clienteToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_CLIENTE");
-            productosToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_PRODUCTOS");
-            proveedoresToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_PROVEEDORES");
-            tsReportes.Text = gestorIdioma.Traducir("MENU_TS_REPORTES");
-            tsAyuda.Text = gestorIdioma.Traducir("MENU_TS_AYUDA");
-            hToolStripMenuItem.Text = gestorIdioma.Traducir("MENU_HISTORIAL");
+            tsInicio.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_INICIO");
+            iniciarSesionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_INICIAR_SESION");
+            cerrarSesionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CERRAR_SESION");
+            salirToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_SALIR");
+            tsAdmin.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_ADMIN");
+            gestionDeUsuariosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_GESTION_USUARIOS");
+            tsPerfiles.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PERFILES");
+            idiomasToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IDIOMAS");
+            backupToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BACKUP");
+            restoreToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_RESTORE");
+            bitacoraToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BITACORA");
+            tsUsuario.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_USUARIO");
+            cambiarClaveToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CAMBIAR_CLAVE");
+            cambiarIdiomaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CAMBIAR_IDIOMA");
+            tsVentas.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_VENTAS");
+            llenarCarritoToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_LLENAR_CARRITO");
+            realizarVentaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REALIZAR_VENTA");
+            tsGestion.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_GESTION");
+            clienteToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CLIENTE");
+            productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
+            proveedoresToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
+            tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
+            tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
+            hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
 
-            if (SessionManager.Logged() && SessionManager.GetInstance.UsuarioActual() != null)
+            if (SessionManager_883SC.Logged_883SC() && SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC() != null)
             {
-                lblUsuario.Text = gestorIdioma.Traducir("MENU_LBL_USUARIO") + SessionManager.GetInstance.UsuarioActual().user;
+                lblUsuario.Text = gestorIdioma_883SC.Traducir_883SC("MENU_LBL_USUARIO") + SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC;
             }
             else
             {
-                lblUsuario.Text = gestorIdioma.Traducir("MENU_LBL_SIN_CONEXION");
+                lblUsuario.Text = gestorIdioma_883SC.Traducir_883SC("MENU_LBL_SIN_CONEXION");
             }
-            MarcarIdiomaActivo();
+            MarcarIdiomaActivo_883SC();
         }
 
-        private void CargarMenuIdiomas()
+        private void CargarMenuIdiomas_883SC()
         {
             try
             {
                 cambiarIdiomaToolStripMenuItem.DropDownItems.Clear();
-                foreach (IdiomaBE idioma in gestorIdioma.ObtenerIdiomas())
+                foreach (IdiomaBE_883SC idioma in gestorIdioma_883SC.ObtenerIdiomas_883SC())
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem(idioma.Nombre);
-                    item.Tag = idioma.Codigo;
-                    item.Click += itemIdioma_Click;
+                    ToolStripMenuItem item = new ToolStripMenuItem(idioma.Nombre_883SC);
+                    item.Tag = idioma.Codigo_883SC;
+                    item.Click += itemIdioma_Click_883SC;
                     cambiarIdiomaToolStripMenuItem.DropDownItems.Add(item);
                 }
             }
             catch { }//Sin conexion a la BD no se ofrece el cambio de idioma
         }
 
-        private void MarcarIdiomaActivo()
+        private void MarcarIdiomaActivo_883SC()
         {
             foreach (ToolStripMenuItem item in cambiarIdiomaToolStripMenuItem.DropDownItems)
             {
-                item.Checked = gestorIdioma.IdiomaActual != null
-                    && item.Tag.ToString() == gestorIdioma.IdiomaActual.Codigo;
+                item.Checked = gestorIdioma_883SC.IdiomaActual_883SC != null
+                    && item.Tag.ToString() == gestorIdioma_883SC.IdiomaActual_883SC.Codigo_883SC;
             }
         }
 
-        private void itemIdioma_Click(object sender, System.EventArgs e)
+        private void itemIdioma_Click_883SC(object sender, System.EventArgs e)
         {
             try
             {
-                gestorIdioma.CambiarIdioma((sender as ToolStripMenuItem).Tag.ToString());
-                string user = SessionManager.Logged() ? SessionManager.GetInstance.UsuarioActual().user : "null";
-                bitacora.RegistrarBitacora(user, TipoAccion.CambioIdioma);
+                gestorIdioma_883SC.CambiarIdioma_883SC((sender as ToolStripMenuItem).Tag.ToString());
+                string user = SessionManager_883SC.Logged_883SC() ? SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC : "null";
+                bitacora_883SC.RegistrarBitacora_883SC(user, TipoAccion_883SC.CambioIdioma);
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(gestorIdioma.Traducir("COMUN_ERROR_BD") + ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
             }
         }
 
@@ -124,10 +124,10 @@ namespace TP_SanchezVillaverde
 
 
         #region Set Formulario
-        public void FormConectado()
+        public void FormConectado_883SC()
         {
-            UsuarioBE usActual = SessionManager.GetInstance.UsuarioActual();
-            lblUsuario.Text = "Usuario: " + usActual.user;
+            UsuarioBE_883SC usActual = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+            lblUsuario.Text = "Usuario: " + usActual.user_883SC;
             iniciarSesionToolStripMenuItem.Enabled = false;
             cerrarSesionToolStripMenuItem.Enabled = true;
             tsAdmin.Enabled = true;
@@ -135,23 +135,23 @@ namespace TP_SanchezVillaverde
             tsGestion.Enabled = true;
             cambiarClaveToolStripMenuItem.Enabled = true;
 
-            AplicarPermisos(usActual.rol);
+            AplicarPermisos_883SC(usActual.rol_883SC);
         }
 
-        private void AplicarPermisos(string rol)
+        private void AplicarPermisos_883SC(string rol)
         {
-            gestionDeUsuariosToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionUsuarios.ToString());
-            tsPerfiles.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionPerfiles.ToString());
-            backupToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionBackup.ToString());
-            restoreToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionBackup.ToString());
-            bitacoraToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionBitacora.ToString());
-            llenarCarritoToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.LlenarCarrito.ToString());
-            realizarVentaToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.RealizarCobro.ToString());
-            clienteToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.RegistrarCliente.ToString());
-            productosToolStripMenuItem.Enabled = perfilBLL.TienePermiso(rol, TipoPermiso.GestionProductos.ToString());
+            gestionDeUsuariosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString());
+            tsPerfiles.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionPerfiles.ToString());
+            backupToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString());
+            restoreToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString());
+            bitacoraToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString());
+            llenarCarritoToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString());
+            realizarVentaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString());
+            clienteToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
+            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
         }
 
-        public void FormDesconectado()
+        public void FormDesconectado_883SC()
         {
             lblUsuario.Text = "Usuario: Sin Conexion";
             iniciarSesionToolStripMenuItem.Enabled = true;
@@ -164,17 +164,17 @@ namespace TP_SanchezVillaverde
 
         #endregion
 
-        private void OpenForm(ToolStripMenuItem opc, Form frm)
+        private void OpenForm_883SC(ToolStripMenuItem opc, Form frm)
         {
-            if (opcActivo != null)
+            if (opcActivo_883SC != null)
             {
-                opcActivo.BackColor = Color.WhiteSmoke;
+                opcActivo_883SC.BackColor = Color.WhiteSmoke;
             }
             opc.BackColor = Color.Gainsboro;
-            opcActivo = opc;
+            opcActivo_883SC = opc;
 
-            if (formActivo != null) { formActivo.Close(); }
-            formActivo = frm;
+            if (formActivo_883SC != null) { formActivo_883SC.Close(); }
+            formActivo_883SC = frm;
             frm.MdiParent = this;
             frm.TopLevel = false;
             frm.FormBorderStyle = FormBorderStyle.None;
@@ -183,80 +183,80 @@ namespace TP_SanchezVillaverde
             frm.Show();
         }
 
-        private void gestionDeUsuariosToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void gestionDeUsuariosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user, TipoAccion.GestionUsuariosAbierta);
-            OpenForm(tsAdmin, new frmUsuario());
+            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.GestionUsuariosAbierta);
+            OpenForm_883SC(tsAdmin, new frmUsuario_883SC());
         }
 
-        private void salirToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            if (MessageBox.Show(gestorIdioma.Traducir("COMUN_CONFIRMA_SALIR_APP"), gestorIdioma.Traducir("COMUN_ATENCION"),
+            if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_CONFIRMA_SALIR_APP"), gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"),
             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user, TipoAccion.AppClose);
-                if (SessionManager.Logged())
+                bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.AppClose);
+                if (SessionManager_883SC.Logged_883SC())
                 {
-                    verIntegridad.ActualizarDVV();
-                }            
-                SessionManager.GetInstance.Logout();
+                    verIntegridad_883SC.ActualizarDVV_883SC();
+                }
+                SessionManager_883SC.GetInstance_883SC.Logout_883SC();
                 Application.Exit();
             }
-        } 
+        }
 
-        private void cerrarSesionToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void cerrarSesionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            if (MessageBox.Show(gestorIdioma.Traducir("COMUN_CONFIRMA_CERRAR_SESION"), gestorIdioma.Traducir("COMUN_ATENCION"),
+            if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_CONFIRMA_CERRAR_SESION"), gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"),
             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                UsuarioBLL usuario = new UsuarioBLL();
-                usuario.Logout();
+                UsuarioBLL_883SC usuario = new UsuarioBLL_883SC();
+                usuario.Logout_883SC();
 
-                frmLogin frm = new frmLogin();
+                frmLogin_883SC frm = new frmLogin_883SC();
                 frm.Show();
                 this.Close();
             }
         }
 
-        private void iniciarSesionToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void iniciarSesionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmLogin frm = new frmLogin();
+            frmLogin_883SC frm = new frmLogin_883SC();
             frm.Show();
             this.Close();
         }
 
-        private void cambiarClaveToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void cambiarClaveToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmModClave frmClave = new frmModClave();
+            frmModClave_883SC frmClave = new frmModClave_883SC();
             frmClave.ShowDialog();
         }
 
-        private void bitacoraToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void bitacoraToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user, TipoAccion.BitacoraAbierta);
-            OpenForm(tsAdmin, new frmBitacora());
+            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.BitacoraAbierta);
+            OpenForm_883SC(tsAdmin, new frmBitacora_883SC());
         }
 
-        private void perfilesToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void perfilesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmGestionPerfiles frmperfil = new frmGestionPerfiles();
+            frmGestionPerfiles_883SC frmperfil = new frmGestionPerfiles_883SC();
             frmperfil.ShowDialog();
             //OpenForm(tsPerfiles, new frmGestionPerfiles());
         }
 
-        private void hToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void hToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmHistorialUsuario frmhistorial = new frmHistorialUsuario();
+            frmHistorialUsuario_883SC frmhistorial = new frmHistorialUsuario_883SC();
             frmhistorial.ShowDialog();
         }
 
-        private void idiomasToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void idiomasToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmIdiomas frmIdiomas = new frmIdiomas();
+            frmIdiomas_883SC frmIdiomas = new frmIdiomas_883SC();
             frmIdiomas.ShowDialog();
             //Puede haberse dado de alta un idioma: se rearma el menu de idiomas
-            CargarMenuIdiomas();
-            MarcarIdiomaActivo();
+            CargarMenuIdiomas_883SC();
+            MarcarIdiomaActivo_883SC();
         }
     }
 }

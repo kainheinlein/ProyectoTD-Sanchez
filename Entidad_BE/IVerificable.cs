@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public interface IVerificable
+    public interface IVerificable_883SC
     {
-        string ObtenerCamposDV();
+        string ObtenerCamposDV_883SC();
 
-        string digito { get; }
+        string digito_883SC { get; }
     }
 }

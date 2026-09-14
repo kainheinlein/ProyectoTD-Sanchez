@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,127 +6,127 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public class HistorialUsuarioBE
+    public class HistorialUsuarioBE_883SC
     {
 
-        private int _idHistorial;
+        private int _idHistorial_883SC;
 
-        public int idHistorial
+        public int idHistorial_883SC
         {
-            get { return _idHistorial; }
-            set { _idHistorial = value; }
+            get { return _idHistorial_883SC; }
+            set { _idHistorial_883SC = value; }
         }
 
-        private int _usuarioId;
+        private int _usuarioId_883SC;
 
-        public int usuarioId
+        public int usuarioId_883SC
         {
-            get { return _usuarioId; }
-            set { _usuarioId = value; }
+            get { return _usuarioId_883SC; }
+            set { _usuarioId_883SC = value; }
         }
 
-        private string _nombre;
+        private string _nombre_883SC;
 
-		public string nombre
+		public string nombre_883SC
 		{
-			get { return _nombre; }
-			set { _nombre = value; }
+			get { return _nombre_883SC; }
+			set { _nombre_883SC = value; }
 		}
 
-		private string _apellido;
+		private string _apellido_883SC;
 
-		public string apellido
+		public string apellido_883SC
 		{
-			get { return _apellido; }
-			set { _apellido = value; }
+			get { return _apellido_883SC; }
+			set { _apellido_883SC = value; }
 		}
 
-		private string _dni;
+		private string _dni_883SC;
 
-		public string dni
+		public string dni_883SC
 		{
-			get { return _dni; }
-			set { _dni = value; }
+			get { return _dni_883SC; }
+			set { _dni_883SC = value; }
 		}
 
-		private string _usuario;
+		private string _usuario_883SC;
 
-		public string usuario
+		public string usuario_883SC
 		{
-			get { return _usuario; }
-			set { _usuario = value; }
+			get { return _usuario_883SC; }
+			set { _usuario_883SC = value; }
 		}
 
-		private string _rol;
+		private string _rol_883SC;
 
-		public string rol
+		public string rol_883SC
 		{
-			get { return _rol; }
-			set { _rol = value; }
+			get { return _rol_883SC; }
+			set { _rol_883SC = value; }
 		}
 
-		private string _direccion;
+		private string _direccion_883SC;
 
-		public string direccion
+		public string direccion_883SC
 		{
-			get { return _direccion; }
-			set { _direccion = value; }
+			get { return _direccion_883SC; }
+			set { _direccion_883SC = value; }
 		}
 
-		private string _telefono;
+		private string _telefono_883SC;
 
-		public string telefono
+		public string telefono_883SC
 		{
-			get { return _telefono; }
-			set { _telefono = value; }
+			get { return _telefono_883SC; }
+			set { _telefono_883SC = value; }
 		}
 
-		private string _email;
+		private string _email_883SC;
 
-		public string email
+		public string email_883SC
 		{
-			get { return _email; }
-			set { _email = value; }
+			get { return _email_883SC; }
+			set { _email_883SC = value; }
 		}
 
-		private bool _activo;
+		private bool _activo_883SC;
 
-		public bool activo
+		public bool activo_883SC
 		{
-			get { return _activo; }
-			set { _activo = value; }
+			get { return _activo_883SC; }
+			set { _activo_883SC = value; }
 		}
 
-		private bool _bloqueado;
+		private bool _bloqueado_883SC;
 
-		public bool bloqueado
+		public bool bloqueado_883SC
 		{
-			get { return _bloqueado; }
-			set { _bloqueado = value; }
+			get { return _bloqueado_883SC; }
+			set { _bloqueado_883SC = value; }
 		}
 
-        private TipoAccion _accion;
+        private TipoAccion_883SC _accion_883SC;
 
-        public TipoAccion accion
+        public TipoAccion_883SC accion_883SC
         {
-            get { return _accion; }
-            set { _accion = value; }
+            get { return _accion_883SC; }
+            set { _accion_883SC = value; }
         }
 
-        private string _usuarioResponsable;
+        private string _usuarioResponsable_883SC;
 
-        public string usuarioResponsable
+        public string usuarioResponsable_883SC
         {
-            get { return _usuarioResponsable; }
-            set { _usuarioResponsable = value; }
+            get { return _usuarioResponsable_883SC; }
+            set { _usuarioResponsable_883SC = value; }
         }
 
-        private DateTime _fecha;
+        private DateTime _fecha_883SC;
 
-        public DateTime fecha
+        public DateTime fecha_883SC
         {
-            get { return _fecha; }
-            set { _fecha = value; }
+            get { return _fecha_883SC; }
+            set { _fecha_883SC = value; }
         }
     }
 }

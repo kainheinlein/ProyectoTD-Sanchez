@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmModClave
+    partial class frmModClave_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -49,7 +49,7 @@
             this.txtActual.Size = new System.Drawing.Size(251, 22);
             this.txtActual.TabIndex = 0;
             this.txtActual.UseSystemPasswordChar = true;
-            this.txtActual.TextChanged += new System.EventHandler(this.txtActual_TextChanged);
+            this.txtActual.TextChanged += new System.EventHandler(this.txtActual_TextChanged_883SC);
             // 
             // txtClave
             // 
@@ -60,7 +60,7 @@
             this.txtClave.TabIndex = 1;
             this.txtClave.UseSystemPasswordChar = true;
             this.txtClave.Visible = false;
-            this.txtClave.TextChanged += new System.EventHandler(this.txtClave_TextChanged);
+            this.txtClave.TextChanged += new System.EventHandler(this.txtClave_TextChanged_883SC);
             // 
             // txtClaveRep
             // 
@@ -71,7 +71,7 @@
             this.txtClaveRep.TabIndex = 2;
             this.txtClaveRep.UseSystemPasswordChar = true;
             this.txtClaveRep.Visible = false;
-            this.txtClaveRep.TextChanged += new System.EventHandler(this.txtClaveRep_TextChanged);
+            this.txtClaveRep.TextChanged += new System.EventHandler(this.txtClaveRep_TextChanged_883SC);
             // 
             // lblActual
             // 
@@ -118,7 +118,7 @@
             this.btnLogin.TabIndex = 6;
             this.btnLogin.Text = "Confirmar";
             this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click_883SC);
             // 
             // btnAceptar
             // 
@@ -131,7 +131,7 @@
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Visible = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click_883SC);
             // 
             // btnCancel
             // 
@@ -143,7 +143,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_883SC);
             // 
             // lblInstrucciones
             // 
