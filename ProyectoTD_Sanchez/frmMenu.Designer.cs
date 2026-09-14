@@ -210,6 +210,7 @@
             this.llenarCarritoToolStripMenuItem.Name = "llenarCarritoToolStripMenuItem";
             this.llenarCarritoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.llenarCarritoToolStripMenuItem.Text = "Llenar Carrito";
+            this.llenarCarritoToolStripMenuItem.Click += new System.EventHandler(this.llenarCarritoToolStripMenuItem_Click_883SC);
             // 
             // realizarVentaToolStripMenuItem
             // 
@@ -236,10 +237,11 @@
             // 
             // productosToolStripMenuItem
             // 
+            //Deshabilitado hasta que exista la pantalla de Gestion de Productos
+            this.productosToolStripMenuItem.Enabled = false;
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.productosToolStripMenuItem.Text = "Productos";
-            this.productosToolStripMenuItem.Click += new System.EventHandler(this.productosToolStripMenuItem_Click_883SC);
             //
             // proveedoresToolStripMenuItem
             // 

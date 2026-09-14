@@ -77,6 +77,12 @@
     <Compile Include="frmModClave.Designer.cs">
       <DependentUpon>frmModClave.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLlenarCarrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLlenarCarrito.Designer.cs">
+      <DependentUpon>frmLlenarCarrito.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>

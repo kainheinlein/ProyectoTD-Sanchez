@@ -148,7 +148,8 @@ namespace TP_SanchezVillaverde
             llenarCarritoToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString());
             realizarVentaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString());
             clienteToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
-            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            //Productos queda deshabilitado hasta que exista la pantalla de Gestion de Productos.
+            //Restaurar junto con ella: productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
         }
 
         public void FormDesconectado_883SC()
@@ -244,10 +245,9 @@ namespace TP_SanchezVillaverde
             //OpenForm(tsPerfiles, new frmGestionPerfiles());
         }
 
-        private void productosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        private void llenarCarritoToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmSeleccionarProducto_883SC frmProducto = new frmSeleccionarProducto_883SC();
-            frmProducto.ShowDialog();
+            OpenForm_883SC(tsVentas, new frmLlenarCarrito_883SC());
         }
 
         private void hToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
