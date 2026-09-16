@@ -48,6 +48,7 @@
     <Compile Include="Familia.cs" />
     <Compile Include="HistorialUsuarioBE.cs" />
     <Compile Include="IdiomaBE.cs" />
+    <Compile Include="MetodoPagoBE.cs" />
     <Compile Include="IVerificable.cs" />
     <Compile Include="LoginResult.cs" />
     <Compile Include="Permiso.cs" />

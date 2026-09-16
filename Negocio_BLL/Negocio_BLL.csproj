@@ -44,8 +44,11 @@
     <Compile Include="BitacoraBLL.cs" />
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="ClienteBLL.cs" />
+    <Compile Include="CobroBLL.cs" />
     <Compile Include="GestorDeIdioma.cs" />
     <Compile Include="HistorialUsuarioBLL.cs" />
+    <Compile Include="MetodoPagoBLL.cs" />
+    <Compile Include="PagoRechazadoException.cs" />
     <Compile Include="PerfilBLL.cs" />
     <Compile Include="ProductoBLL.cs" />
     <Compile Include="UsuarioBLL.cs" />

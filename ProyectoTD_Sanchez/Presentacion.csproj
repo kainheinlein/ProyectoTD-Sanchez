@@ -53,6 +53,12 @@
     <Compile Include="frmAltaClienteRapida.Designer.cs">
       <DependentUpon>frmAltaClienteRapida.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRealizarCobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealizarCobro.Designer.cs">
+      <DependentUpon>frmRealizarCobro.cs</DependentUpon>
+    </Compile>
     <!-- TEMPORAL: borrar estas 2 entradas junto con frmPruebaCliente cuando exista CUN-004 -->
     <Compile Include="frmPruebaCliente.cs">
       <SubType>Form</SubType>

@@ -43,6 +43,9 @@ namespace TP_SanchezVillaverde
             this.lblResDireccion = new System.Windows.Forms.Label();
             this.lblTelefonoTit = new System.Windows.Forms.Label();
             this.lblResTelefono = new System.Windows.Forms.Label();
+            this.lblMonto = new System.Windows.Forms.Label();
+            this.txtMonto = new System.Windows.Forms.TextBox();
+            this.btnProbarCobro = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.grpDatos.SuspendLayout();
             this.SuspendLayout();
@@ -190,16 +193,49 @@ namespace TP_SanchezVillaverde
             this.lblResTelefono.Size = new System.Drawing.Size(0, 15);
             this.lblResTelefono.TabIndex = 9;
             //
+            // lblMonto
+            //
+            this.lblMonto.AutoSize = true;
+            this.lblMonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblMonto.Location = new System.Drawing.Point(15, 253);
+            this.lblMonto.Name = "lblMonto";
+            this.lblMonto.Size = new System.Drawing.Size(48, 15);
+            this.lblMonto.TabIndex = 4;
+            this.lblMonto.Text = "Monto:";
+            //
+            // txtMonto
+            //
+            this.txtMonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.txtMonto.Location = new System.Drawing.Point(70, 250);
+            this.txtMonto.MaxLength = 12;
+            this.txtMonto.Name = "txtMonto";
+            this.txtMonto.Size = new System.Drawing.Size(170, 23);
+            this.txtMonto.TabIndex = 5;
+            //
+            // btnProbarCobro
+            //
+            this.btnProbarCobro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnProbarCobro.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProbarCobro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProbarCobro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnProbarCobro.Location = new System.Drawing.Point(260, 248);
+            this.btnProbarCobro.Name = "btnProbarCobro";
+            this.btnProbarCobro.Size = new System.Drawing.Size(110, 29);
+            this.btnProbarCobro.TabIndex = 6;
+            this.btnProbarCobro.Text = "Probar Cobro";
+            this.btnProbarCobro.UseVisualStyleBackColor = false;
+            this.btnProbarCobro.Click += new System.EventHandler(this.btnProbarCobro_Click_883SC);
+            //
             // btnCerrar
             //
             this.btnCerrar.BackColor = System.Drawing.Color.LightCoral;
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnCerrar.Location = new System.Drawing.Point(260, 248);
+            this.btnCerrar.Location = new System.Drawing.Point(260, 295);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(110, 29);
-            this.btnCerrar.TabIndex = 4;
+            this.btnCerrar.TabIndex = 7;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click_883SC);
@@ -210,8 +246,11 @@ namespace TP_SanchezVillaverde
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(390, 290);
+            this.ClientSize = new System.Drawing.Size(390, 337);
             this.Controls.Add(this.btnCerrar);
+            this.Controls.Add(this.btnProbarCobro);
+            this.Controls.Add(this.txtMonto);
+            this.Controls.Add(this.lblMonto);
             this.Controls.Add(this.grpDatos);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtDni);
@@ -246,6 +285,9 @@ namespace TP_SanchezVillaverde
         private System.Windows.Forms.Label lblResDireccion;
         private System.Windows.Forms.Label lblTelefonoTit;
         private System.Windows.Forms.Label lblResTelefono;
+        private System.Windows.Forms.Label lblMonto;
+        private System.Windows.Forms.TextBox txtMonto;
+        private System.Windows.Forms.Button btnProbarCobro;
         private System.Windows.Forms.Button btnCerrar;
     }
 }

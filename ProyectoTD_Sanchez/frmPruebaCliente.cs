@@ -1,6 +1,8 @@
 // TEMPORAL: borrar cuando exista CUN-004 Generar Factura
 // Pantalla descartable para probar CUN-003 Registrar Cliente mientras no exista
 // la pantalla de facturacion, que es la que va a pedir el DNI de verdad.
+// Tambien permite probar CUN-005 Realizar Cobro con un monto tipeado a mano:
+// en CUN-004 el monto sale de la factura y frmRealizarCobro se abre desde ahi.
 // No implementa IObservadorIdioma a proposito: los textos van fijos en espaniol
 // para que borrarla sea limpio y no deje claves de idioma huerfanas.
 using Entidad_BE;
@@ -71,6 +73,25 @@ namespace TP_SanchezVillaverde
             lblResApellido.Text = "";
             lblResDireccion.Text = "";
             lblResTelefono.Text = "";
+        }
+
+        private void btnProbarCobro_Click_883SC(object sender, EventArgs e)
+        {
+            decimal monto;
+            if (!decimal.TryParse(txtMonto.Text.Trim(), out monto) || monto <= 0)
+            {
+                MessageBox.Show("Ingrese un monto numerico mayor a cero.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            using (frmRealizarCobro_883SC frmCobro = new frmRealizarCobro_883SC(monto))
+            {
+                if (frmCobro.ShowDialog() == DialogResult.OK)
+                {
+                    string codigo = frmCobro.CodigoAutorizacion_883SC ?? "(sin codigo: metodo sin validacion bancaria)";
+                    MessageBox.Show("Cobro OK. Codigo de autorizacion: " + codigo, "Prueba Cobro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void btnCerrar_Click_883SC(object sender, EventArgs e)
