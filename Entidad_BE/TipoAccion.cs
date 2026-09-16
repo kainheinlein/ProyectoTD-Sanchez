@@ -24,6 +24,7 @@ namespace Entidad_BE
         CambioIdioma = 14,
         AltaIdioma = 15,
         ModificacionIdioma = 16,
-        RestauracionUsuario = 17
+        RestauracionUsuario = 17,
+        AltaCliente = 18
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BitacoraBLL.cs" />
     <Compile Include="CarritoBLL.cs" />
+    <Compile Include="ClienteBLL.cs" />
     <Compile Include="GestorDeIdioma.cs" />
     <Compile Include="HistorialUsuarioBLL.cs" />
     <Compile Include="PerfilBLL.cs" />

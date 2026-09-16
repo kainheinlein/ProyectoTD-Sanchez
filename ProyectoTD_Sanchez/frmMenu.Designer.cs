@@ -217,7 +217,9 @@
             this.realizarVentaToolStripMenuItem.Name = "realizarVentaToolStripMenuItem";
             this.realizarVentaToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.realizarVentaToolStripMenuItem.Text = "Realizar Venta";
-            // 
+            // TEMPORAL: abre el form de prueba de Cliente. Reemplazar por la pantalla de CUN-004 Generar Factura
+            this.realizarVentaToolStripMenuItem.Click += new System.EventHandler(this.realizarVentaToolStripMenuItem_Click_883SC);
+            //
             // tsGestion
             // 
             this.tsGestion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="MP_Carrito.cs" />
+    <Compile Include="MP_Cliente.cs" />
     <Compile Include="IdiomaDAL.cs" />
     <Compile Include="MP_Bitacora.cs" />
     <Compile Include="MP_HistorialUsuario.cs" />

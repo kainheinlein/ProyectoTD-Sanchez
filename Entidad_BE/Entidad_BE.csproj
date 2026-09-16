@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarritoBE.cs" />
+    <Compile Include="ClienteBE.cs" />
     <Compile Include="DetalleCarritoBE.cs" />
     <Compile Include="EventoBE.cs" />
     <Compile Include="Familia.cs" />
