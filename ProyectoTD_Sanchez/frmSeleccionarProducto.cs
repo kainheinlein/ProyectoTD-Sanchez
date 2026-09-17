@@ -131,16 +131,15 @@ namespace TP_SanchezVillaverde
 
                 int cantidad = (int)numCantidad.Value;
 
-                if (cantidad > producto.Stock_883SC)
-                {
-                    MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("PROD_MSG_STOCK_INSUFICIENTE"), gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-
-                DetalleCarritoBE_883SC detalle = carritoBLL_883SC.CrearDetalleCarrito_883SC(producto, cantidad);
-                carritoEnProgreso_883SC.Add(detalle);
+                //Si el producto ya esta en el carrito la BLL suma las cantidades en la misma linea
+                carritoBLL_883SC.AgregarAlCarrito_883SC(carritoEnProgreso_883SC, producto, cantidad);
                 CargarGrillaCarrito_883SC();
                 numCantidad.Value = 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                //Stock insuficiente para la cantidad acumulada
+                MessageBox.Show(ex.Message, gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (Exception ex)
             {

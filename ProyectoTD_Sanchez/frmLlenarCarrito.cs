@@ -61,6 +61,7 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = gestorIdioma_883SC.Traducir_883SC("CARR_TITULO");
+            lblTitulo.Text = gestorIdioma_883SC.Traducir_883SC("CARR_LBL_TITULO");
             lblResumen.Text = gestorIdioma_883SC.Traducir_883SC("CARR_LBL_RESUMEN");
             lblCliente.Text = gestorIdioma_883SC.Traducir_883SC("CARR_LBL_CLIENTE");
             btnQuitar.Text = gestorIdioma_883SC.Traducir_883SC("CARR_BTN_QUITAR");
@@ -145,12 +146,23 @@ namespace TP_SanchezVillaverde
                 CarritoBE_883SC carrito = carritoBLL_883SC.CrearCarrito_883SC(detalleCarrito_883SC, nombre);
 
                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CARR_MSG_EXITO") + carrito.IdCarrito_883SC, gestorIdioma_883SC.Traducir_883SC("CARR_TITULO"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                ReiniciarCarrito_883SC();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        //Tras confirmar, la pantalla no se cierra: queda vacia y vuelve a pedir productos
+        //para el proximo carrito. Cerrar la seleccion sin productos es la salida natural.
+        private void ReiniciarCarrito_883SC()
+        {
+            detalleCarrito_883SC = new List<DetalleCarritoBE_883SC>();
+            txtCliente.Text = "";
+            btnConfirmar.Enabled = true;
+            CargarGrilla_883SC();
+            PedirProductos_883SC();
         }
 
         private void btnSalir_Click_883SC(object sender, EventArgs e)

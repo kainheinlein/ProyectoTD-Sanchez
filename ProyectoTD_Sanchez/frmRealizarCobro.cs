@@ -13,7 +13,8 @@ namespace TP_SanchezVillaverde
         {
             InitializeComponent();
             montoCobro_883SC = monto;
-            lblMontoValor.Text = monto.ToString("C");
+            //Formato fijo en pesos, igual que el resto de las pantallas (no depende de la cultura del sistema)
+            lblMontoValor.Text = "$ " + monto.ToString("0.00");
         }
 
         CobroBLL_883SC cobroBLL_883SC = new CobroBLL_883SC();
@@ -28,6 +29,13 @@ namespace TP_SanchezVillaverde
         public string CodigoAutorizacion_883SC
         {
             get { return _codigoAutorizacion_883SC; }
+        }
+
+        //Metodo con el que se confirmo el cobro; quien invoca (CUN-004) lo guarda en la factura
+        private MetodoPagoBE_883SC _metodoPago_883SC;
+        public MetodoPagoBE_883SC MetodoPago_883SC
+        {
+            get { return _metodoPago_883SC; }
         }
 
         private void frmRealizarCobro_Load_883SC(object sender, EventArgs e)
@@ -155,8 +163,9 @@ namespace TP_SanchezVillaverde
             {
                 //El delegado es la unica via por la que la BLL "consulta" a la entidad bancaria simulada
                 _codigoAutorizacion_883SC = cobroBLL_883SC.Cobrar_883SC(metodoPago, montoCobro_883SC, datos,
-                    (m) => MessageBox.Show($"¿Aprobar el pago de {m:C}?", "Simulación Entidad Bancaria",
+                    (m) => MessageBox.Show($"¿Aprobar el pago de $ {m:0.00}?", "Simulación Entidad Bancaria",
                         MessageBoxButtons.YesNo) == DialogResult.Yes);
+                _metodoPago_883SC = metodoPago;
 
                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COBRO_MSG_AUTORIZADO"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;

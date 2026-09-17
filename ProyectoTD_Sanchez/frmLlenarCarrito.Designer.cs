@@ -32,6 +32,8 @@ namespace TP_SanchezVillaverde
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pnlCarrito = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.lblResumen = new System.Windows.Forms.Label();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.colDetCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,14 +47,47 @@ namespace TP_SanchezVillaverde
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnConfirmar = new System.Windows.Forms.Button();
+            this.pnlCarrito.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.SuspendLayout();
+            //
+            // pnlCarrito
+            //
+            // Anchor None: el panel queda centrado y con tamaño fijo aunque el form
+            // llene toda el area MDI (mismo patron que pUsuario en frmUsuario)
+            this.pnlCarrito.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pnlCarrito.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlCarrito.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCarrito.Controls.Add(this.lblTitulo);
+            this.pnlCarrito.Controls.Add(this.lblResumen);
+            this.pnlCarrito.Controls.Add(this.dgvDetalle);
+            this.pnlCarrito.Controls.Add(this.btnQuitar);
+            this.pnlCarrito.Controls.Add(this.lblTotal);
+            this.pnlCarrito.Controls.Add(this.lblCliente);
+            this.pnlCarrito.Controls.Add(this.txtCliente);
+            this.pnlCarrito.Controls.Add(this.btnSalir);
+            this.pnlCarrito.Controls.Add(this.btnConfirmar);
+            this.pnlCarrito.Location = new System.Drawing.Point(12, 11);
+            this.pnlCarrito.Name = "pnlCarrito";
+            this.pnlCarrito.Size = new System.Drawing.Size(1004, 639);
+            this.pnlCarrito.TabIndex = 0;
+            //
+            // lblTitulo
+            //
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Verdana", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.lblTitulo.Location = new System.Drawing.Point(442, 6);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(120, 25);
+            this.lblTitulo.TabIndex = 8;
+            this.lblTitulo.Text = "CARRITO";
             //
             // lblResumen
             //
             this.lblResumen.AutoSize = true;
             this.lblResumen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblResumen.Location = new System.Drawing.Point(15, 18);
+            this.lblResumen.Location = new System.Drawing.Point(15, 50);
             this.lblResumen.Name = "lblResumen";
             this.lblResumen.Size = new System.Drawing.Size(130, 15);
             this.lblResumen.TabIndex = 0;
@@ -60,9 +95,6 @@ namespace TP_SanchezVillaverde
             //
             // dgvDetalle
             //
-            this.dgvDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetalle.AllowUserToAddRows = false;
             this.dgvDetalle.AllowUserToDeleteRows = false;
             this.dgvDetalle.AllowUserToResizeColumns = false;
@@ -101,7 +133,7 @@ namespace TP_SanchezVillaverde
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDetalle.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDetalle.EnableHeadersVisualStyles = false;
-            this.dgvDetalle.Location = new System.Drawing.Point(15, 45);
+            this.dgvDetalle.Location = new System.Drawing.Point(15, 75);
             this.dgvDetalle.MultiSelect = false;
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.ReadOnly = true;
@@ -112,7 +144,7 @@ namespace TP_SanchezVillaverde
             this.dgvDetalle.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDetalle.RowTemplate.Height = 24;
             this.dgvDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalle.Size = new System.Drawing.Size(998, 490);
+            this.dgvDetalle.Size = new System.Drawing.Size(972, 430);
             this.dgvDetalle.TabIndex = 1;
             //
             // colDetCodigo
@@ -147,12 +179,11 @@ namespace TP_SanchezVillaverde
             //
             // btnQuitar
             //
-            this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnQuitar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnQuitar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnQuitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btnQuitar.Location = new System.Drawing.Point(15, 545);
+            this.btnQuitar.Location = new System.Drawing.Point(15, 520);
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(110, 29);
             this.btnQuitar.TabIndex = 2;
@@ -162,10 +193,9 @@ namespace TP_SanchezVillaverde
             //
             // lblTotal
             //
-            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTotal.Location = new System.Drawing.Point(860, 548);
+            this.lblTotal.Location = new System.Drawing.Point(780, 523);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(90, 20);
             this.lblTotal.TabIndex = 3;
@@ -174,10 +204,9 @@ namespace TP_SanchezVillaverde
             //
             // lblCliente
             //
-            this.lblCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblCliente.AutoSize = true;
             this.lblCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblCliente.Location = new System.Drawing.Point(15, 620);
+            this.lblCliente.Location = new System.Drawing.Point(15, 588);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(126, 15);
             this.lblCliente.TabIndex = 4;
@@ -185,9 +214,8 @@ namespace TP_SanchezVillaverde
             //
             // txtCliente
             //
-            this.txtCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.txtCliente.Location = new System.Drawing.Point(160, 617);
+            this.txtCliente.Location = new System.Drawing.Point(160, 585);
             this.txtCliente.MaxLength = 50;
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(260, 23);
@@ -195,12 +223,11 @@ namespace TP_SanchezVillaverde
             //
             // btnSalir
             //
-            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btnSalir.Location = new System.Drawing.Point(780, 615);
+            this.btnSalir.Location = new System.Drawing.Point(750, 582);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(113, 29);
             this.btnSalir.TabIndex = 6;
@@ -210,12 +237,11 @@ namespace TP_SanchezVillaverde
             //
             // btnConfirmar
             //
-            this.btnConfirmar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConfirmar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnConfirmar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnConfirmar.Location = new System.Drawing.Point(900, 615);
+            this.btnConfirmar.Location = new System.Drawing.Point(875, 582);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(113, 29);
             this.btnConfirmar.TabIndex = 7;
@@ -229,14 +255,7 @@ namespace TP_SanchezVillaverde
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1028, 661);
-            this.Controls.Add(this.btnConfirmar);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.txtCliente);
-            this.Controls.Add(this.lblCliente);
-            this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.btnQuitar);
-            this.Controls.Add(this.dgvDetalle);
-            this.Controls.Add(this.lblResumen);
+            this.Controls.Add(this.pnlCarrito);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimizeBox = false;
@@ -245,14 +264,17 @@ namespace TP_SanchezVillaverde
             this.Text = "Llenar Carrito";
             this.Load += new System.EventHandler(this.frmLlenarCarrito_Load_883SC);
             this.Shown += new System.EventHandler(this.frmLlenarCarrito_Shown_883SC);
+            this.pnlCarrito.ResumeLayout(false);
+            this.pnlCarrito.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Panel pnlCarrito;
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblResumen;
         private System.Windows.Forms.DataGridView dgvDetalle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDetCodigo;

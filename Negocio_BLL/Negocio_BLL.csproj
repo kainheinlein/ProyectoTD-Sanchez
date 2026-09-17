@@ -45,6 +45,7 @@
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="ClienteBLL.cs" />
     <Compile Include="CobroBLL.cs" />
+    <Compile Include="FacturaBLL.cs" />
     <Compile Include="GestorDeIdioma.cs" />
     <Compile Include="HistorialUsuarioBLL.cs" />
     <Compile Include="MetodoPagoBLL.cs" />

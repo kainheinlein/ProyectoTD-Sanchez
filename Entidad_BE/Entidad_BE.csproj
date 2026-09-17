@@ -44,6 +44,8 @@
     <Compile Include="CarritoBE.cs" />
     <Compile Include="ClienteBE.cs" />
     <Compile Include="DetalleCarritoBE.cs" />
+    <Compile Include="DetalleFacturaBE.cs" />
+    <Compile Include="FacturaBE.cs" />
     <Compile Include="EventoBE.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="HistorialUsuarioBE.cs" />

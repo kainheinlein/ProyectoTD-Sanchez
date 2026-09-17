@@ -250,12 +250,9 @@ namespace TP_SanchezVillaverde
             OpenForm_883SC(tsVentas, new frmLlenarCarrito_883SC());
         }
 
-        // TEMPORAL: abre el form de prueba de Cliente hasta que exista CUN-004 Generar Factura.
-        // Al programar CUN-004: borrar frmPruebaCliente y abrir aca la pantalla de facturacion.
         private void realizarVentaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmPruebaCliente_883SC frmPrueba = new frmPruebaCliente_883SC();
-            frmPrueba.ShowDialog();
+            OpenForm_883SC(tsVentas, new frmRealizarVenta_883SC());
         }
 
         private void hToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)

@@ -59,12 +59,11 @@
     <Compile Include="frmRealizarCobro.Designer.cs">
       <DependentUpon>frmRealizarCobro.cs</DependentUpon>
     </Compile>
-    <!-- TEMPORAL: borrar estas 2 entradas junto con frmPruebaCliente cuando exista CUN-004 -->
-    <Compile Include="frmPruebaCliente.cs">
+    <Compile Include="frmRealizarVenta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPruebaCliente.Designer.cs">
-      <DependentUpon>frmPruebaCliente.cs</DependentUpon>
+    <Compile Include="frmRealizarVenta.Designer.cs">
+      <DependentUpon>frmRealizarVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="frmBitacora.cs">
       <SubType>Form</SubType>
