@@ -165,7 +165,6 @@ namespace TP_SanchezVillaverde
                     LoginResult_883SC authOK = usuario_883SC.Login_883SC(user);
                     if (authOK == LoginResult_883SC.LoginOK_883SC)
                     {
-                        bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Login);
                         frmMenu_883SC frm = new frmMenu_883SC();
                         frm.Show();
                         this.Hide();
@@ -178,28 +177,22 @@ namespace TP_SanchezVillaverde
                         switch (authOK)
                         {
                             case LoginResult_883SC.UserInexistente_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_USER_INEXISTENTE");
                                 break;
                             case LoginResult_883SC.UserBloqueado_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_USER_BLOQUEADO");
                                 break;
                             case LoginResult_883SC.PassIncorrecta_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_PASS_INCORRECTA");
                                 break;
                             case LoginResult_883SC.UserInactivo_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_USER_INACTIVO"), user.user_883SC), "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 break;
                             case LoginResult_883SC.FinIntentos_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.BloqueoUsuario);
                                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_FIN_INTENTOS"), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Application.Exit();
                                 break;
                             case LoginResult_883SC.SesionIniciada_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Login);
                                 MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_SESION_INICIADA"), user.user_883SC), "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 frmMenu_883SC frm = new frmMenu_883SC();
                                 frm.Show();
@@ -210,7 +203,6 @@ namespace TP_SanchezVillaverde
                             case LoginResult_883SC.ExisteSesion_883SC:
                                 if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_EXISTE_SESION"), " ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
-                                    bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Logout);
                                     usuario_883SC.Logout_883SC();
                                     MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_SESION_CERRADA"), " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }

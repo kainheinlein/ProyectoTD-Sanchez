@@ -44,31 +44,34 @@ namespace Negocio_BLL
                 if ((usuario_883SC.user_883SC == us.user_883SC) && (usuario_883SC.pass_883SC == us.pass_883SC))
                 {
                     AuthOK = LoginResult_883SC.SesionIniciada_883SC;
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.Login);
                     maxIntentos_883SC = 3;
                 }
                 else { AuthOK = LoginResult_883SC.ExisteSesion_883SC; }
             }
             if (AuthOK != LoginResult_883SC.LoginOK_883SC && AuthOK != LoginResult_883SC.SesionIniciada_883SC)
             {
-                if(AuthOK != LoginResult_883SC.ExisteSesion_883SC){ maxIntentos_883SC--; }
+                if(AuthOK != LoginResult_883SC.ExisteSesion_883SC)
+                {
+                    maxIntentos_883SC--;
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.LoginFail);
+                }
             }
             if (maxIntentos_883SC == 0)
             {
-                usuario_883SC = new UsuarioBE_883SC();
                 usuario_883SC = mpUsuario_883SC.ExtraerUsuario_883SC(us.user_883SC);
-                if (!string.IsNullOrEmpty(usuario_883SC.user_883SC))
+                if (usuario_883SC != null)
                 {
                     usuario_883SC.bloq_883SC = true;
                     usuario_883SC.pass_883SC = " ";
                     usuario_883SC.pass_883SC = Encriptador_883SC.EncriptarIrrev_883SC(usuario_883SC.pass_883SC);
                     usuario_883SC.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(usuario_883SC);
                     mpUsuario_883SC.ActualizarBloqueo_883SC(usuario_883SC);
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario);
+                    integridad_883SC.ActualizarDVV_883SC();
                 }
-                bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario);
-                integridad_883SC.ActualizarDVV_883SC();
                 AuthOK = LoginResult_883SC.FinIntentos_883SC;
             }
-            bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.LoginFail);
             return AuthOK;
         }
 

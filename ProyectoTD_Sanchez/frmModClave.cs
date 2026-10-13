@@ -135,7 +135,6 @@ namespace TP_SanchezVillaverde
                         txtActual.Clear();
                         txtActual.Focus();
                         lblError.Text = string.Format(gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_INTENTOS"), usuario_883SC.maxIntentos_883SC.ToString());
-                        bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.LoginFail);
                         //txtActual.Clear();
                         //txtActual.Focus();
                         //lblError.Text = $"Contraseña incorrecta, quedan {usuario.maxIntentos.ToString()} intentos";
@@ -154,7 +153,6 @@ namespace TP_SanchezVillaverde
                         break;
                     case 2:
                         MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_BLOQUEADO"), gestorIdioma_883SC.Traducir_883SC("CLAVE_TIT_BLOQUEADO"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.BloqueoUsuario);
                         usuario_883SC.Logout_883SC();
                         Application.Exit();
                         break;
