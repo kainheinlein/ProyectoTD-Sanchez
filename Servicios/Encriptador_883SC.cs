@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Servicios
 {
-    public class Encriptador
+    public class Encriptador_883SC
     {
-        public static string EncriptarIrrev(string dato)
+        public static string EncriptarIrrev_883SC(string dato)
         {
             byte[] data = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(dato));
             StringBuilder builder = new StringBuilder();

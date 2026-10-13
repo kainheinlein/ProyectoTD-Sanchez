@@ -47,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAltaClienteRapida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAltaClienteRapida.Designer.cs">
+      <DependentUpon>frmAltaClienteRapida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRealizarCobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealizarCobro.Designer.cs">
+      <DependentUpon>frmRealizarCobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRealizarVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealizarVenta.Designer.cs">
+      <DependentUpon>frmRealizarVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +95,12 @@
     <Compile Include="frmModClave.Designer.cs">
       <DependentUpon>frmModClave.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLlenarCarrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLlenarCarrito.Designer.cs">
+      <DependentUpon>frmLlenarCarrito.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +118,12 @@
     </Compile>
     <Compile Include="frmRecalcular.Designer.cs">
       <DependentUpon>frmRecalcular.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSeleccionarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSeleccionarProducto.Designer.cs">
+      <DependentUpon>frmSeleccionarProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUsuario.cs">
       <SubType>Form</SubType>
@@ -126,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRecalcular.resx">
       <DependentUpon>frmRecalcular.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeleccionarProducto.resx">
+      <DependentUpon>frmSeleccionarProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUsuario.resx">
       <DependentUpon>frmUsuario.cs</DependentUpon>

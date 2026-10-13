@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,32 +8,32 @@ using System.Threading.Tasks;
 
 namespace Acceso_DAL
 {
-    public class AccesoDatos
+    public class AccesoDatos_883SC
     {
-        private SqlConnection _conexion;
-        private readonly string cadenaSQL = @"Data Source=KAINMPC;Initial Catalog=FerreDB;Integrated Security=True";
+        private SqlConnection _conexion_883SC;
+        private readonly string cadenaSQL_883SC = @"Data Source=KAINMPC;Initial Catalog=FerreDB;Integrated Security=True";
 
-        public SqlConnection conexion { get => _conexion; }
+        public SqlConnection conexion_883SC { get => _conexion_883SC; }
 
-        public void AbrirConexion()
+        public void AbrirConexion_883SC()
         {
-            _conexion = new SqlConnection(cadenaSQL);
-            _conexion.Open();
+            _conexion_883SC = new SqlConnection(cadenaSQL_883SC);
+            _conexion_883SC.Open();
         }
 
-        public void CerrarConexion()
+        public void CerrarConexion_883SC()
         {
-            _conexion.Close();
+            _conexion_883SC.Close();
         }
 
-        public bool VerificarConexion()
+        public bool VerificarConexion_883SC()
         {
             try
             {
-                AbrirConexion();
-                if (_conexion.State == ConnectionState.Open)
+                AbrirConexion_883SC();
+                if (_conexion_883SC.State == ConnectionState.Open)
                 {
-                    CerrarConexion();
+                    CerrarConexion_883SC();
                     return true;
                 }
                 else
@@ -47,11 +47,11 @@ namespace Acceso_DAL
             }
         }
 
-        public DataTable LeerTabla(string sp, SqlParameter[] datos)
+        public DataTable LeerTabla_883SC(string sp, SqlParameter[] datos)
         {
             try
             {
-                AbrirConexion();
+                AbrirConexion_883SC();
                 DataTable dt = new DataTable();
                 SqlDataAdapter ad = new SqlDataAdapter();
                 ad.SelectCommand = new SqlCommand();
@@ -61,26 +61,26 @@ namespace Acceso_DAL
                 {
                     ad.SelectCommand.Parameters.AddRange(datos);
                 }
-                ad.SelectCommand.Connection = conexion;
+                ad.SelectCommand.Connection = conexion_883SC;
                 ad.Fill(dt);
 
                 return dt;
             }
             catch (Exception) { throw; }
-            finally { CerrarConexion(); }
+            finally { CerrarConexion_883SC(); }
         }
 
-        public void Escribir(string sp, SqlParameter[] parametros)
+        public void Escribir_883SC(string sp, SqlParameter[] parametros)
         {
             SqlTransaction tr;
-            AbrirConexion();
-            tr = conexion.BeginTransaction();
+            AbrirConexion_883SC();
+            tr = conexion_883SC.BeginTransaction();
             try
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = sp;
-                cmd.Connection = conexion;
+                cmd.Connection = conexion_883SC;
                 cmd.Parameters.AddRange(parametros);
                 cmd.Transaction = tr;
                 cmd.ExecuteNonQuery();
@@ -91,20 +91,20 @@ namespace Acceso_DAL
                 tr.Rollback();
                 throw;
             }
-            finally { CerrarConexion(); }
+            finally { CerrarConexion_883SC(); }
         }
 
-        public object EscribirRetornar(string sp, SqlParameter[] parametros)
+        public object EscribirRetornar_883SC(string sp, SqlParameter[] parametros)
         {
             SqlTransaction tr;
-            AbrirConexion();
-            tr = conexion.BeginTransaction();
+            AbrirConexion_883SC();
+            tr = conexion_883SC.BeginTransaction();
             try
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = sp;
-                cmd.Connection = conexion;
+                cmd.Connection = conexion_883SC;
                 cmd.Parameters.AddRange(parametros);
                 cmd.Transaction = tr;
                 object result = cmd.ExecuteScalar();
@@ -116,20 +116,20 @@ namespace Acceso_DAL
                 tr.Rollback();
                 throw;
             }
-            finally { CerrarConexion(); }
+            finally { CerrarConexion_883SC(); }
         }
 
-        public int Consulta(string sp, SqlParameter[] parametros)
+        public int Consulta_883SC(string sp, SqlParameter[] parametros)
         {
             int result;
 
             try
             {
-                AbrirConexion();
+                AbrirConexion_883SC();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = sp;
-                cmd.Connection = conexion;
+                cmd.Connection = conexion_883SC;
                 cmd.Parameters.AddRange(parametros);
                 cmd.Parameters.Add("@Result", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -137,15 +137,15 @@ namespace Acceso_DAL
                 return result = Convert.ToInt32(cmd.Parameters["@Result"].Value);
             }
             catch (Exception) { throw; }
-            finally { CerrarConexion(); }
+            finally { CerrarConexion_883SC(); }
         }
 
-        public object ExtraerDato(string sp, SqlParameter[] parametros)
+        public object ExtraerDato_883SC(string sp, SqlParameter[] parametros)
         {
             try
             {
-                AbrirConexion();
-                SqlCommand cmd = new SqlCommand(sp, conexion);
+                AbrirConexion_883SC();
+                SqlCommand cmd = new SqlCommand(sp, conexion_883SC);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 if (parametros != null)
@@ -160,7 +160,7 @@ namespace Acceso_DAL
             {
                 throw;
             }
-            finally { CerrarConexion(); }
+            finally { CerrarConexion_883SC(); }
         }
     }
 }

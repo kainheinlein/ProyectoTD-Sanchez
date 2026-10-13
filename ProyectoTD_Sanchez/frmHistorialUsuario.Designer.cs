@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmHistorialUsuario
+    partial class frmHistorialUsuario_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -90,7 +90,7 @@
             this.btnBuscar.TabIndex = 7;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_883SC);
             // 
             // lblAccion
             // 
@@ -163,7 +163,7 @@
             this.dgvHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHistorial.Size = new System.Drawing.Size(860, 260);
             this.dgvHistorial.TabIndex = 1;
-            this.dgvHistorial.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorial_CellClick);
+            this.dgvHistorial.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorial_CellClick_883SC);
             // 
             // gbDetalle
             // 
@@ -251,7 +251,7 @@
             this.btnSalir.TabIndex = 15;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             // 
             // btnRestaurar
             // 
@@ -266,7 +266,7 @@
             this.btnRestaurar.TabIndex = 14;
             this.btnRestaurar.Text = "Restaurar esta Version";
             this.btnRestaurar.UseVisualStyleBackColor = false;
-            this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
+            this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click_883SC);
             // 
             // lblTelefono
             // 
@@ -408,8 +408,8 @@
             this.Name = "frmHistorialUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial de Usuario";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmHistorialUsuario_FormClosed);
-            this.Load += new System.EventHandler(this.frmHistorialUsuario_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmHistorialUsuario_FormClosed_883SC);
+            this.Load += new System.EventHandler(this.frmHistorialUsuario_Load_883SC);
             this.pnlFiltros.ResumeLayout(false);
             this.pnlFiltros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();

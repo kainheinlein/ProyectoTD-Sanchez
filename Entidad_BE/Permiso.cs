@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public abstract class Permiso
+    public abstract class Permiso_883SC
     {
-        protected string _nombre;
+        protected string _nombre_883SC;
 
-        public string Nombre
+        public string Nombre_883SC
         {
-            get { return _nombre; }
-            set { _nombre = value; }
+            get { return _nombre_883SC; }
+            set { _nombre_883SC = value; }
         }
 
-        public Permiso(string nombre)
+        public Permiso_883SC(string nombre)
         {
-            _nombre = nombre;
+            _nombre_883SC = nombre;
         }
 
-        public abstract List<Permiso> RetornarListaHijos();
+        public abstract List<Permiso_883SC> RetornarListaHijos_883SC();
 
-        public string getPermisoNombre()
+        public string getPermisoNombre_883SC()
         {
-            return _nombre;
+            return _nombre_883SC;
         }
     }
 }

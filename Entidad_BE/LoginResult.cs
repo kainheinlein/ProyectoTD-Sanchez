@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public enum LoginResult
+    public enum LoginResult_883SC
     {
-        UserInexistente = 0,
-        LoginOK = 1,
-        UserBloqueado = 2,
-        PassIncorrecta = 3,
-        UserInactivo = 4,
-        FinIntentos = 5,
-        SesionIniciada = 6,
-        ExisteSesion = 7
+        UserInexistente_883SC = 0,
+        LoginOK_883SC = 1,
+        UserBloqueado_883SC = 2,
+        PassIncorrecta_883SC = 3,
+        UserInactivo_883SC = 4,
+        FinIntentos_883SC = 5,
+        SesionIniciada_883SC = 6,
+        ExisteSesion_883SC = 7
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ProyectoCampo_JuanFer
 {
-    partial class ucAlfaNum
+    partial class ucAlfaNum_883SC
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -39,8 +39,8 @@
             this.txtTexto.Name = "txtTexto";
             this.txtTexto.Size = new System.Drawing.Size(198, 28);
             this.txtTexto.TabIndex = 1;
-            this.txtTexto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContra_KeyPress);
-            this.txtTexto.Leave += new System.EventHandler(this.txtTexto_Leave);
+            this.txtTexto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContra_KeyPress_883SC);
+            this.txtTexto.Leave += new System.EventHandler(this.txtTexto_Leave_883SC);
             // 
             // ptxtTexto
             // 
@@ -58,7 +58,7 @@
             this.Controls.Add(this.txtTexto);
             this.Name = "ucAlfaNum";
             this.Size = new System.Drawing.Size(233, 61);
-            this.Load += new System.EventHandler(this.ucUsuario_Load);
+            this.Load += new System.EventHandler(this.ucUsuario_Load_883SC);
             this.ResumeLayout(false);
             this.PerformLayout();
 

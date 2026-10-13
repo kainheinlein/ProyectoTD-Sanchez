@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmIdiomas
+    partial class frmIdiomas_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -126,7 +126,7 @@
             this.btnExaminar.TabIndex = 6;
             this.btnExaminar.Text = "Examinar...";
             this.btnExaminar.UseVisualStyleBackColor = true;
-            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click_883SC);
             //
             // lblBase
             //
@@ -144,7 +144,7 @@
             this.btnCrear.TabIndex = 8;
             this.btnCrear.Text = "Crear Idioma";
             this.btnCrear.UseVisualStyleBackColor = true;
-            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click_883SC);
             //
             // gbTraducciones
             //
@@ -176,7 +176,7 @@
             this.cmbIdioma.Name = "cmbIdioma";
             this.cmbIdioma.Size = new System.Drawing.Size(200, 23);
             this.cmbIdioma.TabIndex = 1;
-            this.cmbIdioma.SelectedIndexChanged += new System.EventHandler(this.cmbIdioma_SelectedIndexChanged);
+            this.cmbIdioma.SelectedIndexChanged += new System.EventHandler(this.cmbIdioma_SelectedIndexChanged_883SC);
             //
             // dgvTraducciones
             //
@@ -198,7 +198,7 @@
             this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_883SC);
             //
             // btnSalir
             //
@@ -208,7 +208,7 @@
             this.btnSalir.TabIndex = 2;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             //
             // frmIdiomas
             //
@@ -224,7 +224,7 @@
             this.Name = "frmIdiomas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestión de Idiomas";
-            this.Load += new System.EventHandler(this.frmIdiomas_Load);
+            this.Load += new System.EventHandler(this.frmIdiomas_Load_883SC);
             this.gbNuevo.ResumeLayout(false);
             this.gbNuevo.PerformLayout();
             this.gbTraducciones.ResumeLayout(false);

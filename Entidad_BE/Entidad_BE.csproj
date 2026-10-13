@@ -41,14 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarritoBE.cs" />
+    <Compile Include="ClienteBE.cs" />
+    <Compile Include="DetalleCarritoBE.cs" />
+    <Compile Include="DetalleFacturaBE.cs" />
+    <Compile Include="FacturaBE.cs" />
     <Compile Include="EventoBE.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="HistorialUsuarioBE.cs" />
     <Compile Include="IdiomaBE.cs" />
+    <Compile Include="MetodoPagoBE.cs" />
     <Compile Include="IVerificable.cs" />
     <Compile Include="LoginResult.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="PermisoSimple.cs" />
+    <Compile Include="ProductoBE.cs" />
     <Compile Include="TipoAccion.cs" />
     <Compile Include="TipoPermiso.cs" />
     <Compile Include="UsuarioBE.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmBitacora
+    partial class frmBitacora_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -108,7 +108,7 @@
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_883SC);
             // 
             // btnBuscar
             // 
@@ -121,7 +121,7 @@
             this.btnBuscar.TabIndex = 4;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_883SC);
             // 
             // label6
             // 
@@ -221,7 +221,7 @@
             this.btnSalir.TabIndex = 2;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             // 
             // dgvBitacora
             // 
@@ -276,7 +276,7 @@
             this.Name = "frmBitacora";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Bitacora de Eventos";
-            this.Load += new System.EventHandler(this.frmBitacora_Load);
+            this.Load += new System.EventHandler(this.frmBitacora_Load_883SC);
             this.pBitacora.ResumeLayout(false);
             this.pBitacora.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿using Acceso_DAL;
+using Acceso_DAL;
 using Entidad_BE;
 using System;
 using System.Collections.Generic;
@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Negocio_BLL
 {
-    public class PerfilBLL
+    public class PerfilBLL_883SC
     {
-        private PerfilDAL perfilDAL = new PerfilDAL();
+        private PerfilDAL_883SC perfilDAL_883SC = new PerfilDAL_883SC();
 
-        public List<Permiso> ListaPermisos(string pTipo = "")
+        public List<Permiso_883SC> ListaPermisos_883SC(string pTipo = "")
         {
-            return perfilDAL.ListaPermisos(pTipo);
+            return perfilDAL_883SC.ListaPermisos_883SC(pTipo);
         }
 
-        public bool ValidarNombre(string pNombre)
+        public bool ValidarNombre_883SC(string pNombre)
         {
-            if (perfilDAL.ListaPermisos("Compuesto").Exists(x => x.Nombre == pNombre))
+            if (perfilDAL_883SC.ListaPermisos_883SC("Compuesto").Exists(x => x.Nombre_883SC == pNombre))
             {
                 return true;
             }
@@ -29,52 +29,52 @@ namespace Negocio_BLL
             }
         }
 
-        public bool PerfilEnUso(string nombre)
+        public bool PerfilEnUso_883SC(string nombre)
         {
-            return perfilDAL.PerfilEnUso(nombre);
+            return perfilDAL_883SC.PerfilEnUso_883SC(nombre);
         }
 
-        public void EliminarFamilia(Familia pFamilia)
+        public void EliminarFamilia_883SC(Familia_883SC pFamilia)
         {
-            perfilDAL.EliminarFamilia(pFamilia);
+            perfilDAL_883SC.EliminarFamilia_883SC(pFamilia);
         }
 
-        public List<Permiso> ListaPermisosEnArbol()
+        public List<Permiso_883SC> ListaPermisosEnArbol_883SC()
         {
-            return perfilDAL.ListaPermisosEnArbol();
+            return perfilDAL_883SC.ListaPermisosEnArbol_883SC();
         }
 
-        public List<Permiso> ListaPermisosRaiz()
+        public List<Permiso_883SC> ListaPermisosRaiz_883SC()
         {
-            return perfilDAL.ListaPermisosRaiz();
+            return perfilDAL_883SC.ListaPermisosRaiz_883SC();
         }
 
-        public bool TienePermiso(string nombreRol, string nombrePermiso)
+        public bool TienePermiso_883SC(string nombreRol, string nombrePermiso)
         {
             if (string.IsNullOrEmpty(nombreRol))
             {
                 return false;
             }
 
-            Familia rol = ListaPermisosEnArbol().OfType<Familia>().FirstOrDefault(f => f.Nombre == nombreRol);
+            Familia_883SC rol = ListaPermisosEnArbol_883SC().OfType<Familia_883SC>().FirstOrDefault(f => f.Nombre_883SC == nombreRol);
             if (rol == null)
             {
                 return false;
             }
 
-            return BuscarPermisoRecursivo(rol, nombrePermiso);
+            return BuscarPermisoRecursivo_883SC(rol, nombrePermiso);
         }
 
-        private bool BuscarPermisoRecursivo(Familia familia, string nombrePermiso)
+        private bool BuscarPermisoRecursivo_883SC(Familia_883SC familia, string nombrePermiso)
         {
-            foreach (var hijo in familia.RetornarListaHijos())
+            foreach (var hijo in familia.RetornarListaHijos_883SC())
             {
-                if (hijo.Nombre == nombrePermiso)
+                if (hijo.Nombre_883SC == nombrePermiso)
                 {
                     return true;
                 }
 
-                if (hijo is Familia familiaHijo && BuscarPermisoRecursivo(familiaHijo, nombrePermiso))
+                if (hijo is Familia_883SC familiaHijo && BuscarPermisoRecursivo_883SC(familiaHijo, nombrePermiso))
                 {
                     return true;
                 }
@@ -82,44 +82,44 @@ namespace Negocio_BLL
             return false;
         }
 
-        public void AgregarFamilia(Familia pFamilia)
+        public void AgregarFamilia_883SC(Familia_883SC pFamilia)
         {
-            perfilDAL.AgregarFamilia(pFamilia);
+            perfilDAL_883SC.AgregarFamilia_883SC(pFamilia);
         }
 
-        public void ModificarFamilia(Familia pFamilia, List<string> permisos)
+        public void ModificarFamilia_883SC(Familia_883SC pFamilia, List<string> permisos)
         {
-            perfilDAL.ModificarFamilia(pFamilia, permisos);
+            perfilDAL_883SC.ModificarFamilia_883SC(pFamilia, permisos);
         }
 
-        public void AgregarPermisoFamilia(string pNombreFamilia, List<string> pNombrePermisos)
+        public void AgregarPermisoFamilia_883SC(string pNombreFamilia, List<string> pNombrePermisos)
         {
             foreach (var s in pNombrePermisos)
             {
-                perfilDAL.AgregarPermisoAFamilia(pNombreFamilia, s);
+                perfilDAL_883SC.AgregarPermisoAFamilia_883SC(pNombreFamilia, s);
             }
         }
 
-        public List<Permiso> ObtenerHijosDeFamilia(string nombreFamilia)
+        public List<Permiso_883SC> ObtenerHijosDeFamilia_883SC(string nombreFamilia)
         {
-            List<Permiso> permisosEnArbol = ListaPermisosEnArbol();
+            List<Permiso_883SC> permisosEnArbol = ListaPermisosEnArbol_883SC();
 
             // Verificar si permisosEnArbol no es nulo
             if (permisosEnArbol == null)
             {
-                return new List<Permiso>();
+                return new List<Permiso_883SC>();
             }
 
             // Encontrar la familia con el nombre dado
-            Familia familia = permisosEnArbol.OfType<Familia>().FirstOrDefault(f => f.Nombre == nombreFamilia);
+            Familia_883SC familia = permisosEnArbol.OfType<Familia_883SC>().FirstOrDefault(f => f.Nombre_883SC == nombreFamilia);
 
             // Devolver los hijos si se encuentra la familia, de lo contrario una lista vac�a
-            return familia?.RetornarListaHijos() ?? new List<Permiso>();
+            return familia?.RetornarListaHijos_883SC() ?? new List<Permiso_883SC>();
         }
 
-        public void EliminarPermisoDeFamilia(string familia, string permiso)
+        public void EliminarPermisoDeFamilia_883SC(string familia, string permiso)
         {
-            perfilDAL.EliminarPermisoDeFamilia(familia, permiso);
+            perfilDAL_883SC.EliminarPermisoDeFamilia_883SC(familia, permiso);
         }
     }
 }

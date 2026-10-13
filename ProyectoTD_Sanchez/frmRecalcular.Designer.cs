@@ -1,6 +1,6 @@
 ﻿namespace TP_SanchezVillaverde
 {
-    partial class frmRecalcular
+    partial class frmRecalcular_883SC
     {
         /// <summary>
         /// Required designer variable.
@@ -56,7 +56,7 @@
             this.btnRecalcular.TabIndex = 1;
             this.btnRecalcular.Text = "Recalcular";
             this.btnRecalcular.UseVisualStyleBackColor = false;
-            this.btnRecalcular.Click += new System.EventHandler(this.btnRecalcular_Click);
+            this.btnRecalcular.Click += new System.EventHandler(this.btnRecalcular_Click_883SC);
             // 
             // btnCancelar
             // 
@@ -70,7 +70,7 @@
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_883SC);
             // 
             // frmRecalcular
             // 

@@ -10,9 +10,9 @@ namespace Servicios
     /// Formato esperado (UTF-8): una traduccion por linea "CLAVE;Texto".
     /// Las lineas vacias o que comienzan con # se ignoran.
     /// </summary>
-    public static class LectorTraducciones
+    public static class LectorTraducciones_883SC
     {
-        public static Dictionary<string, string> LeerArchivo(string ruta)
+        public static Dictionary<string, string> LeerArchivo_883SC(string ruta)
         {
             Dictionary<string, string> traducciones = new Dictionary<string, string>();
             string[] lineas = File.ReadAllLines(ruta, Encoding.UTF8);

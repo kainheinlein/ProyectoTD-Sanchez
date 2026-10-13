@@ -1,14 +1,14 @@
-﻿namespace Entidad_BE
+namespace Entidad_BE
 {
-    public class IdiomaBE
+    public class IdiomaBE_883SC
     {
-        public int Id { get; set; }
-        public string Codigo { get; set; }
-        public string Nombre { get; set; }
+        public int Id_883SC { get; set; }
+        public string Codigo_883SC { get; set; }
+        public string Nombre_883SC { get; set; }
 
         public override string ToString()
         {
-            return Nombre;
+            return Nombre_883SC;
         }
     }
 }

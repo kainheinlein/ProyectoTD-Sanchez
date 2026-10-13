@@ -1,4 +1,4 @@
-﻿using Entidad_BE;
+using Entidad_BE;
 using Negocio_BLL;
 using Servicios;
 using System;
@@ -8,69 +8,69 @@ using System.Windows.Forms;
 
 namespace TP_SanchezVillaverde
 {
-    public partial class frmIdiomas : Form, IObservadorIdioma
+    public partial class frmIdiomas_883SC : Form, IObservadorIdioma_883SC
     {
-        public frmIdiomas()
+        public frmIdiomas_883SC()
         {
             InitializeComponent();
         }
 
-        GestorDeIdioma gestorIdioma = GestorDeIdioma.GetInstance;
-        BitacoraBLL bitacora = new BitacoraBLL();
-        DataTable traducciones;
+        GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
+        BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
+        DataTable traducciones_883SC;
 
-        private void frmIdiomas_Load(object sender, EventArgs e)
+        private void frmIdiomas_Load_883SC(object sender, EventArgs e)
         {
-            CargarIdiomas();
-            gestorIdioma.Suscribir(this);
-            this.FormClosed += frmIdiomas_FormClosed;
+            CargarIdiomas_883SC();
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmIdiomas_FormClosed_883SC;
         }
 
-        private void frmIdiomas_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmIdiomas_FormClosed_883SC(object sender, FormClosedEventArgs e)
         {
-            gestorIdioma.Desuscribir(this);
+            gestorIdioma_883SC.Desuscribir_883SC(this);
         }
 
         #region Patron Observer - Idiomas
 
-        public void ActualizarTextos()
+        public void ActualizarTextos_883SC()
         {
-            this.Text = gestorIdioma.Traducir("IDI_TITULO");
-            gbNuevo.Text = gestorIdioma.Traducir("IDI_GB_NUEVO");
-            lblCodigo.Text = gestorIdioma.Traducir("IDI_LBL_CODIGO");
-            lblNombre.Text = gestorIdioma.Traducir("COMUN_NOMBRE");
-            lblBase.Text = gestorIdioma.Traducir("IDI_LBL_BASE");
-            lblArchivo.Text = gestorIdioma.Traducir("IDI_LBL_ARCHIVO");
-            btnExaminar.Text = gestorIdioma.Traducir("IDI_BTN_EXAMINAR");
-            btnCrear.Text = gestorIdioma.Traducir("IDI_BTN_CREAR");
-            gbTraducciones.Text = gestorIdioma.Traducir("IDI_GB_TRADUCCIONES");
-            lblIdioma.Text = gestorIdioma.Traducir("IDI_LBL_IDIOMA");
-            btnGuardar.Text = gestorIdioma.Traducir("COMUN_GUARDAR");
-            btnSalir.Text = gestorIdioma.Traducir("COMUN_SALIR");
-            TraducirColumnas();
+            this.Text = gestorIdioma_883SC.Traducir_883SC("IDI_TITULO");
+            gbNuevo.Text = gestorIdioma_883SC.Traducir_883SC("IDI_GB_NUEVO");
+            lblCodigo.Text = gestorIdioma_883SC.Traducir_883SC("IDI_LBL_CODIGO");
+            lblNombre.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_NOMBRE");
+            lblBase.Text = gestorIdioma_883SC.Traducir_883SC("IDI_LBL_BASE");
+            lblArchivo.Text = gestorIdioma_883SC.Traducir_883SC("IDI_LBL_ARCHIVO");
+            btnExaminar.Text = gestorIdioma_883SC.Traducir_883SC("IDI_BTN_EXAMINAR");
+            btnCrear.Text = gestorIdioma_883SC.Traducir_883SC("IDI_BTN_CREAR");
+            gbTraducciones.Text = gestorIdioma_883SC.Traducir_883SC("IDI_GB_TRADUCCIONES");
+            lblIdioma.Text = gestorIdioma_883SC.Traducir_883SC("IDI_LBL_IDIOMA");
+            btnGuardar.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_GUARDAR");
+            btnSalir.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_SALIR");
+            TraducirColumnas_883SC();
         }
 
-        private void TraducirColumnas()
+        private void TraducirColumnas_883SC()
         {
             if (dgvTraducciones.Columns.Count == 0) { return; }
-            dgvTraducciones.Columns["Clave"].HeaderText = gestorIdioma.Traducir("IDI_COL_CLAVE");
-            dgvTraducciones.Columns["Texto"].HeaderText = gestorIdioma.Traducir("IDI_COL_TEXTO");
+            dgvTraducciones.Columns["Clave"].HeaderText = gestorIdioma_883SC.Traducir_883SC("IDI_COL_CLAVE");
+            dgvTraducciones.Columns["Texto"].HeaderText = gestorIdioma_883SC.Traducir_883SC("IDI_COL_TEXTO");
         }
 
         #endregion
 
-        private void CargarIdiomas()
+        private void CargarIdiomas_883SC()
         {
-            cmbIdioma.DataSource = gestorIdioma.ObtenerIdiomas();
+            cmbIdioma.DataSource = gestorIdioma_883SC.ObtenerIdiomas_883SC();
         }
 
-        private void SeleccionarIdioma(string codigo)
+        private void SeleccionarIdioma_883SC(string codigo)
         {
             //Deja seleccionado en el combo el idioma recien creado,
             //listo para editar sus traducciones en la grilla
-            foreach (IdiomaBE idioma in (List<IdiomaBE>)cmbIdioma.DataSource)
+            foreach (IdiomaBE_883SC idioma in (List<IdiomaBE_883SC>)cmbIdioma.DataSource)
             {
-                if (idioma.Codigo == codigo)
+                if (idioma.Codigo_883SC == codigo)
                 {
                     cmbIdioma.SelectedItem = idioma;
                     break;
@@ -78,24 +78,24 @@ namespace TP_SanchezVillaverde
             }
         }
 
-        private void cmbIdioma_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbIdioma_SelectedIndexChanged_883SC(object sender, EventArgs e)
         {
-            CargarTraducciones();
+            CargarTraducciones_883SC();
         }
 
-        private void CargarTraducciones()
+        private void CargarTraducciones_883SC()
         {
-            IdiomaBE idioma = cmbIdioma.SelectedItem as IdiomaBE;
+            IdiomaBE_883SC idioma = cmbIdioma.SelectedItem as IdiomaBE_883SC;
             if (idioma == null) { return; }
 
-            traducciones = gestorIdioma.ObtenerTablaTraducciones(idioma.Id);
-            dgvTraducciones.DataSource = traducciones;
+            traducciones_883SC = gestorIdioma_883SC.ObtenerTablaTraducciones_883SC(idioma.Id_883SC);
+            dgvTraducciones.DataSource = traducciones_883SC;
             dgvTraducciones.Columns["Clave"].ReadOnly = true;
             dgvTraducciones.Columns["Texto"].ReadOnly = false;
-            TraducirColumnas();
+            TraducirColumnas_883SC();
         }
 
-        private void btnExaminar_Click(object sender, EventArgs e)
+        private void btnExaminar_Click_883SC(object sender, EventArgs e)
         {
             using (OpenFileDialog dialogo = new OpenFileDialog())
             {
@@ -107,7 +107,7 @@ namespace TP_SanchezVillaverde
             }
         }
 
-        private void btnCrear_Click(object sender, EventArgs e)
+        private void btnCrear_Click_883SC(object sender, EventArgs e)
         {
             try
             {
@@ -115,23 +115,23 @@ namespace TP_SanchezVillaverde
                 string codigo = txtCodigo.Text.Trim().ToUpper();
                 string rutaArchivo = txtArchivo.Text.Trim() == "" ? null : txtArchivo.Text.Trim();
 
-                int importadas = gestorIdioma.AgregarIdioma(codigo, nombre, rutaArchivo);
-                bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user,
-                    TipoAccion.AltaIdioma);
+                int importadas = gestorIdioma_883SC.AgregarIdioma_883SC(codigo, nombre, rutaArchivo);
+                bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC,
+                    TipoAccion_883SC.AltaIdioma);
 
                 if (importadas > 0)
                 {
-                    MessageBox.Show(string.Format(gestorIdioma.Traducir("IDI_MSG_IMPORTADAS"), nombre, importadas));
+                    MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("IDI_MSG_IMPORTADAS"), nombre, importadas));
                 }
                 else
                 {
-                    MessageBox.Show(string.Format(gestorIdioma.Traducir("IDI_MSG_CREADO"), nombre));
+                    MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("IDI_MSG_CREADO"), nombre));
                 }
                 txtCodigo.Clear();
                 txtNombre.Clear();
                 txtArchivo.Clear();
-                CargarIdiomas();
-                SeleccionarIdioma(codigo);
+                CargarIdiomas_883SC();
+                SeleccionarIdioma_883SC(codigo);
             }
             catch (ArgumentException ex)
             {
@@ -139,22 +139,22 @@ namespace TP_SanchezVillaverde
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(gestorIdioma.Traducir("IDI_ERR_ARCHIVO") + ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("IDI_ERR_ARCHIVO") + ex.Message);
             }
             catch (System.IO.IOException ex)
             {
-                MessageBox.Show(gestorIdioma.Traducir("IDI_ERR_ARCHIVO") + ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("IDI_ERR_ARCHIVO") + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(gestorIdioma.Traducir("COMUN_ERROR_BD") + ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private void btnGuardar_Click_883SC(object sender, EventArgs e)
         {
-            IdiomaBE idioma = cmbIdioma.SelectedItem as IdiomaBE;
-            if (idioma == null || traducciones == null) { return; }
+            IdiomaBE_883SC idioma = cmbIdioma.SelectedItem as IdiomaBE_883SC;
+            if (idioma == null || traducciones_883SC == null) { return; }
 
             try
             {
@@ -162,10 +162,10 @@ namespace TP_SanchezVillaverde
                 //los RowState, sino la fila en edicion no figura como Modified
                 dgvTraducciones.EndEdit();
                 this.Validate();
-                this.BindingContext[traducciones].EndCurrentEdit();
+                this.BindingContext[traducciones_883SC].EndCurrentEdit();
 
                 Dictionary<string, string> cambios = new Dictionary<string, string>();
-                foreach (DataRow fila in traducciones.Rows)
+                foreach (DataRow fila in traducciones_883SC.Rows)
                 {
                     if (fila.RowState == DataRowState.Modified)
                     {
@@ -174,20 +174,20 @@ namespace TP_SanchezVillaverde
                 }
                 if (cambios.Count == 0) { return; }
 
-                gestorIdioma.GuardarTraducciones(idioma.Id, cambios);
-                traducciones.AcceptChanges();
-                bitacora.RegistrarBitacora(SessionManager.GetInstance.UsuarioActual().user,
-                    TipoAccion.ModificacionIdioma);
+                gestorIdioma_883SC.GuardarTraducciones_883SC(idioma.Id_883SC, cambios);
+                traducciones_883SC.AcceptChanges();
+                bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC,
+                    TipoAccion_883SC.ModificacionIdioma);
 
-                MessageBox.Show(gestorIdioma.Traducir("IDI_MSG_GUARDADO"));
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("IDI_MSG_GUARDADO"));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(gestorIdioma.Traducir("COMUN_ERROR_BD") + ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
             }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void btnSalir_Click_883SC(object sender, EventArgs e)
         {
             this.Close();
         }

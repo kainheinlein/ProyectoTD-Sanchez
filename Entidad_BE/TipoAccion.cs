@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidad_BE
 {
-    public enum TipoAccion
+    public enum TipoAccion_883SC
     {
         Login = 1,
         Logout = 2,
@@ -24,6 +24,8 @@ namespace Entidad_BE
         CambioIdioma = 14,
         AltaIdioma = 15,
         ModificacionIdioma = 16,
-        RestauracionUsuario = 17
+        RestauracionUsuario = 17,
+        AltaCliente = 18,
+        AltaFactura = 19
     }
 }

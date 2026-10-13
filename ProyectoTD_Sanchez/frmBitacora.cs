@@ -1,4 +1,4 @@
-﻿using Entidad_BE;
+using Entidad_BE;
 using Negocio_BLL;
 using Servicios;
 using System;
@@ -13,57 +13,57 @@ using System.Windows.Forms;
 
 namespace TP_SanchezVillaverde
 {
-    public partial class frmBitacora : Form, IObservadorIdioma
+    public partial class frmBitacora_883SC : Form, IObservadorIdioma_883SC
     {
-        public frmBitacora()
+        public frmBitacora_883SC()
         {
             InitializeComponent();
         }
 
-        BitacoraBLL bitacora = new BitacoraBLL();
-        GestorDeIdioma gestorIdioma = GestorDeIdioma.GetInstance;
+        BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
+        GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
 
-        private void frmBitacora_Load(object sender, EventArgs e)
+        private void frmBitacora_Load_883SC(object sender, EventArgs e)
         {
-            dgvBitacora.DataSource = bitacora.ListarBitacora();
-            TraducirColumnas();
+            dgvBitacora.DataSource = bitacora_883SC.ListarBitacora_883SC();
+            TraducirColumnas_883SC();
             dgvBitacora.EnableHeadersVisualStyles = false;
             dgvBitacora.ColumnHeadersDefaultCellStyle.Font = new Font(dgvBitacora.Font, FontStyle.Bold);
             dgvBitacora.ReadOnly = true;
-            gestorIdioma.Suscribir(this);
-            this.FormClosed += frmBitacora_FormClosed;
-           cmbEvento.DataSource = Enum.GetValues(typeof(TipoAccion));
-            LoadDefaultForm();
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmBitacora_FormClosed_883SC;
+           cmbEvento.DataSource = Enum.GetValues(typeof(TipoAccion_883SC));
+            LoadDefaultForm_883SC();
         }
 
-        private void frmBitacora_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmBitacora_FormClosed_883SC(object sender, FormClosedEventArgs e)
         {
-            gestorIdioma.Desuscribir(this);
+            gestorIdioma_883SC.Desuscribir_883SC(this);
         }
 
         #region Patron Observer - Idiomas
 
-        public void ActualizarTextos()
+        public void ActualizarTextos_883SC()
         {
-            this.Text = gestorIdioma.Traducir("BIT_TITULO");
-            label1.Text = gestorIdioma.Traducir("BIT_LBL_TITULO");
-            btnSalir.Text = gestorIdioma.Traducir("COMUN_SALIR");
-            TraducirColumnas();
+            this.Text = gestorIdioma_883SC.Traducir_883SC("BIT_TITULO");
+            label1.Text = gestorIdioma_883SC.Traducir_883SC("BIT_LBL_TITULO");
+            btnSalir.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_SALIR");
+            TraducirColumnas_883SC();
         }
 
-        private void TraducirColumnas()
+        private void TraducirColumnas_883SC()
         {
             if (dgvBitacora.Columns.Count == 0) { return; }
-            dgvBitacora.Columns[0].HeaderText = gestorIdioma.Traducir("BIT_COL_REGISTRO");
-            dgvBitacora.Columns[1].HeaderText = gestorIdioma.Traducir("COMUN_USUARIO");
-            dgvBitacora.Columns[2].HeaderText = gestorIdioma.Traducir("COMUN_ACCION");
-            dgvBitacora.Columns[3].HeaderText = gestorIdioma.Traducir("COMUN_FECHA");
+            dgvBitacora.Columns[0].HeaderText = gestorIdioma_883SC.Traducir_883SC("BIT_COL_REGISTRO");
+            dgvBitacora.Columns[1].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_USUARIO");
+            dgvBitacora.Columns[2].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_ACCION");
+            dgvBitacora.Columns[3].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_FECHA");
         }
 
         #endregion
 
 
-        private void CargarDGV(List<EventoBE> ev)
+        private void CargarDGV_883SC(List<EventoBE_883SC> ev)
         {
             dgvBitacora.DataSource = ev;
             dgvBitacora.Columns[0].HeaderText = "ID Registro";
@@ -75,11 +75,11 @@ namespace TP_SanchezVillaverde
             dgvBitacora.ReadOnly = true;
         }
 
-        private void LoadDefaultForm()
+        private void LoadDefaultForm_883SC()
         {
             try
             {
-                CargarDGV(bitacora.ListarBitacora());
+                CargarDGV_883SC(bitacora_883SC.ListarBitacora_883SC());
                 dgvBitacora.Columns[0].HeaderText = "ID Registro";
                 dgvBitacora.Columns[1].HeaderText = "Usuario";
                 dgvBitacora.Columns[2].HeaderText = "Accion";
@@ -100,24 +100,24 @@ namespace TP_SanchezVillaverde
             }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void btnSalir_Click_883SC(object sender, EventArgs e)
         {
             Control control = btnSalir.Parent;
-            frmMenu.opcActivo.BackColor = Color.WhiteSmoke;
+            frmMenu_883SC.opcActivo_883SC.BackColor = Color.WhiteSmoke;
             this.Close();
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnLimpiar_Click_883SC(object sender, EventArgs e)
         {
-            LoadDefaultForm();
+            LoadDefaultForm_883SC();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click_883SC(object sender, EventArgs e)
         {
             try
             {
                 string us;
-                TipoAccion? acc;
+                TipoAccion_883SC? acc;
                 DateTime fIni = dtpDesde.Value;
                 DateTime fFin = dtpHasta.Value.Date.AddDays(1).AddTicks(-1);
 
@@ -125,10 +125,10 @@ namespace TP_SanchezVillaverde
                 else { us = txtUsuario.Text; }
 
                 if (cmbEvento.SelectedIndex == -1) { acc = null; }
-                else { acc = (TipoAccion)cmbEvento.SelectedValue; }
+                else { acc = (TipoAccion_883SC)cmbEvento.SelectedValue; }
 
 
-                CargarDGV(bitacora.BuscarEventos(us, acc, fIni, fFin));
+                CargarDGV_883SC(bitacora_883SC.BuscarEventos_883SC(us, acc, fIni, fFin));
             }
             catch (Exception ex)
             {
