@@ -148,7 +148,7 @@ namespace TP_SanchezVillaverde
 
                 permisoBLL_883SC.AgregarFamilia_883SC(auxFamlia);
                 permisoBLL_883SC.AgregarPermisoFamilia_883SC(textBox2.Text, items);
-                bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.AltaUsuario);
+                bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.AltaUsuario, "perfil=" + textBox2.Text);
 
                 CargarArbol_883SC();
                 MostrarPermisos_883SC();
@@ -235,7 +235,7 @@ namespace TP_SanchezVillaverde
                 }
 
                 permisoBLL_883SC.ModificarFamilia_883SC(auxF, items);
-                bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.ModificacionUsuario);
+                bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.ModificacionUsuario, "perfil=" + auxF.Nombre_883SC);
 
                 CargarArbol_883SC();
                 MostrarPermisos_883SC();
@@ -363,7 +363,7 @@ namespace TP_SanchezVillaverde
                     }
 
                     permisoBLL_883SC.EliminarFamilia_883SC(new Familia_883SC(comboFamilias.SelectedItem.ToString(), false));
-                    bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.BajaUsuario);
+                    bitacoraBLL_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.BajaUsuario, "perfil=" + comboFamilias.SelectedItem.ToString());
 
                     CargarArbol_883SC();
                     MostrarPermisos_883SC();

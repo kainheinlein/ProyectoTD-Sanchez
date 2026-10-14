@@ -117,7 +117,7 @@ namespace TP_SanchezVillaverde
 
                 int importadas = gestorIdioma_883SC.AgregarIdioma_883SC(codigo, nombre, rutaArchivo);
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC,
-                    TipoAccion_883SC.AltaIdioma);
+                    TipoAccion_883SC.AltaIdioma, "idioma=" + codigo);
 
                 if (importadas > 0)
                 {
@@ -177,7 +177,7 @@ namespace TP_SanchezVillaverde
                 gestorIdioma_883SC.GuardarTraducciones_883SC(idioma.Id_883SC, cambios);
                 traducciones_883SC.AcceptChanges();
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC,
-                    TipoAccion_883SC.ModificacionIdioma);
+                    TipoAccion_883SC.ModificacionIdioma, "idioma=" + idioma.Codigo_883SC);
 
                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("IDI_MSG_GUARDADO"));
             }

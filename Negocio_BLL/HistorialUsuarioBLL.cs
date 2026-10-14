@@ -44,7 +44,7 @@ namespace Negocio_BLL
             us.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(us);
 
             mpUsuario_883SC.ActualizarUsuarioConHistorial_883SC(us, usuarioResponsable, TipoAccion_883SC.RestauracionUsuario);
-            bitacora_883SC.RegistrarBitacora_883SC(usuarioResponsable, TipoAccion_883SC.RestauracionUsuario);
+            bitacora_883SC.RegistrarBitacora_883SC(usuarioResponsable, TipoAccion_883SC.RestauracionUsuario, "usuario=" + us.user_883SC);
         }
     }
 }

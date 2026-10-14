@@ -28,7 +28,7 @@ namespace Negocio_BLL
             string usuario = SessionManager_883SC.Logged_883SC()
                 ? SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC
                 : "null";
-            bitacora_883SC.RegistrarBitacora_883SC(usuario, TipoAccion_883SC.AltaCliente);
+            bitacora_883SC.RegistrarBitacora_883SC(usuario, TipoAccion_883SC.AltaCliente, "dni=" + dni);
         }
     }
 }

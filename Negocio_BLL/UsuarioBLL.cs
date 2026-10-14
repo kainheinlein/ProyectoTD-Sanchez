@@ -44,7 +44,7 @@ namespace Negocio_BLL
                 if ((usuario_883SC.user_883SC == us.user_883SC) && (usuario_883SC.pass_883SC == us.pass_883SC))
                 {
                     AuthOK = LoginResult_883SC.SesionIniciada_883SC;
-                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.Login);
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.Login, "resultado=SesionIniciada");
                     maxIntentos_883SC = 3;
                 }
                 else { AuthOK = LoginResult_883SC.ExisteSesion_883SC; }
@@ -54,7 +54,7 @@ namespace Negocio_BLL
                 if(AuthOK != LoginResult_883SC.ExisteSesion_883SC)
                 {
                     maxIntentos_883SC--;
-                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.LoginFail);
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.LoginFail, "motivo=" + AuthOK.ToString().Replace("_883SC", ""));
                 }
             }
             if (maxIntentos_883SC == 0)
@@ -67,7 +67,7 @@ namespace Negocio_BLL
                     usuario_883SC.pass_883SC = Encriptador_883SC.EncriptarIrrev_883SC(usuario_883SC.pass_883SC);
                     usuario_883SC.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(usuario_883SC);
                     mpUsuario_883SC.ActualizarBloqueo_883SC(usuario_883SC);
-                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario);
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario, "motivo=FinIntentos");
                     integridad_883SC.ActualizarDVV_883SC();
                 }
                 AuthOK = LoginResult_883SC.FinIntentos_883SC;
@@ -104,7 +104,7 @@ namespace Negocio_BLL
                         aux.bloq_883SC = true;
                         aux.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(aux);
                         mpUsuario_883SC.ActualizarBloqueo_883SC(aux);
-                        bitacora_883SC.RegistrarBitacora_883SC(aux.user_883SC, TipoAccion_883SC.BloqueoUsuario);
+                        bitacora_883SC.RegistrarBitacora_883SC(aux.user_883SC, TipoAccion_883SC.BloqueoUsuario, "motivo=FinIntentos;origen=CambioClave");
                         return 2; //Falla Verificacion, Bloquea usuario
                     }
                     else
@@ -113,7 +113,7 @@ namespace Negocio_BLL
                         return 3;
                     }
                 }
-                bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.LoginFail);
+                bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.LoginFail, "motivo=PassIncorrecta;origen=CambioClave");
                 return 0; //Reintentar
             }
         }
@@ -135,7 +135,7 @@ namespace Negocio_BLL
             us.bloq_883SC = false;
             us.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(us);
             mpUsuario_883SC.ActualizarBloqueo_883SC(us);
-            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.DesbloqueoUsuario);
+            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.DesbloqueoUsuario, "usuario=" + us.user_883SC);
         }
 
         public void CrearUsuario_883SC(UsuarioBE_883SC us)
@@ -148,7 +148,7 @@ namespace Negocio_BLL
             us.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(us);
             mpUsuario_883SC.ActualizarUsuario_883SC(usuario_883SC);
 
-            bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.AltaUsuario);
+            bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.AltaUsuario, "usuario=" + us.user_883SC);
         }
 
         public void EliminarUs_883SC(UsuarioBE_883SC us)
@@ -156,7 +156,7 @@ namespace Negocio_BLL
             us.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(us);
             string responsable = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC;
             mpUsuario_883SC.EliminarUsuarioConHistorial_883SC(us, responsable);
-            bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.BajaUsuario);
+            bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.BajaUsuario, "usuario=" + us.user_883SC);
         }
 
         public void ActualizarUsuario_883SC(UsuarioBE_883SC us)
@@ -166,7 +166,7 @@ namespace Negocio_BLL
             {
                 string responsable = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC;
                 mpUsuario_883SC.ActualizarUsuarioConHistorial_883SC(us, responsable, TipoAccion_883SC.ModificacionUsuario);
-                bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.ModificacionUsuario);
+                bitacora_883SC.RegistrarBitacora_883SC(responsable, TipoAccion_883SC.ModificacionUsuario, "usuario=" + us.user_883SC);
             }
         }
 

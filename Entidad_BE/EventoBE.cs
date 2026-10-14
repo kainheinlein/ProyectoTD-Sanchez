@@ -40,6 +40,14 @@ namespace Entidad_BE
 			set { _fecha_883SC = value; }
 		}
 
+		private string _detalle_883SC;
+
+		public string detalle_883SC
+		{
+			get { return _detalle_883SC; }
+			set { _detalle_883SC = value; }
+		}
+
 		public EventoBE_883SC() { }
 
 		public EventoBE_883SC CrearRegistro_883SC(string[] datos)

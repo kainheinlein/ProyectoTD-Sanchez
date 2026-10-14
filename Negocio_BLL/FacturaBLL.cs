@@ -52,7 +52,7 @@ namespace Negocio_BLL
             int id = mpFactura_883SC.GuardarFactura_883SC(factura);
             factura.AsignarId_883SC(id);
 
-            bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, TipoAccion_883SC.AltaFactura);
+            bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, TipoAccion_883SC.AltaFactura, "factura=" + id);
             return factura;
         }
     }
