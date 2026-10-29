@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupService_883SC.cs" />
     <Compile Include="Bitacora_883SC.cs" />
     <Compile Include="IObservadorIdioma_883SC.cs" />
     <Compile Include="LectorTraducciones_883SC.cs" />

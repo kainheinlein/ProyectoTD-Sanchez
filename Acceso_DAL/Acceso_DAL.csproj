@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
+    <Compile Include="MP_Backup.cs" />
     <Compile Include="MP_Carrito.cs" />
     <Compile Include="MP_Cliente.cs" />
     <Compile Include="MP_Factura.cs" />

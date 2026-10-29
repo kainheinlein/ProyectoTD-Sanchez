@@ -23,43 +23,61 @@ namespace TP_SanchezVillaverde
         UsuarioBLL_883SC usuario_883SC = new UsuarioBLL_883SC();
         BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
         VerificadorIntegridadBLL_883SC IntegridadBLL_883SC = new VerificadorIntegridadBLL_883SC();
+        PerfilBLL_883SC perfilBLL_883SC = new PerfilBLL_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
 
         private void frmLogin_Load_883SC(object sender, EventArgs e)
         {
+            txtContra.boton_883SC = this.btnIniciar;
+            lblError.Text = "";
+            CargarMenuIdiomas_883SC();
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmLogin_FormClosed_883SC;
+        }
+
+        private void AbrirMenuTrasLogin_883SC()
+        {
+            bool integridadOk;
             try
             {
-                if (IntegridadBLL_883SC.VerificarIntegridad_883SC())
-                {
-                    txtContra.boton_883SC = this.btnIniciar;
-                    lblError.Text = "";
-                    CargarMenuIdiomas_883SC();
-                    gestorIdioma_883SC.Suscribir_883SC(this);
-                    this.FormClosed += frmLogin_FormClosed_883SC;
-                }
-                else
-                {
-                    using (var formRecalcular = new frmRecalcular_883SC())
-                    {
-                        if (formRecalcular.ShowDialog() == DialogResult.OK)
-                        {
-                            IntegridadBLL_883SC.RecalcularDV_883SC();
-                            if (!IntegridadBLL_883SC.VerificarIntegridad_883SC())
-                            {
-                                MessageBox.Show("No fue posible restaurar la integridad.");
-                                Application.Exit();
-                            }
-                        } else Application.Exit();
-                        MessageBox.Show("Integridad de la base de datos restaurada", "Integridad Restaurada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        lblError.Text = "";
-                    }
-                }
-
+                integridadOk = IntegridadBLL_883SC.VerificarIntegridad_883SC();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
+                SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+                return;
             }
+
+            if (!integridadOk)
+            {
+                string rol = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().rol_883SC;
+                if (!perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()))
+                {
+                    IntegridadBLL_883SC.DenegarAccesoPorIntegridad_883SC();
+                    MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("ERRORDB_MSG_SIN_PERMISOS"), gestorIdioma_883SC.Traducir_883SC("ERRORDB_TITULO"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (frmErrorDB_883SC frmError = new frmErrorDB_883SC())
+                {
+                    frmError.ShowDialog(this);
+                }
+
+                //Se decide por el estado real: un restore cierra la sesion; recalcular deja el candado en true
+                if (!SessionManager_883SC.Logged_883SC()) { return; }
+                if (!SessionManager_883SC.GetInstance_883SC.IntegridadVerificada_883SC)
+                {
+                    SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+                    return;
+                }
+            }
+
+            frmMenu_883SC frm = new frmMenu_883SC();
+            frm.Show();
+            this.Hide();
+
+            frm.FormClosing += frm_closing_883SC;
         }
 
         private void frmLogin_FormClosed_883SC(object sender, FormClosedEventArgs e)
@@ -165,11 +183,7 @@ namespace TP_SanchezVillaverde
                     LoginResult_883SC authOK = usuario_883SC.Login_883SC(user);
                     if (authOK == LoginResult_883SC.LoginOK_883SC)
                     {
-                        frmMenu_883SC frm = new frmMenu_883SC();
-                        frm.Show();
-                        this.Hide();
-
-                        frm.FormClosing += frm_closing_883SC;
+                        AbrirMenuTrasLogin_883SC();
                     }
                     else
                     {
@@ -194,11 +208,7 @@ namespace TP_SanchezVillaverde
                                 break;
                             case LoginResult_883SC.SesionIniciada_883SC:
                                 MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_SESION_INICIADA"), user.user_883SC), "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                frmMenu_883SC frm = new frmMenu_883SC();
-                                frm.Show();
-                                this.Hide();
-
-                                frm.FormClosing += frm_closing_883SC;
+                                AbrirMenuTrasLogin_883SC();
                                 break;
                             case LoginResult_883SC.ExisteSesion_883SC:
                                 if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_EXISTE_SESION"), " ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

@@ -198,7 +198,7 @@ namespace TP_SanchezVillaverde
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.AppClose);
                 if (SessionManager_883SC.Logged_883SC())
                 {
-                    verIntegridad_883SC.ActualizarDVV_883SC();
+                    verIntegridad_883SC.ActualizarDVVSiVerificado_883SC();
                 }
                 SessionManager_883SC.GetInstance_883SC.Logout_883SC();
                 Application.Exit();
@@ -259,6 +259,20 @@ namespace TP_SanchezVillaverde
         {
             frmHistorialUsuario_883SC frmhistorial = new frmHistorialUsuario_883SC();
             frmhistorial.ShowDialog();
+        }
+
+        private void backupToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsAdmin, new frmBackup_883SC());
+        }
+
+        private void restoreToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            frmRestore_883SC frmRestore = new frmRestore_883SC();
+            if (frmRestore.ShowDialog() == DialogResult.OK)
+            {
+                this.Close();
+            }
         }
 
         private void idiomasToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)

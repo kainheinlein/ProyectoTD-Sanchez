@@ -26,6 +26,11 @@ namespace Entidad_BE
         ModificacionIdioma = 16,
         RestauracionUsuario = 17,
         AltaCliente = 18,
-        AltaFactura = 19
+        AltaFactura = 19,
+        BackupRealizado = 20,
+        RestoreRealizado = 21,
+        BackupEliminado = 22,
+        AccesoBloqueadoIntegridad = 23,
+        RecalculoIntegridad = 24
     }
 }

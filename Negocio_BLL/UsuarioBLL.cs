@@ -62,13 +62,19 @@ namespace Negocio_BLL
                 usuario_883SC = mpUsuario_883SC.ExtraerUsuario_883SC(us.user_883SC);
                 if (usuario_883SC != null)
                 {
+                    //Se verifica ANTES de bloquear: el bloqueo cambia el DVH de este usuario.
+                    //Si ya estaba inconsistente se bloquea igual pero NO se refresca el DVV.
+                    bool integridadOk;
+                    try { integridadOk = integridad_883SC.VerificarIntegridad_883SC(); }
+                    catch (Exception) { integridadOk = false; }
+
                     usuario_883SC.bloq_883SC = true;
                     usuario_883SC.pass_883SC = " ";
                     usuario_883SC.pass_883SC = Encriptador_883SC.EncriptarIrrev_883SC(usuario_883SC.pass_883SC);
                     usuario_883SC.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(usuario_883SC);
                     mpUsuario_883SC.ActualizarBloqueo_883SC(usuario_883SC);
-                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario, "motivo=FinIntentos");
-                    integridad_883SC.ActualizarDVV_883SC();
+                    bitacora_883SC.RegistrarBitacora_883SC(us.user_883SC, TipoAccion_883SC.BloqueoUsuario, integridadOk ? "motivo=FinIntentos" : "motivo=FinIntentos;integridad=Inconsistente");
+                    if (integridadOk) { integridad_883SC.ActualizarDVV_883SC(); }
                 }
                 AuthOK = LoginResult_883SC.FinIntentos_883SC;
             }
@@ -123,7 +129,7 @@ namespace Negocio_BLL
             if(SessionManager_883SC.Logged_883SC())
             {
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.Logout);
-                integridad_883SC.ActualizarDVV_883SC();
+                integridad_883SC.ActualizarDVVSiVerificado_883SC();
                 SessionManager_883SC.GetInstance_883SC.Logout_883SC();
             }
         }

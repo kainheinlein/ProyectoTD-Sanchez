@@ -65,6 +65,18 @@
     <Compile Include="frmRealizarVenta.Designer.cs">
       <DependentUpon>frmRealizarVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBackup.Designer.cs">
+      <DependentUpon>frmBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRestore.Designer.cs">
+      <DependentUpon>frmRestore.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,11 +125,11 @@
     <Compile Include="frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmRecalcular.cs">
+    <Compile Include="frmErrorDB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRecalcular.Designer.cs">
-      <DependentUpon>frmRecalcular.cs</DependentUpon>
+    <Compile Include="frmErrorDB.Designer.cs">
+      <DependentUpon>frmErrorDB.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSeleccionarProducto.cs">
       <SubType>Form</SubType>
@@ -154,8 +166,8 @@
     <EmbeddedResource Include="frmModClave.resx">
       <DependentUpon>frmModClave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRecalcular.resx">
-      <DependentUpon>frmRecalcular.cs</DependentUpon>
+    <EmbeddedResource Include="frmErrorDB.resx">
+      <DependentUpon>frmErrorDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSeleccionarProducto.resx">
       <DependentUpon>frmSeleccionarProducto.cs</DependentUpon>

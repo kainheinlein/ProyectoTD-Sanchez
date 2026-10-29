@@ -25,6 +25,15 @@ namespace Acceso_DAL
             return dvh;
         }
 
+        //Solo el DVH del usuario: no toca contrasena, bloqueo ni ningun otro campo
+        public void ActualizarDVH_883SC(int codigo, string dvh)
+        {
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@Codigo", codigo);
+            param[1] = new SqlParameter("@DVH", dvh);
+            conexDB_883SC.Escribir_883SC("ActualizarDVH_SP", param);
+        }
+
         public void ActualizarDVV_883SC(string dvv, string tabla)
         {
             SqlParameter[] param = new SqlParameter[2];
