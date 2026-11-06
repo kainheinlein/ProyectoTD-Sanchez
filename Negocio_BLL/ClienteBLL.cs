@@ -11,7 +11,12 @@ namespace Negocio_BLL
 
         public ClienteBE_883SC BuscarCliente_883SC(int dni)
         {
-            return mpCliente_883SC.BuscarCliente_883SC(dni);
+            ClienteBE_883SC cliente = mpCliente_883SC.BuscarCliente_883SC(dni);
+            if (cliente != null)
+            {
+                cliente.Direccion_883SC = Encriptador_883SC.DesencriptarRev_883SC(cliente.Direccion_883SC);
+            }
+            return cliente;
         }
 
         public void CrearCliente_883SC(int dni, string nombre, string apellido, string direccion, string telefono)
@@ -20,7 +25,7 @@ namespace Negocio_BLL
             cliente.Dni_883SC = dni;
             cliente.Nombre_883SC = nombre;
             cliente.Apellido_883SC = apellido;
-            cliente.Direccion_883SC = direccion;
+            cliente.Direccion_883SC = Encriptador_883SC.EncriptarRev_883SC(direccion);
             cliente.Telefono_883SC = telefono;
 
             mpCliente_883SC.GuardarCliente_883SC(cliente);
