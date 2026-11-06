@@ -50,5 +50,19 @@ namespace Entidad_BE
             get { return _proveedor_883SC; }
             set { _proveedor_883SC = value; }
         }
+
+        //Solo lo completa ListarBajoStock_SP: proveedores activos con el producto vinculado
+        private int _cantidadProveedores_883SC;
+        public int CantidadProveedores_883SC
+        {
+            get { return _cantidadProveedores_883SC; }
+            set { _cantidadProveedores_883SC = value; }
+        }
+
+        //Calculada: lo que falta para llegar al stock minimo (0 si ya lo alcanzo)
+        public int CantidadFaltante_883SC
+        {
+            get { return _stock_883SC < _stockMinimo_883SC ? _stockMinimo_883SC - _stock_883SC : 0; }
+        }
     }
 }

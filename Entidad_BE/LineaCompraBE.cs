@@ -18,6 +18,13 @@ namespace Entidad_BE
             set { _proveedor_883SC = value; }
         }
 
+        private string _codigoProveedor_883SC;
+        public string CodigoProveedor_883SC
+        {
+            get { return _codigoProveedor_883SC; }
+            set { _codigoProveedor_883SC = value; }
+        }
+
         private int _cantidad_883SC;
         public int Cantidad_883SC
         {

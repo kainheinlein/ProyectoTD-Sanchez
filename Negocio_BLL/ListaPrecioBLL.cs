@@ -143,6 +143,88 @@ namespace Negocio_BLL
             return resumen;
         }
 
+        /// Precios de lista del producto en cada proveedor que lo tiene vinculado, de menor a mayor.
+        /// Lista vacia si ningun proveedor lo tiene.
+        public List<LineaCompraBE_883SC> CompararPrecios_883SC(ProductoBE_883SC producto)
+        {
+            if (producto == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("OC_ERR_SEL_PRODUCTO"));
+            }
+            return mpListaPrecio_883SC.ListarPreciosProducto_883SC(producto);
+        }
+
+        /// Items pendientes de vinculacion; idProveedor null = de todos los proveedores.
+        public List<ItemListaPrecioBE_883SC> ListarPendientes_883SC(int? idProveedor)
+        {
+            return mpListaPrecio_883SC.ListarPendientes_883SC(idProveedor);
+        }
+
+        /// Codigos de proveedor vinculados a un producto.
+        public List<ItemListaPrecioBE_883SC> ListarVinculados_883SC(string codigoProducto)
+        {
+            return mpListaPrecio_883SC.ListarVinculados_883SC(codigoProducto);
+        }
+
+        /// Vincula un item pendiente con un producto existente. No cambia el proveedor de referencia
+        /// ni el precio. Si el producto ya tiene un codigo de ese proveedor: ArgumentException.
+        public void Vincular_883SC(ItemListaPrecioBE_883SC item, ProductoBE_883SC producto)
+        {
+            if (item == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_ITEM"));
+            }
+            if (producto == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_PRODUCTO"));
+            }
+            foreach (ItemListaPrecioBE_883SC vinculado in mpListaPrecio_883SC.ListarVinculados_883SC(producto.Codigo_883SC))
+            {
+                if (vinculado.IdProveedor_883SC == item.IdProveedor_883SC)
+                {
+                    throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_YA_VINCULADO_PROV"));
+                }
+            }
+
+            mpListaPrecio_883SC.VincularItem_883SC(item, producto.Codigo_883SC);
+
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.VinculacionProducto,
+                "codigo=" + producto.Codigo_883SC + ";proveedor=" + item.IdProveedor_883SC + ";codigoProveedor=" + item.CodigoProveedor_883SC);
+        }
+
+        /// Desvincula un codigo de proveedor del producto (el item vuelve a quedar pendiente).
+        /// Si es el proveedor de referencia y el producto tiene otros codigos vinculados: ArgumentException.
+        public void Desvincular_883SC(ItemListaPrecioBE_883SC item, ProductoBE_883SC producto)
+        {
+            if (producto == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_PRODUCTO"));
+            }
+            if (item == null || item.Codigo_883SC != producto.Codigo_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_VINCULO"));
+            }
+            //El codigo de la referencia solo se puede soltar si es el unico vinculado (el producto queda como uno
+            //viejo sin vinculos: conserva su referencia y su precio)
+            if (item.IdProveedor_883SC == producto.Proveedor_883SC
+                && mpListaPrecio_883SC.ListarVinculados_883SC(producto.Codigo_883SC).Count > 1)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_DESVINC_REF"));
+            }
+
+            mpListaPrecio_883SC.DesvincularItem_883SC(item);
+
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.DesvinculacionProducto,
+                "codigo=" + producto.Codigo_883SC + ";proveedor=" + item.IdProveedor_883SC + ";codigoProveedor=" + item.CodigoProveedor_883SC);
+        }
+
+        private string UsuarioActual_883SC()
+        {
+            return SessionManager_883SC.Logged_883SC()
+                ? SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC
+                : "null";
+        }
+
         /// Separa las filas en validas (se agregan a <paramref name="validos"/>) y rechazadas con su motivo.
         /// Se ignoran, sin rechazarlas, las filas que no son de datos: las anteriores a la fila inicial y las
         /// que no tienen codigo y tampoco descripcion o un precio valido (titulos de seccion, separadores).

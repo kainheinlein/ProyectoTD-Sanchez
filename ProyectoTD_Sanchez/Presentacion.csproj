@@ -59,6 +59,24 @@
     <Compile Include="frmAltaProveedor.Designer.cs">
       <DependentUpon>frmAltaProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAdministrarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdministrarProductos.Designer.cs">
+      <DependentUpon>frmAdministrarProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductoDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductoDatos.Designer.cs">
+      <DependentUpon>frmProductoDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGenerarOrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGenerarOrdenesCompra.Designer.cs">
+      <DependentUpon>frmGenerarOrdenesCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmImportarListaPrecios.cs">
       <SubType>Form</SubType>
     </Compile>

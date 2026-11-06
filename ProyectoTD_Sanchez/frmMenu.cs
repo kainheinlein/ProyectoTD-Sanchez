@@ -69,8 +69,10 @@ namespace TP_SanchezVillaverde
             productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PRODUCTOS");
             tsGestion.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_GESTION");
             altaProveedorToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
+            administrarProductosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
             tsCompras.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_COMPRAS");
             importarListaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IMPORTAR_LISTA");
+            generarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_GENERAR_ORDENES");
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
@@ -159,7 +161,9 @@ namespace TP_SanchezVillaverde
             productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             proveedoresToolStripMenuItem1.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
+            administrarProductosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             importarListaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString());
+            generarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString());
         }
 
         public void FormDesconectado_883SC()
@@ -228,9 +232,19 @@ namespace TP_SanchezVillaverde
             frmAlta.ShowDialog();
         }
 
+        private void administrarProductosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsGestion, new frmAdministrarProductos_883SC());
+        }
+
         private void importarListaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             OpenForm_883SC(tsCompras, new frmImportarListaPrecios_883SC());
+        }
+
+        private void generarOrdenesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsCompras, new frmGenerarOrdenesCompra_883SC());
         }
 
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
