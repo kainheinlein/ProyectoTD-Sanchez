@@ -67,6 +67,8 @@ namespace TP_SanchezVillaverde
             clientesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_CLIENTES");
             proveedoresToolStripMenuItem1.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PROVEEDORES");
             productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PRODUCTOS");
+            tsGestion.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_GESTION");
+            altaProveedorToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
@@ -134,6 +136,7 @@ namespace TP_SanchezVillaverde
             tsAdmin.Enabled = true;
             tsReportes.Enabled = true;
             tsMaestros.Enabled = true;
+            tsGestion.Enabled = true;
             cambiarClaveToolStripMenuItem.Enabled = true;
 
             AplicarPermisos_883SC(usActual.rol_883SC);
@@ -152,6 +155,7 @@ namespace TP_SanchezVillaverde
             clientesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
             productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             proveedoresToolStripMenuItem1.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
         }
 
         public void FormDesconectado_883SC()
@@ -162,6 +166,7 @@ namespace TP_SanchezVillaverde
             tsAdmin.Visible = false;
             tsReportes.Visible = false;
             tsMaestros.Visible = false;
+            tsGestion.Visible = false;
             cambiarClaveToolStripMenuItem.Visible = false;
         }
 
@@ -210,6 +215,12 @@ namespace TP_SanchezVillaverde
         private void productosMaestro_Click_883SC(object sender, System.EventArgs e)
         {
             OpenForm_883SC(tsMaestros, new frmMaestro_883SC(TipoMaestro_883SC.Productos));
+        }
+
+        private void altaProveedorToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            frmAltaProveedor_883SC frmAlta = new frmAltaProveedor_883SC();
+            frmAlta.ShowDialog();
         }
 
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)

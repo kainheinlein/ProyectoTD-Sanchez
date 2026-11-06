@@ -1,3 +1,5 @@
+using System;
+
 namespace Entidad_BE
 {
     public class ProveedorBE_883SC
@@ -6,7 +8,11 @@ namespace Entidad_BE
         public int Id_883SC
         {
             get { return _id_883SC; }
-            set { _id_883SC = value; }
+        }
+
+        public void AsignarId_883SC(int id)
+        {
+            _id_883SC = id;
         }
 
         private string _nombre_883SC;
@@ -56,6 +62,13 @@ namespace Entidad_BE
         {
             get { return _activo_883SC; }
             set { _activo_883SC = value; }
+        }
+
+        /// Precio de venta = precio de lista * (1 + Margen/100), redondeado a 2 decimales
+        /// (los 0,5 se redondean hacia arriba, criterio comercial).
+        public decimal CalcularPrecioVenta_883SC(decimal precioLista)
+        {
+            return Math.Round(precioLista * (1 + _margen_883SC / 100m), 2, MidpointRounding.AwayFromZero);
         }
     }
 }

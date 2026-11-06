@@ -56,6 +56,8 @@
             this.tsAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsGestion = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaProveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +71,7 @@
             this.tsInicio,
             this.tsUsuario,
             this.tsVentas,
+            this.tsGestion,
             this.tsReportes,
             this.tsMaestros,
             this.tsAyuda});
@@ -221,9 +224,25 @@
             this.realizarVentaToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.realizarVentaToolStripMenuItem.Text = "Realizar Venta";
             this.realizarVentaToolStripMenuItem.Click += new System.EventHandler(this.realizarVentaToolStripMenuItem_Click_883SC);
-            // 
+            //
+            // tsGestion
+            //
+            this.tsGestion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altaProveedorToolStripMenuItem});
+            this.tsGestion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tsGestion.Name = "tsGestion";
+            this.tsGestion.Size = new System.Drawing.Size(66, 30);
+            this.tsGestion.Text = "Gestion";
+            //
+            // altaProveedorToolStripMenuItem
+            //
+            this.altaProveedorToolStripMenuItem.Name = "altaProveedorToolStripMenuItem";
+            this.altaProveedorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.altaProveedorToolStripMenuItem.Text = "Proveedores";
+            this.altaProveedorToolStripMenuItem.Click += new System.EventHandler(this.altaProveedorToolStripMenuItem_Click_883SC);
+            //
             // tsReportes
-            // 
+            //
             this.tsReportes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsReportes.Name = "tsReportes";
             this.tsReportes.Size = new System.Drawing.Size(70, 30);
@@ -346,6 +365,8 @@
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsGestion;
+        private System.Windows.Forms.ToolStripMenuItem altaProveedorToolStripMenuItem;
     }
 }
 
