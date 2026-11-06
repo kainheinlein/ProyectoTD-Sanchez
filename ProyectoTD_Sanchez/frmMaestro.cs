@@ -120,7 +120,10 @@ namespace TP_SanchezVillaverde
                 default:
                     AgregarColumna_883SC("Id_883SC", "MAESTRO_COL_ID");
                     AgregarColumna_883SC("Nombre_883SC", "COMUN_NOMBRE");
+                    AgregarColumna_883SC("Especialidad_883SC", "MAESTRO_COL_ESPECIALIDAD");
+                    AgregarColumna_883SC("Telefono_883SC", "MAESTRO_COL_TELEFONO");
                     AgregarColumna_883SC("Direccion_883SC", "MAESTRO_COL_DIRECCION");
+                    AgregarColumna_883SC("Margen_883SC", "MAESTRO_COL_MARGEN", false, "N2");
                     AgregarColumna_883SC("Observaciones_883SC", "MAESTRO_COL_OBSERVACIONES");
                     AgregarColumna_883SC("Activo_883SC", "MAESTRO_COL_ACTIVO", true);
                     break;

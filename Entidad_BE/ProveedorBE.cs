@@ -30,6 +30,27 @@ namespace Entidad_BE
             set { _observaciones_883SC = value; }
         }
 
+        private string _especialidad_883SC;
+        public string Especialidad_883SC
+        {
+            get { return _especialidad_883SC; }
+            set { _especialidad_883SC = value; }
+        }
+
+        private string _telefono_883SC;
+        public string Telefono_883SC
+        {
+            get { return _telefono_883SC; }
+            set { _telefono_883SC = value; }
+        }
+
+        private decimal _margen_883SC;
+        public decimal Margen_883SC
+        {
+            get { return _margen_883SC; }
+            set { _margen_883SC = value; }
+        }
+
         private bool _activo_883SC;
         public bool Activo_883SC
         {

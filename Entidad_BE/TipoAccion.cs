@@ -31,6 +31,17 @@ namespace Entidad_BE
         RestoreRealizado = 21,
         BackupEliminado = 22,
         AccesoBloqueadoIntegridad = 23,
-        RecalculoIntegridad = 24
+        RecalculoIntegridad = 24,
+        AltaProducto = 25,
+        ModificacionProducto = 26,
+        VinculacionProducto = 27,
+        DesvinculacionProducto = 28,
+        AltaProveedor = 29,
+        ImportacionListaPrecios = 30,
+        AltaOrdenCompra = 31,
+        AutorizacionOrdenCompra = 32,
+        RechazoOrdenCompra = 33,
+        EnvioOrdenCompra = 34,
+        RecepcionMercaderia = 35
     }
 }

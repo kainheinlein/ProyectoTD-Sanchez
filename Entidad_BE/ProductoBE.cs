@@ -37,6 +37,13 @@ namespace Entidad_BE
             set { _precio_883SC = value; }
         }
 
+        private int _stockMinimo_883SC;
+        public int StockMinimo_883SC
+        {
+            get { return _stockMinimo_883SC; }
+            set { _stockMinimo_883SC = value; }
+        }
+
         private int _proveedor_883SC;
         public int Proveedor_883SC
         {
