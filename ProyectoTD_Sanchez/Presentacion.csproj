@@ -59,6 +59,18 @@
     <Compile Include="frmRealizarCobro.Designer.cs">
       <DependentUpon>frmRealizarCobro.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMaestro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMaestro.Designer.cs">
+      <DependentUpon>frmMaestro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmComprobante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmComprobante.Designer.cs">
+      <DependentUpon>frmComprobante.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRealizarVenta.cs">
       <SubType>Form</SubType>
     </Compile>

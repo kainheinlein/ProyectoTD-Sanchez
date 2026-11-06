@@ -48,13 +48,14 @@
             this.tsVentas = new System.Windows.Forms.ToolStripMenuItem();
             this.llenarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.realizarVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsGestion = new System.Windows.Forms.ToolStripMenuItem();
-            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsReportes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMaestros = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.proveedoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsuario = new System.Windows.Forms.Label();
+            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,8 +69,8 @@
             this.tsInicio,
             this.tsUsuario,
             this.tsVentas,
-            this.tsGestion,
             this.tsReportes,
+            this.tsMaestros,
             this.tsAyuda});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -220,37 +221,6 @@
             this.realizarVentaToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.realizarVentaToolStripMenuItem.Text = "Realizar Venta";
             this.realizarVentaToolStripMenuItem.Click += new System.EventHandler(this.realizarVentaToolStripMenuItem_Click_883SC);
-            //
-            // tsGestion
-            // 
-            this.tsGestion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clienteToolStripMenuItem,
-            this.productosToolStripMenuItem,
-            this.proveedoresToolStripMenuItem});
-            this.tsGestion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.tsGestion.Name = "tsGestion";
-            this.tsGestion.Size = new System.Drawing.Size(62, 30);
-            this.tsGestion.Text = "Gestion";
-            // 
-            // clienteToolStripMenuItem
-            // 
-            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.clienteToolStripMenuItem.Text = "Cliente";
-            // 
-            // productosToolStripMenuItem
-            // 
-            //Deshabilitado hasta que exista la pantalla de Gestion de Productos
-            this.productosToolStripMenuItem.Enabled = false;
-            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.productosToolStripMenuItem.Text = "Productos";
-            //
-            // proveedoresToolStripMenuItem
-            // 
-            this.proveedoresToolStripMenuItem.Name = "proveedoresToolStripMenuItem";
-            this.proveedoresToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.proveedoresToolStripMenuItem.Text = "Proveedores";
             // 
             // tsReportes
             // 
@@ -258,6 +228,39 @@
             this.tsReportes.Name = "tsReportes";
             this.tsReportes.Size = new System.Drawing.Size(70, 30);
             this.tsReportes.Text = "Reportes";
+            // 
+            // tsMaestros
+            // 
+            this.tsMaestros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuariosToolStripMenuItem,
+            this.clientesToolStripMenuItem,
+            this.proveedoresToolStripMenuItem1,
+            this.productosToolStripMenuItem});
+            this.tsMaestros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tsMaestros.Name = "tsMaestros";
+            this.tsMaestros.Size = new System.Drawing.Size(70, 30);
+            this.tsMaestros.Text = "Maestros";
+            // 
+            // usuariosToolStripMenuItem
+            // 
+            this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
+            this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosMaestro_Click_883SC);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuariosToolStripMenuItem.Text = "Usuarios";
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesMaestro_Click_883SC);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            // 
+            // proveedoresToolStripMenuItem1
+            // 
+            this.proveedoresToolStripMenuItem1.Name = "proveedoresToolStripMenuItem1";
+            this.proveedoresToolStripMenuItem1.Click += new System.EventHandler(this.proveedoresMaestro_Click_883SC);
+            this.proveedoresToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.proveedoresToolStripMenuItem1.Text = "Proveedores";
             // 
             // tsAyuda
             // 
@@ -279,7 +282,14 @@
             this.lblUsuario.TabIndex = 3;
             this.lblUsuario.Text = "Usuario: ";
             // 
-            // frmMenu
+            // productosToolStripMenuItem
+            // 
+            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
+            this.productosToolStripMenuItem.Click += new System.EventHandler(this.productosMaestro_Click_883SC);
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productosToolStripMenuItem.Text = "Productos";
+            // 
+            // frmMenu_883SC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -295,7 +305,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "frmMenu";
+            this.Name = "frmMenu_883SC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FerreSV";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -314,7 +324,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsInicio;
         private System.Windows.Forms.ToolStripMenuItem tsUsuario;
         private System.Windows.Forms.ToolStripMenuItem tsVentas;
-        private System.Windows.Forms.ToolStripMenuItem tsGestion;
         private System.Windows.Forms.ToolStripMenuItem tsReportes;
         private System.Windows.Forms.ToolStripMenuItem tsAyuda;
         private System.Windows.Forms.ToolStripMenuItem iniciarSesionToolStripMenuItem;
@@ -331,10 +340,12 @@
         private System.Windows.Forms.ToolStripMenuItem cambiarIdiomaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem llenarCarritoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem realizarVentaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsMaestros;
+        private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
     }
 }
 

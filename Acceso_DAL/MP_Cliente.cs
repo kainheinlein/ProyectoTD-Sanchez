@@ -1,5 +1,6 @@
 using Entidad_BE;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -18,6 +19,20 @@ namespace Acceso_DAL
             if (dt.Rows.Count == 0) { return null; }
 
             return MapearFila_883SC(dt.Rows[0]);
+        }
+
+        public List<ClienteBE_883SC> ListarClientes_883SC()
+        {
+            List<ClienteBE_883SC> clientes = new List<ClienteBE_883SC>();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@tabla", "Clientes");
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("SP_ExtTabla", param);
+            foreach (DataRow dr in dt.Rows)
+            {
+                clientes.Add(MapearFila_883SC(dr));
+            }
+            return clientes;
         }
 
         public void GuardarCliente_883SC(ClienteBE_883SC cliente)

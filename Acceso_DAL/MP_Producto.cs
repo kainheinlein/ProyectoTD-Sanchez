@@ -25,6 +25,20 @@ namespace Acceso_DAL
             return productos;
         }
 
+        public List<ProductoBE_883SC> ListarProductos_883SC()
+        {
+            List<ProductoBE_883SC> productos = new List<ProductoBE_883SC>();
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@tabla", "Productos");
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("SP_ExtTabla", param);
+            foreach (DataRow dr in dt.Rows)
+            {
+                productos.Add(MapearFila_883SC(dr));
+            }
+            return productos;
+        }
+
         private ProductoBE_883SC MapearFila_883SC(DataRow dr)
         {
             ProductoBE_883SC producto = new ProductoBE_883SC();

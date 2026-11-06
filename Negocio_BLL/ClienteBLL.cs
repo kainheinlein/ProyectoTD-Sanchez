@@ -1,6 +1,7 @@
 using Acceso_DAL;
 using Entidad_BE;
 using Servicios;
+using System.Collections.Generic;
 
 namespace Negocio_BLL
 {
@@ -17,6 +18,16 @@ namespace Negocio_BLL
                 cliente.Direccion_883SC = Encriptador_883SC.DesencriptarRev_883SC(cliente.Direccion_883SC);
             }
             return cliente;
+        }
+
+        public List<ClienteBE_883SC> ListarClientes_883SC()
+        {
+            List<ClienteBE_883SC> clientes = mpCliente_883SC.ListarClientes_883SC();
+            foreach (ClienteBE_883SC cliente in clientes)
+            {
+                cliente.Direccion_883SC = Encriptador_883SC.DesencriptarRev_883SC(cliente.Direccion_883SC);
+            }
+            return clientes;
         }
 
         public void CrearCliente_883SC(int dni, string nombre, string apellido, string direccion, string telefono)

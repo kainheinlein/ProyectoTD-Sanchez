@@ -8,6 +8,11 @@ namespace Negocio_BLL
     {
         MP_Producto_883SC mpProducto_883SC = new MP_Producto_883SC();
 
+        public List<ProductoBE_883SC> ListarProductos_883SC()
+        {
+            return mpProducto_883SC.ListarProductos_883SC();
+        }
+
         public List<ProductoBE_883SC> BuscarProductos_883SC(string criterio, string dato)
         {
             return mpProducto_883SC.BuscarProductos_883SC(criterio, dato);
