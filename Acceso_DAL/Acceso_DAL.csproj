@@ -51,6 +51,7 @@
     <Compile Include="MP_HistorialUsuario.cs" />
     <Compile Include="MP_MetodoPago.cs" />
     <Compile Include="MP_Producto.cs" />
+    <Compile Include="MP_ListaPrecio.cs" />
     <Compile Include="MP_Proveedor.cs" />
     <Compile Include="MP_Usuario.cs" />
     <Compile Include="MP_VerificadorIntegridad.cs" />

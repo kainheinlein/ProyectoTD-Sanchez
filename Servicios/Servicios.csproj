@@ -45,6 +45,8 @@
     <Compile Include="BackupService_883SC.cs" />
     <Compile Include="Bitacora_883SC.cs" />
     <Compile Include="IObservadorIdioma_883SC.cs" />
+    <Compile Include="FilaCSV_883SC.cs" />
+    <Compile Include="LectorCSV_883SC.cs" />
     <Compile Include="LectorTraducciones_883SC.cs" />
     <Compile Include="VerificadorIntegridad_883SC.cs" />
     <Compile Include="Encriptador_883SC.cs" />

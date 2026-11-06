@@ -59,6 +59,12 @@
     <Compile Include="frmAltaProveedor.Designer.cs">
       <DependentUpon>frmAltaProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmImportarListaPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportarListaPrecios.Designer.cs">
+      <DependentUpon>frmImportarListaPrecios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRealizarCobro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHistorialUsuario.resx">
       <DependentUpon>frmHistorialUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImportarListaPrecios.resx">
+      <DependentUpon>frmImportarListaPrecios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
