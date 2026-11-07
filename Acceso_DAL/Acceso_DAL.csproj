@@ -56,10 +56,21 @@
     <Compile Include="OrdenEstadoCambiadoException.cs" />
     <Compile Include="OrdenNoPendienteException.cs" />
     <Compile Include="MP_Proveedor.cs" />
+    <Compile Include="MP_Instalacion.cs" />
     <Compile Include="MP_Usuario.cs" />
     <Compile Include="MP_VerificadorIntegridad.cs" />
     <Compile Include="PerfilDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\BaseDeDatos\Instalacion\01_Esquema.sql">
+      <Link>Instalacion\01_Esquema.sql</Link>
+      <LogicalName>Acceso_DAL.Instalacion.01_Esquema.sql</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\BaseDeDatos\Instalacion\02_DatosBase.sql">
+      <Link>Instalacion\02_DatosBase.sql</Link>
+      <LogicalName>Acceso_DAL.Instalacion.02_DatosBase.sql</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidad_BE\Entidad_BE.csproj">
@@ -72,4 +83,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

@@ -35,6 +35,18 @@ namespace Servicios
             }
         }
 
+        //Servidor que figura en el config (no dispara ninguna conexion)
+        public static string ObtenerInstanciaConfigurada_883SC()
+        {
+            return LeerConfig_883SC().DataSource;
+        }
+
+        //Servidor que termino usando la aplicacion (puede ser una alternativa si la del config no respondio)
+        public static string ObtenerInstanciaUsada_883SC()
+        {
+            return new SqlConnectionStringBuilder(ObtenerCadena_883SC()).DataSource;
+        }
+
         //Misma cadena (mismo servidor) pero apuntando a master, para crear FerreDB
         public static string ObtenerCadenaMaster_883SC()
         {

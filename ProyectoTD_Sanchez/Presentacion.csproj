@@ -65,6 +65,12 @@
     <Compile Include="frmVerXML.Designer.cs">
       <DependentUpon>frmVerXML.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConectando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConectando.Designer.cs">
+      <DependentUpon>frmConectando.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAltaProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,4 +308,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

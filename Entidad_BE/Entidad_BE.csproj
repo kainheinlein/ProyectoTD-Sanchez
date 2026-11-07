@@ -68,6 +68,7 @@
     <Compile Include="FilaRechazadaBE.cs" />
     <Compile Include="MapeoListaBE.cs" />
     <Compile Include="ResumenImportacionBE.cs" />
+    <Compile Include="ResultadoInicializacionBE.cs" />
     <Compile Include="ProveedorBE.cs" />
     <Compile Include="TipoAccion.cs" />
     <Compile Include="TipoPermiso.cs" />
@@ -75,4 +76,4 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

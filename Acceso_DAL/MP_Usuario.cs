@@ -35,6 +35,7 @@ namespace Acceso_DAL
                 us.estado_883SC = Convert.ToBoolean(dr[10].ToString());
                 us.bloq_883SC = Convert.ToBoolean(dr[11].ToString());
                 us.dvh_883SC = dr[12].ToString();
+                us.primer_883SC = Convert.ToBoolean(dr[13].ToString());
                 usuarios.Add(us);
             }
             return usuarios;
@@ -51,18 +52,19 @@ namespace Acceso_DAL
 
         public void ActualizarBloqueo_883SC(UsuarioBE_883SC us)
         {
-            SqlParameter[] parametros = new SqlParameter[4];
+            SqlParameter[] parametros = new SqlParameter[5];
             parametros[0] = new SqlParameter("@Usuario", us.user_883SC);
             parametros[1] = new SqlParameter("@pass", us.pass_883SC);
             parametros[2] = new SqlParameter("@Bloqueado", us.bloq_883SC);
             parametros[3] = new SqlParameter("@DVH", us.dvh_883SC);
+            parametros[4] = new SqlParameter("@PrimerInicio", us.primer_883SC);
 
             conexDB_883SC.Escribir_883SC("SP_ActualizarBloqueado", parametros);
         }
 
         public int CrearUsuarioConHistorial_883SC(UsuarioBE_883SC us, string usuarioResponsable)
         {
-            SqlParameter[] parametros = new SqlParameter[12];
+            SqlParameter[] parametros = new SqlParameter[13];
             parametros[0] = new SqlParameter("@DNI", us.dni_883SC);
             parametros[1] = new SqlParameter("@Nombre", us.nomb_883SC);
             parametros[2] = new SqlParameter("@Apellido", us.ape_883SC);
@@ -75,6 +77,7 @@ namespace Acceso_DAL
             parametros[9] = new SqlParameter("@Activo", us.estado_883SC);
             parametros[10] = new SqlParameter("@Bloqueado", us.bloq_883SC);
             parametros[11] = new SqlParameter("@UsuarioResponsable", usuarioResponsable);
+            parametros[12] = new SqlParameter("@PrimerInicio", us.primer_883SC);
 
             return Convert.ToInt32(conexDB_883SC.EscribirRetornar_883SC("SP_CrearUsuario", parametros));
         }
@@ -110,10 +113,11 @@ namespace Acceso_DAL
 
         public void CambiarPass_883SC(UsuarioBE_883SC us)
         {
-            SqlParameter[] parametros = new SqlParameter[3];
+            SqlParameter[] parametros = new SqlParameter[4];
             parametros[0] = new SqlParameter("@Usuario", us.user_883SC);
             parametros[1] = new SqlParameter("@pass", us.pass_883SC);
             parametros[2] = new SqlParameter("@DVH", us.dvh_883SC);
+            parametros[3] = new SqlParameter("@PrimerInicio", us.primer_883SC);
 
             conexDB_883SC.Escribir_883SC("SP_CambiarPass", parametros);
         }
@@ -139,6 +143,7 @@ namespace Acceso_DAL
                 aux.estado_883SC = Convert.ToBoolean(dt.Rows[0][10].ToString());
                 aux.bloq_883SC = Convert.ToBoolean(dt.Rows[0][11].ToString());
                 aux.dvh_883SC = dt.Rows[0][12].ToString();
+                aux.primer_883SC = Convert.ToBoolean(dt.Rows[0][13].ToString());
                 return aux;
             }
             else return null;

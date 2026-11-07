@@ -45,6 +45,7 @@
     <Compile Include="BackupService_883SC.cs" />
     <Compile Include="ConexionConfig_883SC.cs" />
     <Compile Include="ConexionNoDisponibleException_883SC.cs" />
+    <Compile Include="InicializacionException_883SC.cs" />
     <Compile Include="Bitacora_883SC.cs" />
     <Compile Include="IObservadorIdioma_883SC.cs" />
     <Compile Include="FilaCSV_883SC.cs" />
@@ -63,4 +64,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

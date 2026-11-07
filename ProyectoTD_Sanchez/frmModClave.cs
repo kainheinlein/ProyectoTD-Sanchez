@@ -24,12 +24,38 @@ namespace TP_SanchezVillaverde
             this.FormClosed += frmModClave_FormClosed_883SC;
         }
 
+        //Modo primer inicio: el llamador (frmLogin) lo abre con ShowDialog. No pide la clave actual
+        //(el usuario acaba de autenticarse), no se puede cancelar y devuelve DialogResult.OK solo si la clave se guardo.
+        //Si se cierra de otra forma (Alt+F4) o hay un error, el llamador cierra la sesion.
+        public frmModClave_883SC(bool primerInicio) : this()
+        {
+            primerInicio_883SC = primerInicio;
+            if (primerInicio_883SC) { ConfigurarPrimerInicio_883SC(); }
+        }
+
+        private void ConfigurarPrimerInicio_883SC()
+        {
+            lblActual.Visible = false;
+            txtActual.Visible = false;
+            btnLogin.Visible = false;
+            lblNuevo.Visible = true;
+            txtClave.Visible = true;
+            lblRep.Visible = true;
+            txtClaveRep.Visible = true;
+            btnAceptar.Visible = true;
+            btnCancel.Visible = false;
+            this.ControlBox = false;
+            lblInstrucciones.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_PRIMER_INICIO");
+            this.ActiveControl = txtClave;
+        }
+
         UsuarioBLL_883SC usuario_883SC = new UsuarioBLL_883SC();
         BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
         UsuarioBE_883SC us_883SC = new UsuarioBE_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
         int verif_883SC = 0;
         string patron_883SC = "^[A-Za-z0-9]+$";
+        bool primerInicio_883SC = false;
 
         #region Patron Observer - Idiomas
 
@@ -44,7 +70,7 @@ namespace TP_SanchezVillaverde
             btnCancel.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_CANCELAR");
             if (lblInstrucciones.Text != "")
             {
-                lblInstrucciones.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_INSTRUCCIONES");
+                lblInstrucciones.Text = gestorIdioma_883SC.Traducir_883SC(primerInicio_883SC ? "CLAVE_MSG_PRIMER_INICIO" : "CLAVE_MSG_INSTRUCCIONES");
             }
         }
 
@@ -179,12 +205,12 @@ namespace TP_SanchezVillaverde
                         if (verif_883SC == 1)
                         {
                             LimpiaClave_883SC();
-                            gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_IGUAL_ANTERIOR");
+                            lblError.Text = gestorIdioma_883SC.Traducir_883SC("CLAVE_ERR_IGUAL_ANTERIOR");
                         }
                         else
                         {
                             MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CLAVE_MSG_OK"), gestorIdioma_883SC.Traducir_883SC("CLAVE_TIT_OK"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                            this.DialogResult = DialogResult.OK;//Cierra el dialogo; el llamador distingue "guardada" de "cerrada"
                         }
                     }
                     catch (Exception ex)

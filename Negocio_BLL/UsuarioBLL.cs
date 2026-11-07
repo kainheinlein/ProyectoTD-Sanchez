@@ -94,11 +94,14 @@ namespace Negocio_BLL
                 if (tipo == 1)//Verificar Nueva
                 {
                     UsuarioBE_883SC aux = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+                    bool eraPrimerInicio = aux.primer_883SC;
                     aux.pass_883SC = encPass;
+                    aux.primer_883SC = false;//Antes del DVH: la bandera forma parte del digito
                     aux.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(aux);
                     mpUsuario_883SC.CambiarPass_883SC(aux);
                     maxIntentos_883SC = 3;
-                    bitacora_883SC.RegistrarBitacora_883SC(aux.user_883SC, TipoAccion_883SC.CambioClave);
+                    if (eraPrimerInicio) { bitacora_883SC.RegistrarBitacora_883SC(aux.user_883SC, TipoAccion_883SC.CambioClave, "origen=PrimerInicio"); }
+                    else { bitacora_883SC.RegistrarBitacora_883SC(aux.user_883SC, TipoAccion_883SC.CambioClave); }
                     return 2;//Cambio de pass ok
                 }
                 maxIntentos_883SC--;
@@ -139,6 +142,7 @@ namespace Negocio_BLL
             usuario_883SC = us;
             us.pass_883SC = Encriptador_883SC.EncriptarIrrev_883SC(GenerarPass_883SC(us.ape_883SC, us.dni_883SC.ToString()));
             us.bloq_883SC = false;
+            us.primer_883SC = true;//La clave por defecto obliga a cambiarla; antes del DVH
             us.dvh_883SC = VerificadorIntegridad_883SC.CalcularDVH_883SC(us);
             mpUsuario_883SC.ActualizarBloqueo_883SC(us);
             bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.DesbloqueoUsuario, "usuario=" + us.user_883SC);
@@ -148,6 +152,7 @@ namespace Negocio_BLL
         {
             usuario_883SC = us;
             us.pass_883SC = Encriptador_883SC.EncriptarIrrev_883SC(us.pass_883SC);
+            us.primer_883SC = true;//Antes de persistir y de calcular el DVH
             string responsable = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC;
 
             us.cod_883SC = mpUsuario_883SC.CrearUsuarioConHistorial_883SC(us, responsable);

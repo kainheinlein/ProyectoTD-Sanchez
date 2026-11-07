@@ -73,6 +73,27 @@ namespace TP_SanchezVillaverde
                 }
             }
 
+            //Primer inicio: se pide DESPUES de la integridad. El DVV solo se refresca en el logout si la integridad
+            //fue verificada; cambiar la clave antes dejaria un DVH nuevo contra un DVV viejo (falso positivo).
+            if (SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().primer_883SC)
+            {
+                bool claveCambiada;
+                using (frmModClave_883SC frmClave = new frmModClave_883SC(true))
+                {
+                    claveCambiada = frmClave.ShowDialog(this) == DialogResult.OK;
+                }
+                if (!claveCambiada)
+                {
+                    //Cerrado sin guardar (Alt+F4) o con error: no se entra al menu
+                    try { usuario_883SC.Logout_883SC(); }
+                    finally
+                    {
+                        if (SessionManager_883SC.Logged_883SC()) { SessionManager_883SC.GetInstance_883SC.Logout_883SC(); }
+                    }
+                    return;
+                }
+            }
+
             frmMenu_883SC frm = new frmMenu_883SC();
             frm.Show();
             this.Hide();
