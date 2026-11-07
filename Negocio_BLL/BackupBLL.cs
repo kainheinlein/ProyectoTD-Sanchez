@@ -38,6 +38,43 @@ namespace Negocio_BLL
             return SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC;
         }
 
+        //Mensaje comprensible para un fallo de backup con causa conocida (permisos, ruta, disco). No es un booleano de error:
+        //la excepcion original viaja como InnerException.
+        private InvalidOperationException Traducir_883SC(BackupException_883SC ex)
+        {
+            //La ruta puede ser de un archivo .bak o ya de la carpeta (ListarBak): se muestra siempre la carpeta
+            string carpeta = string.Equals(Path.GetExtension(ex.Ruta_883SC), ".bak", StringComparison.OrdinalIgnoreCase)
+                ? Path.GetDirectoryName(ex.Ruta_883SC)
+                : ex.Ruta_883SC;
+            string mensaje;
+            switch (ex.Motivo_883SC)
+            {
+                case MotivoBackup_883SC.SqlSinAcceso:
+                    mensaje = string.Format(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_SQL_ACCESO"), carpeta);
+                    break;
+                case MotivoBackup_883SC.SqlRutaInexistente:
+                    mensaje = string.Format(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_SQL_RUTA"), carpeta);
+                    break;
+                case MotivoBackup_883SC.SqlDiscoLleno:
+                    mensaje = string.Format(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_SQL_DISCO"), carpeta);
+                    break;
+                case MotivoBackup_883SC.ClienteSinPermiso:
+                    mensaje = string.Format(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_SIN_LECTURA"), carpeta);
+                    break;
+                default:
+                    mensaje = gestorIdioma_883SC.Traducir_883SC("BKP_ERR_SQL_OTRO") + Environment.NewLine + ex.Detalle_883SC;
+                    break;
+            }
+            return new InvalidOperationException(mensaje, ex);
+        }
+
+        //Para anteponer a BKP_ERR_VERIFICACION: el texto traducido si la causa es conocida, el de la excepcion si no
+        private string MensajeDe_883SC(Exception ex)
+        {
+            BackupException_883SC conocida = ex as BackupException_883SC;
+            return conocida == null ? ex.Message : Traducir_883SC(conocida).Message;
+        }
+
         public BackupBE_883SC RealizarBackup_883SC()
         {
             string usuario = UsuarioActual_883SC();
@@ -51,6 +88,11 @@ namespace Negocio_BLL
             {
                 tamanio = Servicio_883SC.EjecutarBackup_883SC(ruta);
             }
+            catch (BackupException_883SC ex)
+            {
+                BorrarSiExiste_883SC(ruta);
+                throw Traducir_883SC(ex);
+            }
             catch
             {
                 BorrarSiExiste_883SC(ruta);//Por si quedo un archivo a medio escribir
@@ -63,7 +105,7 @@ namespace Negocio_BLL
             catch (Exception ex)
             {
                 BorrarSiExiste_883SC(ruta);
-                throw new InvalidOperationException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_VERIFICACION") + ex.Message, ex);
+                throw new InvalidOperationException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_VERIFICACION") + MensajeDe_883SC(ex), ex);
             }
 
             BackupBE_883SC backup = new BackupBE_883SC();
@@ -85,20 +127,27 @@ namespace Negocio_BLL
             BackupBE_883SC backup = mpBackup_883SC.Obtener_883SC(id);
             string ruta = backup.RutaCompleta_883SC;
 
-            if (!Servicio_883SC.Existe_883SC(ruta))
-            {
-                throw new FileNotFoundException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_ARCHIVO_NO_EXISTE") + backup.NombreArchivo_883SC);
-            }
             try
             {
-                Servicio_883SC.VerificarArchivo_883SC(ruta);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_VERIFICACION") + ex.Message, ex);
-            }
+                if (!Servicio_883SC.Existe_883SC(ruta))
+                {
+                    throw new FileNotFoundException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_ARCHIVO_NO_EXISTE") + backup.NombreArchivo_883SC);
+                }
+                try
+                {
+                    Servicio_883SC.VerificarArchivo_883SC(ruta);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException(gestorIdioma_883SC.Traducir_883SC("BKP_ERR_VERIFICACION") + MensajeDe_883SC(ex), ex);
+                }
 
-            Servicio_883SC.Restaurar_883SC(ruta);
+                Servicio_883SC.Restaurar_883SC(ruta);
+            }
+            catch (BackupException_883SC ex)
+            {
+                throw Traducir_883SC(ex);
+            }
 
             //Las traducciones de la base restaurada pueden ser otras. Es de mejor esfuerzo:
             //si falla se conservan los textos cargados y el restore igual se informa.
@@ -125,7 +174,14 @@ namespace Negocio_BLL
             string usuario = UsuarioActual_883SC();
             BackupBE_883SC backup = mpBackup_883SC.Obtener_883SC(id);
 
-            Servicio_883SC.Borrar_883SC(backup.RutaCompleta_883SC);
+            try
+            {
+                Servicio_883SC.Borrar_883SC(backup.RutaCompleta_883SC);
+            }
+            catch (BackupException_883SC ex)
+            {
+                throw Traducir_883SC(ex);//El registro del catalogo se conserva: el archivo no se pudo borrar
+            }
             mpBackup_883SC.Eliminar_883SC(id);
 
             bitacora_883SC.RegistrarBitacora_883SC(usuario, TipoAccion_883SC.BackupEliminado, "archivo=" + backup.NombreArchivo_883SC);
@@ -138,17 +194,25 @@ namespace Negocio_BLL
             List<BackupBE_883SC> catalogo = mpBackup_883SC.Listar_883SC();
             string carpeta = Servicio_883SC.ObtenerCarpetaBackup_883SC();
 
-            faltantes = catalogo
-                .Where(b => !Servicio_883SC.Existe_883SC(b.RutaCompleta_883SC))
-                .Select(b => b.NombreArchivo_883SC)
-                .ToList();
+            //Si el usuario de Windows no puede acceder a la carpeta, no se informa "faltante" (no se sabe): se lanza la excepcion
+            try
+            {
+                faltantes = catalogo
+                    .Where(b => !Servicio_883SC.Existe_883SC(b.RutaCompleta_883SC))
+                    .Select(b => b.NombreArchivo_883SC)
+                    .ToList();
 
-            HashSet<string> registrados = new HashSet<string>(
-                catalogo.Select(b => b.NombreArchivo_883SC), StringComparer.OrdinalIgnoreCase);
-            huerfanos = Servicio_883SC.ListarBak_883SC(carpeta)
-                .Select(f => Path.GetFileName(f))
-                .Where(n => !registrados.Contains(n))
-                .ToList();
+                HashSet<string> registrados = new HashSet<string>(
+                    catalogo.Select(b => b.NombreArchivo_883SC), StringComparer.OrdinalIgnoreCase);
+                huerfanos = Servicio_883SC.ListarBak_883SC(carpeta)
+                    .Select(f => Path.GetFileName(f))
+                    .Where(n => !registrados.Contains(n))
+                    .ToList();
+            }
+            catch (BackupException_883SC ex)
+            {
+                throw Traducir_883SC(ex);
+            }
         }
 
         private void BorrarSiExiste_883SC(string ruta)

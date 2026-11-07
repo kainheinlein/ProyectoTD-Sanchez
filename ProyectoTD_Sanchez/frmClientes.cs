@@ -13,6 +13,8 @@ namespace TP_SanchezVillaverde
         public frmClientes_883SC()
         {
             InitializeComponent();
+            //Carpeta propuesta para el XML: Documentos del usuario (escribible en una PC compartida)
+            txtSerCarpeta.Text = RutasUsuario_883SC.CarpetaDocumentos_883SC();
         }
 
         ClienteBLL_883SC clienteBLL_883SC = new ClienteBLL_883SC();
@@ -451,6 +453,7 @@ namespace TP_SanchezVillaverde
             using (FolderBrowserDialog dialogo = new FolderBrowserDialog())
             {
                 dialogo.Description = Traducir_883SC("CLI_SER_DLG_CARPETA");
+                dialogo.SelectedPath = txtSerCarpeta.Text != "" ? txtSerCarpeta.Text : RutasUsuario_883SC.CarpetaDocumentos_883SC();
                 if (dialogo.ShowDialog() != DialogResult.OK) { return; }
                 txtSerCarpeta.Text = dialogo.SelectedPath;
             }

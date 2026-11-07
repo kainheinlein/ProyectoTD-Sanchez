@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Servicios
 {
@@ -29,6 +30,16 @@ namespace Servicios
             return "[" + nombre.Replace("]", "]]") + "]";
         }
 
+        //3201: no se pudo abrir el dispositivo de backup (generico: la causa esta en el codigo de SO del texto).
+        //18204: mismo caso, informado por el motor de backup.
+        private static readonly int[] ErroresDispositivo_883SC = { 3201, 18204 };
+        //Ultimo "<numero>(" del mensaje: el texto de SQL Server es "... Operating system error 5(Access is denied.)" y su
+        //version localizada ("Error de sistema operativo 5(Acceso denegado.)"). La ruta va antes, por eso se toma el ultimo.
+        private static readonly Regex CodigoSO_883SC = new Regex(@"(\d+)\(", RegexOptions.RightToLeft);
+        private const int SOAccesoDenegado_883SC = 5;
+        private const int SORutaInexistente_883SC = 3;
+        private const int SODiscoLleno_883SC = 112;
+
         private static void Ejecutar_883SC(SqlConnection conexion, string sql, string ruta)
         {
             using (SqlCommand cmd = new SqlCommand(sql, conexion))
@@ -38,8 +49,38 @@ namespace Servicios
                 {
                     cmd.Parameters.AddWithValue("@ruta", ruta);
                 }
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex) when (ruta != null)
+                {
+                    BackupException_883SC conocida = Clasificar_883SC(ex, ruta);
+                    if (conocida == null) { throw; }
+                    throw conocida;
+                }
             }
+        }
+
+        //Devuelve null si el SqlException no es de "no se pudo abrir el dispositivo": ese error sube sin cambios.
+        private static BackupException_883SC Clasificar_883SC(SqlException ex, string ruta)
+        {
+            SqlError error = null;
+            foreach (SqlError e in ex.Errors)
+            {
+                if (Array.IndexOf(ErroresDispositivo_883SC, e.Number) >= 0) { error = e; break; }
+            }
+            if (error == null) { return null; }
+
+            string detalle = string.Join(Environment.NewLine, ex.Errors.Cast<SqlError>().Select(e => e.Message));
+            Match m = CodigoSO_883SC.Match(error.Message);
+            int codigo = m.Success ? int.Parse(m.Groups[1].Value) : -1;
+
+            MotivoBackup_883SC motivo = MotivoBackup_883SC.SqlOtro;
+            if (codigo == SOAccesoDenegado_883SC) { motivo = MotivoBackup_883SC.SqlSinAcceso; }
+            else if (codigo == SORutaInexistente_883SC) { motivo = MotivoBackup_883SC.SqlRutaInexistente; }
+            else if (codigo == SODiscoLleno_883SC) { motivo = MotivoBackup_883SC.SqlDiscoLleno; }
+            return new BackupException_883SC(motivo, ruta, detalle, ex);
         }
 
         //Devuelve el tamano del archivo generado (FileInfo.Length).
@@ -123,21 +164,47 @@ namespace Servicios
             }
         }
 
+        //File.Exists devuelve false tambien cuando el usuario no tiene permiso: eso se leeria como "el archivo no existe".
+        //File.GetAttributes distingue: archivo/carpeta inexistente -> false; sin permiso -> BackupException (no se pudo comprobar).
         public bool Existe_883SC(string ruta)
         {
-            return File.Exists(ruta);
+            try
+            {
+                File.GetAttributes(ruta);
+                return true;
+            }
+            catch (FileNotFoundException) { return false; }
+            catch (DirectoryNotFoundException) { return false; }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new BackupException_883SC(MotivoBackup_883SC.ClienteSinPermiso, ruta, "", ex);
+            }
         }
 
         public void Borrar_883SC(string ruta)
         {
-            File.Delete(ruta);
+            try
+            {
+                File.Delete(ruta);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new BackupException_883SC(MotivoBackup_883SC.ClienteSinPermiso, ruta, "", ex);
+            }
         }
 
         public IEnumerable<string> ListarBak_883SC(string carpeta)
         {
-            return Directory.GetFiles(carpeta, "*.bak")
-                .Where(f => f.EndsWith(".bak", StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            try
+            {
+                return Directory.GetFiles(carpeta, "*.bak")
+                    .Where(f => f.EndsWith(".bak", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new BackupException_883SC(MotivoBackup_883SC.ClienteSinPermiso, carpeta, "", ex);
+            }
         }
     }
 }

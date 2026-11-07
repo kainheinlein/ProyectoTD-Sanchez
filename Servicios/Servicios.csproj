@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupException_883SC.cs" />
     <Compile Include="BackupService_883SC.cs" />
+    <Compile Include="RutasUsuario_883SC.cs" />
     <Compile Include="ConexionConfig_883SC.cs" />
     <Compile Include="ConexionNoDisponibleException_883SC.cs" />
     <Compile Include="InicializacionException_883SC.cs" />
