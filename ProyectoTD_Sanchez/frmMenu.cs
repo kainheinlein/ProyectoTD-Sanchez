@@ -217,7 +217,7 @@ namespace TP_SanchezVillaverde
 
         private void clientesMaestro_Click_883SC(object sender, System.EventArgs e)
         {
-            OpenForm_883SC(tsMaestros, new frmMaestro_883SC(TipoMaestro_883SC.Clientes));
+            OpenForm_883SC(tsMaestros, new frmClientes_883SC());
         }
 
         private void proveedoresMaestro_Click_883SC(object sender, System.EventArgs e)

@@ -53,6 +53,18 @@
     <Compile Include="frmAltaClienteRapida.Designer.cs">
       <DependentUpon>frmAltaClienteRapida.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmClientes.Designer.cs">
+      <DependentUpon>frmClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVerXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVerXML.Designer.cs">
+      <DependentUpon>frmVerXML.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAltaProveedor.cs">
       <SubType>Form</SubType>
     </Compile>

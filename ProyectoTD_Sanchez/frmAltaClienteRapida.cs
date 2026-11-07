@@ -69,9 +69,14 @@ namespace TP_SanchezVillaverde
                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("CLI_ALTA_MSG_OK"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
             }
+            catch (ArgumentException ex)
+            {
+                //Validacion de la BLL (DNI repetido o dado de baja, formato): la pantalla queda abierta para corregir
+                MessageBox.Show(ex.Message, gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
             catch (Exception ex)
             {
-                //DNI duplicado o error de base: la pantalla queda abierta para corregir
+                //Error de base: la pantalla queda abierta para corregir
                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

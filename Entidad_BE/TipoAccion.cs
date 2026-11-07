@@ -42,6 +42,11 @@ namespace Entidad_BE
         AutorizacionOrdenCompra = 32,
         RechazoOrdenCompra = 33,
         EnvioOrdenCompra = 34,
-        RecepcionMercaderia = 35
+        RecepcionMercaderia = 35,
+        ModificacionCliente = 36,
+        BajaCliente = 37,
+        ReactivacionCliente = 38,
+        SerializacionClientes = 39,
+        DeserializacionClientes = 40
     }
 }
