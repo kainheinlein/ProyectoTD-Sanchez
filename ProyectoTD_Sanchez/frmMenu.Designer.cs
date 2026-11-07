@@ -63,6 +63,7 @@
             this.importarListaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autorizarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarRecepcionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -260,7 +261,8 @@
             this.tsCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importarListaToolStripMenuItem,
             this.generarOrdenesToolStripMenuItem,
-            this.autorizarOrdenesToolStripMenuItem});
+            this.autorizarOrdenesToolStripMenuItem,
+            this.registrarRecepcionToolStripMenuItem});
             this.tsCompras.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsCompras.Name = "tsCompras";
             this.tsCompras.Size = new System.Drawing.Size(72, 30);
@@ -286,6 +288,13 @@
             this.autorizarOrdenesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autorizarOrdenesToolStripMenuItem.Text = "Autorizar Ordenes de Compra";
             this.autorizarOrdenesToolStripMenuItem.Click += new System.EventHandler(this.autorizarOrdenesToolStripMenuItem_Click_883SC);
+            //
+            // registrarRecepcionToolStripMenuItem
+            //
+            this.registrarRecepcionToolStripMenuItem.Name = "registrarRecepcionToolStripMenuItem";
+            this.registrarRecepcionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registrarRecepcionToolStripMenuItem.Text = "Registrar Recepcion";
+            this.registrarRecepcionToolStripMenuItem.Click += new System.EventHandler(this.registrarRecepcionToolStripMenuItem_Click_883SC);
             //
             // tsReportes
             //
@@ -418,6 +427,7 @@
         private System.Windows.Forms.ToolStripMenuItem importarListaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarOrdenesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autorizarOrdenesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarRecepcionToolStripMenuItem;
     }
 }
 

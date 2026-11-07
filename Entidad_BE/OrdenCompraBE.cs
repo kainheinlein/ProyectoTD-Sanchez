@@ -101,6 +101,16 @@ namespace Entidad_BE
             }
         }
 
+        //Calculada: true si alguna linea recibida es menor a la pedida (false mientras no se registre la recepcion)
+        public bool TieneDiferencias_883SC
+        {
+            get
+            {
+                if (_detalle_883SC == null) { return false; }
+                return _detalle_883SC.Any(d => d.CantidadRecibida_883SC.HasValue && d.CantidadRecibida_883SC.Value < d.Cantidad_883SC);
+            }
+        }
+
         public void AsignarId_883SC(int id)
         {
             _idOrdenCompra_883SC = id;

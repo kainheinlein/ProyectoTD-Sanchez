@@ -228,6 +228,87 @@ namespace Negocio_BLL
                 "orden=" + orden.IdOrdenCompra_883SC + ";proveedor=" + orden.Proveedor_883SC.Id_883SC);
         }
 
+        /// Autorizada -> EnEjecucion. Orden nula: REC_ERR_SEL_ORDEN. Orden que no esta Autorizada (la de la
+        /// pantalla o la que encuentra el SP): ArgumentException. Error de base de datos: sube sin tratar.
+        public void Enviar_883SC(OrdenCompraBE_883SC orden)
+        {
+            if (orden == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_SEL_ORDEN"));
+            }
+            ValidarTransicion_883SC(orden.Estado_883SC, EstadoOrdenCompra_883SC.EnEjecucion);
+
+            UsuarioBE_883SC usuario = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+            try
+            {
+                mpOrdenCompra_883SC.Enviar_883SC(orden.IdOrdenCompra_883SC);
+            }
+            catch (OrdenEstadoCambiadoException_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_ESTADO"));
+            }
+
+            orden.Estado_883SC = EstadoOrdenCompra_883SC.EnEjecucion;
+            orden.FechaEnvio_883SC = DateTime.Now;
+
+            bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, TipoAccion_883SC.EnvioOrdenCompra,
+                "orden=" + orden.IdOrdenCompra_883SC + ";proveedor=" + orden.Proveedor_883SC.Id_883SC);
+        }
+
+        /// EnEjecucion -> Recibida. recibidas: codigo de producto -> cantidad recibida; debe tener una
+        /// entrada por cada linea de la orden, entre 0 y la cantidad pedida (no se acepta recibir de mas).
+        /// Observaciones opcionales (vacias = NULL, maximo 500). Una sola operacion en la base: guarda las cantidades,
+        /// suma al stock lo recibido y cierra la orden. Error de base de datos: sube sin tratar y no se modifica nada.
+        public void RegistrarRecepcion_883SC(OrdenCompraBE_883SC orden, Dictionary<string, int> recibidas, string observaciones)
+        {
+            if (orden == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_SEL_ORDEN"));
+            }
+            ValidarTransicion_883SC(orden.Estado_883SC, EstadoOrdenCompra_883SC.Recibida);
+
+            if (recibidas == null || recibidas.Count != orden.Detalle_883SC.Count)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_CANTIDAD"));
+            }
+            foreach (DetalleOrdenCompraBE_883SC d in orden.Detalle_883SC)
+            {
+                int cantidad;
+                if (!recibidas.TryGetValue(d.Producto_883SC.Codigo_883SC, out cantidad) || cantidad < 0 || cantidad > d.Cantidad_883SC)
+                {
+                    throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_CANTIDAD"));
+                }
+            }
+
+            string obs = string.IsNullOrWhiteSpace(observaciones) ? null : observaciones.Trim();
+            if (obs != null && obs.Length > MAX_OBSERVACIONES)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_OBS_LARGO"));
+            }
+
+            UsuarioBE_883SC usuario = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+            try
+            {
+                mpOrdenCompra_883SC.RegistrarRecepcion_883SC(orden.IdOrdenCompra_883SC, recibidas, obs);
+            }
+            catch (OrdenEstadoCambiadoException_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("REC_ERR_ESTADO"));
+            }
+
+            foreach (DetalleOrdenCompraBE_883SC d in orden.Detalle_883SC)
+            {
+                d.CantidadRecibida_883SC = recibidas[d.Producto_883SC.Codigo_883SC];
+            }
+            orden.Estado_883SC = EstadoOrdenCompra_883SC.Recibida;
+            orden.FechaRecepcion_883SC = DateTime.Now;
+            orden.ObservacionesRecepcion_883SC = obs;
+
+            //Las observaciones son texto libre: no van a la bitacora
+            bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, TipoAccion_883SC.RecepcionMercaderia,
+                "orden=" + orden.IdOrdenCompra_883SC + ";proveedor=" + orden.Proveedor_883SC.Id_883SC);
+        }
+
         //Precio de lista actual del producto en el proveedor de la linea
         private decimal PrecioVigente_883SC(LineaCompraBE_883SC linea)
         {

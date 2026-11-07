@@ -74,6 +74,7 @@ namespace TP_SanchezVillaverde
             importarListaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IMPORTAR_LISTA");
             generarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_GENERAR_ORDENES");
             autorizarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_AUTORIZAR_ORDENES");
+            registrarRecepcionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REGISTRAR_RECEPCION");
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
@@ -166,6 +167,7 @@ namespace TP_SanchezVillaverde
             importarListaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString());
             generarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString());
             autorizarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString());
+            registrarRecepcionToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString());
         }
 
         public void FormDesconectado_883SC()
@@ -252,6 +254,11 @@ namespace TP_SanchezVillaverde
         private void autorizarOrdenesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             OpenForm_883SC(tsCompras, new frmAutorizarOrdenesCompra_883SC());
+        }
+
+        private void registrarRecepcionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsCompras, new frmRegistrarRecepcion_883SC());
         }
 
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)

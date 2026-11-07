@@ -124,6 +124,56 @@ namespace Acceso_DAL
             }
         }
 
+        /// Autorizada -> EnEjecucion. Lanza OrdenEstadoCambiadoException_883SC si la orden ya no esta Autorizada
+        public void Enviar_883SC(int idOrden)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@IdOrdenCompra", idOrden);
+            EjecutarTransaccional_883SC("EnviarOrdenCompra_SP", parametros);
+        }
+
+        /// EnEjecucion -> Recibida: guarda la cantidad recibida de cada linea (codigo de producto -> cantidad),
+        /// suma al stock y cierra la orden, todo dentro del SP. Lanza OrdenEstadoCambiadoException_883SC si la
+        /// orden ya no esta EnEjecucion.
+        public void RegistrarRecepcion_883SC(int idOrden, Dictionary<string, int> recibidas, string observaciones)
+        {
+            SqlParameter[] parametros = new SqlParameter[3];
+            parametros[0] = new SqlParameter("@IdOrdenCompra", idOrden);
+            parametros[1] = new SqlParameter("@Observaciones", (object)observaciones ?? DBNull.Value);
+            parametros[2] = new SqlParameter("@Lineas", ArmarTablaRecepcion_883SC(recibidas));
+            parametros[2].SqlDbType = SqlDbType.Structured;
+            parametros[2].TypeName = "dbo.TipoRecepcionLinea";
+            EjecutarTransaccional_883SC("RegistrarRecepcion_SP", parametros);
+        }
+
+        //LeerTabla y no Escribir, por el mismo motivo que Decidir_883SC (el SP ya es transaccional por si mismo)
+        private void EjecutarTransaccional_883SC(string sp, SqlParameter[] parametros)
+        {
+            try
+            {
+                conexDB_883SC.LeerTabla_883SC(sp, parametros);
+            }
+            catch (SqlException ex)
+            {
+                //50001 = el SP encontro la orden en otro estado
+                if (ex.Number == 50001) { throw new OrdenEstadoCambiadoException_883SC(ex); }
+                throw;
+            }
+        }
+
+        //Las columnas van en el mismo orden que dbo.TipoRecepcionLinea
+        private DataTable ArmarTablaRecepcion_883SC(Dictionary<string, int> recibidas)
+        {
+            DataTable tabla = new DataTable();
+            tabla.Columns.Add("Codigo", typeof(string));
+            tabla.Columns.Add("CantidadRecibida", typeof(int));
+            foreach (KeyValuePair<string, int> linea in recibidas)
+            {
+                tabla.Rows.Add(linea.Key, linea.Value);
+            }
+            return tabla;
+        }
+
         //Las columnas van en el mismo orden que dbo.TipoDetalleOrdenCompra
         private DataTable ArmarTablaDetalle_883SC(List<OrdenCompraBE_883SC> ordenes)
         {
