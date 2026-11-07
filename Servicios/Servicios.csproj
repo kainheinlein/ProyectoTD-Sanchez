@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackupService_883SC.cs" />
+    <Compile Include="ConexionConfig_883SC.cs" />
+    <Compile Include="ConexionNoDisponibleException_883SC.cs" />
     <Compile Include="Bitacora_883SC.cs" />
     <Compile Include="IObservadorIdioma_883SC.cs" />
     <Compile Include="FilaCSV_883SC.cs" />

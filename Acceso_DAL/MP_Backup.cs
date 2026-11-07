@@ -10,18 +10,10 @@ namespace Acceso_DAL
     {
         AccesoDatos_883SC conexDB_883SC = new AccesoDatos_883SC();
 
-        //Cadena que usa AccesoDatos_883SC, sin duplicarla ni modificar esa clase
+        //Misma cadena que usa AccesoDatos_883SC, del unico punto de lectura (ConexionConfig_883SC)
         public string ObtenerCadenaConexion_883SC()
         {
-            try
-            {
-                conexDB_883SC.AbrirConexion_883SC();
-                return conexDB_883SC.conexion_883SC.ConnectionString;
-            }
-            finally
-            {
-                if (conexDB_883SC.conexion_883SC != null) { conexDB_883SC.CerrarConexion_883SC(); }
-            }
+            return Servicios.ConexionConfig_883SC.ObtenerCadena_883SC();
         }
 
         public void Registrar_883SC(BackupBE_883SC backup)
