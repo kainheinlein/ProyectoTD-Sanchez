@@ -15,6 +15,7 @@ namespace TP_SanchezVillaverde
         }
 
         OrdenCompraBLL_883SC ordenCompraBLL_883SC = new OrdenCompraBLL_883SC();
+        ComprobanteOrdenCompraBLL_883SC comprobanteBLL_883SC = new ComprobanteOrdenCompraBLL_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
 
         private void frmRegistrarRecepcion_Load_883SC(object sender, EventArgs e)
@@ -47,6 +48,7 @@ namespace TP_SanchezVillaverde
             lblDetalle.Text = Traducir_883SC("OC_AUT_LBL_DETALLE");
             btnEnviar.Text = Traducir_883SC("REC_BTN_ENVIAR");
             btnRecibir.Text = Traducir_883SC("REC_BTN_RECIBIR");
+            btnReimprimir.Text = Traducir_883SC("OC_COMP_BTN_REIMPRIMIR");
             btnSalir.Text = Traducir_883SC("COMUN_SALIR");
             foreach (DataGridView dgv in new DataGridView[] { dgvOrdenes, dgvDetalle })
             {
@@ -165,6 +167,8 @@ namespace TP_SanchezVillaverde
             //El envio solo corresponde a una orden Autorizada y la recepcion a una EnEjecucion
             btnEnviar.Enabled = orden != null && orden.Estado_883SC == EstadoOrdenCompra_883SC.Autorizada;
             btnRecibir.Enabled = orden != null && orden.Estado_883SC == EstadoOrdenCompra_883SC.EnEjecucion;
+            //El comprobante existe desde el envio
+            btnReimprimir.Enabled = btnRecibir.Enabled;
         }
 
         private void cboEstado_SelectedIndexChanged_883SC(object sender, EventArgs e)
@@ -215,7 +219,42 @@ namespace TP_SanchezVillaverde
 
             MessageBox.Show(string.Format(Traducir_883SC("REC_MSG_ENVIADA"), orden.IdOrdenCompra_883SC),
                 "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //El envio ya esta hecho: si el comprobante falla, se puede reimprimir despues
+            MostrarComprobante_883SC(orden.IdOrdenCompra_883SC);
             CargarOrdenes_883SC();
+        }
+
+        private void btnReimprimir_Click_883SC(object sender, EventArgs e)
+        {
+            lblError.Text = "";
+            OrdenCompraBE_883SC orden = OrdenSeleccionada_883SC();
+            if (orden == null)
+            {
+                lblError.Text = Traducir_883SC("REC_ERR_SEL_ORDEN");
+                return;
+            }
+            MostrarComprobante_883SC(orden.IdOrdenCompra_883SC);
+        }
+
+        private void MostrarComprobante_883SC(int idOrden)
+        {
+            try
+            {
+                ComprobanteOrdenCompraBE_883SC comprobante = comprobanteBLL_883SC.Obtener_883SC(idOrden);
+                using (frmComprobanteOrdenCompra_883SC frm = new frmComprobanteOrdenCompra_883SC(comprobante))
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                lblError.Text = ex.Message;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Traducir_883SC("OC_COMP_MSG_ERROR"), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRecibir_Click_883SC(object sender, EventArgs e)

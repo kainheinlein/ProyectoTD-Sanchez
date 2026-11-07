@@ -67,9 +67,10 @@ namespace TP_SanchezVillaverde
             clientesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_CLIENTES");
             proveedoresToolStripMenuItem1.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PROVEEDORES");
             productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PRODUCTOS");
+            administrarProductosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_ADMINISTRAR_PRODUCTOS");
             tsGestion.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_GESTION");
             altaProveedorToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
-            administrarProductosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
+            productosGestionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
             tsCompras.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_COMPRAS");
             importarListaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IMPORTAR_LISTA");
             generarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_GENERAR_ORDENES");
@@ -160,11 +161,12 @@ namespace TP_SanchezVillaverde
             realizarVentaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString());
             usuariosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString());
             clientesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
-            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             proveedoresToolStripMenuItem1.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
-            altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
             administrarProductosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
             importarListaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString());
+            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
+            productosGestionToolStripMenuItem.Enabled = administrarProductosToolStripMenuItem.Enabled || importarListaToolStripMenuItem.Enabled;
             generarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString());
             autorizarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString());
             registrarRecepcionToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString());
@@ -212,7 +214,8 @@ namespace TP_SanchezVillaverde
 
         private void usuariosMaestro_Click_883SC(object sender, System.EventArgs e)
         {
-            OpenForm_883SC(tsMaestros, new frmMaestro_883SC(TipoMaestro_883SC.Usuarios));
+            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.GestionUsuariosAbierta);
+            OpenForm_883SC(tsMaestros, new frmUsuario_883SC());
         }
 
         private void clientesMaestro_Click_883SC(object sender, System.EventArgs e)
@@ -222,12 +225,12 @@ namespace TP_SanchezVillaverde
 
         private void proveedoresMaestro_Click_883SC(object sender, System.EventArgs e)
         {
-            OpenForm_883SC(tsMaestros, new frmMaestro_883SC(TipoMaestro_883SC.Proveedores));
+            OpenForm_883SC(tsMaestros, new frmProveedores_883SC());
         }
 
         private void productosMaestro_Click_883SC(object sender, System.EventArgs e)
         {
-            OpenForm_883SC(tsMaestros, new frmMaestro_883SC(TipoMaestro_883SC.Productos));
+            OpenForm_883SC(tsMaestros, new frmAdministrarProductos_883SC());
         }
 
         private void altaProveedorToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
@@ -243,7 +246,7 @@ namespace TP_SanchezVillaverde
 
         private void importarListaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            OpenForm_883SC(tsCompras, new frmImportarListaPrecios_883SC());
+            OpenForm_883SC(tsGestion, new frmImportarListaPrecios_883SC());
         }
 
         private void generarOrdenesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)

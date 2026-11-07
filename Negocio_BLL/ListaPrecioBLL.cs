@@ -12,6 +12,7 @@ namespace Negocio_BLL
     public class ListaPrecioBLL_883SC
     {
         MP_ListaPrecio_883SC mpListaPrecio_883SC = new MP_ListaPrecio_883SC();
+        ProveedorBLL_883SC proveedorBLL_883SC = new ProveedorBLL_883SC();
         BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
         LectorCSV_883SC lectorCSV_883SC = new LectorCSV_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
@@ -109,6 +110,11 @@ namespace Negocio_BLL
             if (idProveedor <= 0)
             {
                 throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("LIST_ERR_PROVEEDOR"));
+            }
+            //Un proveedor dado de baja no admite importaciones nuevas (el SP lo vuelve a controlar)
+            if (!proveedorBLL_883SC.ListarProveedoresActivos_883SC().Exists(p => p.Id_883SC == idProveedor))
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("LIST_ERR_PROV_INACTIVO"));
             }
             if (mapeo == null
                 || mapeo.ColCodigo_883SC < 0 || mapeo.ColDescripcion_883SC < 0 || mapeo.ColPrecio_883SC < 0

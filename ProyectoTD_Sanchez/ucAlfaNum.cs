@@ -58,6 +58,13 @@ namespace ProyectoCampo_JuanFer
 
         private void txtTexto_Leave_883SC(object sender, EventArgs e)
         {
+            Validar_883SC();
+        }
+
+        //Valida el texto actual y actualiza ok_883SC / texto_883SC. Se llama al salir del campo y antes de simular el click con Enter
+        //(PerformClick no mueve el foco, por eso Leave no se dispara y el control quedaba con ok_883SC desactualizado).
+        private void Validar_883SC()
+        {
             if(!string.IsNullOrWhiteSpace(txtTexto.Text))
             {
                 texto_883SC = txtTexto.Text;
@@ -84,6 +91,9 @@ namespace ProyectoCampo_JuanFer
         public void Limpiar_883SC()
         {
             txtTexto.Clear();
+            texto_883SC = "";
+            ok_883SC = false;
+            ptxtTexto.BackColor = Color.DimGray;
         }
 
         public void Enfocar_883SC()
@@ -103,7 +113,9 @@ namespace ProyectoCampo_JuanFer
             {
                 if ((int)e.KeyChar == (int)Keys.Enter)
                 {
-                    boton_883SC.PerformClick();
+                    e.Handled = true;
+                    Validar_883SC();
+                    if (boton_883SC != null) { boton_883SC.PerformClick(); }
                 }
             }
         }

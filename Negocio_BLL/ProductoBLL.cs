@@ -125,6 +125,11 @@ namespace Negocio_BLL
             {
                 if (proveedor.Id_883SC == item.IdProveedor_883SC)
                 {
+                    //Un proveedor dado de baja no puede ser la referencia de un producto nuevo ni la nueva referencia de uno existente
+                    if (!proveedor.Activo_883SC)
+                    {
+                        throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_PROV_INACTIVO"));
+                    }
                     return proveedor.CalcularPrecioVenta_883SC(item.PrecioLista_883SC);
                 }
             }

@@ -51,6 +51,8 @@
     <Compile Include="EstadoOrdenCompra.cs" />
     <Compile Include="ItemListaPrecioBE.cs" />
     <Compile Include="LineaCompraBE.cs" />
+    <Compile Include="LineaComprobanteOCBE.cs" />
+    <Compile Include="ComprobanteOrdenCompraBE.cs" />
     <Compile Include="OrdenCompraBE.cs" />
     <Compile Include="FacturaBE.cs" />
     <Compile Include="EventoBE.cs" />

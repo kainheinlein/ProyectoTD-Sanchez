@@ -47,6 +47,9 @@ namespace Entidad_BE
         BajaCliente = 37,
         ReactivacionCliente = 38,
         SerializacionClientes = 39,
-        DeserializacionClientes = 40
+        DeserializacionClientes = 40,
+        ModificacionProveedor = 41,
+        BajaProveedor = 42,
+        ReactivacionProveedor = 43
     }
 }

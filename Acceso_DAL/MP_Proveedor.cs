@@ -56,5 +56,49 @@ namespace Acceso_DAL
 
             return Convert.ToInt32(conexDB_883SC.EscribirRetornar_883SC("AltaProveedor_SP", parametros));
         }
+
+        //LeerTabla en vez de Escribir: los SP lanzan THROW 5000x y Escribir taparia la excepcion con su Rollback.
+        /// Modifica el proveedor y, si cambio el margen, recalcula en el mismo SP los precios de venta de los
+        /// productos cuyo proveedor de referencia es este. Devuelve cuantos precios cambiaron.
+        public int ModificarProveedor_883SC(ProveedorBE_883SC proveedor)
+        {
+            SqlParameter[] parametros = new SqlParameter[7];
+            parametros[0] = new SqlParameter("@IdProveedor", proveedor.Id_883SC);
+            parametros[1] = new SqlParameter("@Nombre", proveedor.Nombre_883SC);
+            parametros[2] = new SqlParameter("@Especialidad", (object)proveedor.Especialidad_883SC ?? DBNull.Value);
+            parametros[3] = new SqlParameter("@Telefono", proveedor.Telefono_883SC);
+            parametros[4] = new SqlParameter("@Direccion", (object)proveedor.Direccion_883SC ?? DBNull.Value);
+            parametros[5] = new SqlParameter("@Margen", proveedor.Margen_883SC);
+            parametros[6] = new SqlParameter("@Observaciones", (object)proveedor.Observaciones_883SC ?? DBNull.Value);
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("ModificarProveedor_SP", parametros);
+            return Convert.ToInt32(dt.Rows[0]["PreciosActualizados"]);
+        }
+
+        public void BajaProveedor_883SC(int idProveedor)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@IdProveedor", idProveedor);
+
+            conexDB_883SC.LeerTabla_883SC("BajaProveedor_SP", parametros);
+        }
+
+        public void ReactivarProveedor_883SC(int idProveedor)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@IdProveedor", idProveedor);
+
+            conexDB_883SC.LeerTabla_883SC("ReactivarProveedor_SP", parametros);
+        }
+
+        /// Cantidad de productos que tienen a este proveedor como proveedor de referencia.
+        public int ContarProductosReferencia_883SC(int idProveedor)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@IdProveedor", idProveedor);
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("ContarProductosReferencia_SP", parametros);
+            return Convert.ToInt32(dt.Rows[0]["Cantidad"]);
+        }
     }
 }

@@ -68,6 +68,38 @@ namespace Acceso_DAL
             return ordenes;
         }
 
+        /// Datos del comprobante de una orden (cabecera + lineas). Devuelve null si la orden no existe.
+        public ComprobanteOrdenCompraBE_883SC ObtenerComprobante_883SC(int idOrden)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@IdOrdenCompra", idOrden);
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("ObtenerComprobanteOrdenCompra_SP", parametros);
+            if (dt.Rows.Count == 0) { return null; }
+
+            DataRow primera = dt.Rows[0];
+            ComprobanteOrdenCompraBE_883SC comprobante = new ComprobanteOrdenCompraBE_883SC();
+            comprobante.AsignarId_883SC(Convert.ToInt32(primera["IdOrdenCompra"]));
+            comprobante.Proveedor_883SC = primera["Proveedor"].ToString();
+            comprobante.Estado_883SC = (EstadoOrdenCompra_883SC)Enum.Parse(typeof(EstadoOrdenCompra_883SC), primera["Estado"].ToString());
+            comprobante.FechaCreacion_883SC = Convert.ToDateTime(primera["FechaCreacion"]);
+            if (primera["UsuarioCreacion"] != DBNull.Value) { comprobante.UsuarioCreacion_883SC = primera["UsuarioCreacion"].ToString(); }
+            if (primera["UsuarioDecision"] != DBNull.Value) { comprobante.UsuarioDecision_883SC = primera["UsuarioDecision"].ToString(); }
+            if (primera["FechaDecision"] != DBNull.Value) { comprobante.FechaDecision_883SC = Convert.ToDateTime(primera["FechaDecision"]); }
+            if (primera["FechaEnvio"] != DBNull.Value) { comprobante.FechaEnvio_883SC = Convert.ToDateTime(primera["FechaEnvio"]); }
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                LineaComprobanteOCBE_883SC linea = new LineaComprobanteOCBE_883SC();
+                linea.CodigoProveedor_883SC = dr["CodigoProveedor"].ToString();
+                linea.Descripcion_883SC = dr["Descripcion"].ToString();
+                linea.Cantidad_883SC = Convert.ToInt32(dr["Cantidad"]);
+                linea.PrecioUnitario_883SC = Convert.ToDecimal(dr["PrecioUnitario"]);
+                comprobante.Lineas_883SC.Add(linea);
+            }
+            return comprobante;
+        }
+
         private OrdenCompraBE_883SC MapearCabecera_883SC(DataRow dr, int id)
         {
             OrdenCompraBE_883SC orden = new OrdenCompraBE_883SC();

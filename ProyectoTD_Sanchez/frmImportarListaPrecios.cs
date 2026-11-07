@@ -65,7 +65,7 @@ namespace TP_SanchezVillaverde
             try
             {
                 cmbProveedor.DataSource = null;
-                List<ProveedorBE_883SC> proveedores = proveedorBLL_883SC.ListarProveedores_883SC();
+                List<ProveedorBE_883SC> proveedores = proveedorBLL_883SC.ListarProveedoresActivos_883SC();
                 cmbProveedor.DisplayMember = "Nombre_883SC";
                 cmbProveedor.DataSource = proveedores;
                 cmbProveedor.SelectedIndex = -1;

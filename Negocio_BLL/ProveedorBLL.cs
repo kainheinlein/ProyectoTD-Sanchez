@@ -21,7 +21,7 @@ namespace Negocio_BLL
             return mpProveedor_883SC.ListarProveedores_883SC();
         }
 
-        /// CUN-008. Valida, guarda el proveedor (queda activo) y registra la bitacora.
+        /// Valida, guarda el proveedor (queda activo) y registra la bitacora.
         public ProveedorBE_883SC RegistrarProveedor_883SC(string nombre, string especialidad, string telefono, string direccion, decimal margen, string observaciones)
         {
             nombre = (nombre ?? "").Trim();
@@ -30,7 +30,7 @@ namespace Negocio_BLL
 
             if (mpProveedor_883SC.ExisteProveedor_883SC(nombre))
             {
-                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_MSG_EXISTE"));
+                throw CrearError_883SC("PROV_MSG_EXISTE", "Nombre");
             }
 
             ProveedorBE_883SC proveedor = new ProveedorBE_883SC();
@@ -53,27 +53,143 @@ namespace Negocio_BLL
             return proveedor;
         }
 
+        /// Lista solo los proveedores activos (los que pueden usarse en importaciones y ordenes nuevas).
+        public List<ProveedorBE_883SC> ListarProveedoresActivos_883SC()
+        {
+            return ListarProveedores_883SC().FindAll(p => p.Activo_883SC);
+        }
+
+        /// Modifica un proveedor activo. Si cambia el margen, el SP recalcula en la misma transaccion el precio
+        /// de venta de los productos cuyo proveedor de referencia es este. Devuelve cuantos precios cambiaron.
+        public int ModificarProveedor_883SC(int id, string nombre, string especialidad, string telefono, string direccion, decimal margen, string observaciones)
+        {
+            nombre = (nombre ?? "").Trim();
+            telefono = (telefono ?? "").Trim();
+            ExigirActivo_883SC(id);
+            ValidarDatos_883SC(nombre, especialidad, telefono, direccion, margen);
+
+            //Nombre unico entre los demas proveedores (el propio nombre se puede conservar)
+            foreach (ProveedorBE_883SC otro in mpProveedor_883SC.ListarProveedores_883SC())
+            {
+                if (otro.Id_883SC != id && string.Equals(otro.Nombre_883SC, nombre, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw CrearError_883SC("PROV_MSG_EXISTE", "Nombre");
+                }
+            }
+
+            ProveedorBE_883SC proveedor = new ProveedorBE_883SC();
+            proveedor.AsignarId_883SC(id);
+            proveedor.Nombre_883SC = nombre;
+            proveedor.Especialidad_883SC = NormalizarOpcional_883SC(especialidad);
+            proveedor.Telefono_883SC = telefono;
+            proveedor.Direccion_883SC = NormalizarOpcional_883SC(direccion);
+            proveedor.Margen_883SC = margen;
+            proveedor.Observaciones_883SC = NormalizarOpcional_883SC(observaciones);
+
+            int preciosActualizados = mpProveedor_883SC.ModificarProveedor_883SC(proveedor);
+
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.ModificacionProveedor,
+                "id=" + id + ";preciosActualizados=" + preciosActualizados);
+            return preciosActualizados;
+        }
+
+        public void BajaProveedor_883SC(int id)
+        {
+            ExigirActivo_883SC(id);
+
+            int productos = mpProveedor_883SC.ContarProductosReferencia_883SC(id);
+            if (productos > 0)
+            {
+                throw new ArgumentException(string.Format(gestorIdioma_883SC.Traducir_883SC("PROV_ABM_ERR_REFERENCIA"), productos));
+            }
+
+            mpProveedor_883SC.BajaProveedor_883SC(id);
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.BajaProveedor, "id=" + id);
+        }
+
+        public void ReactivarProveedor_883SC(int id)
+        {
+            ProveedorBE_883SC existente = BuscarProveedor_883SC(id);
+            if (existente == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ABM_ERR_NO_EXISTE"));
+            }
+            if (existente.Activo_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ABM_ERR_YA_ACTIVO"));
+            }
+            mpProveedor_883SC.ReactivarProveedor_883SC(id);
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.ReactivacionProveedor, "id=" + id);
+        }
+
+        private ProveedorBE_883SC BuscarProveedor_883SC(int id)
+        {
+            foreach (ProveedorBE_883SC proveedor in mpProveedor_883SC.ListarProveedores_883SC())
+            {
+                if (proveedor.Id_883SC == id) { return proveedor; }
+            }
+            return null;
+        }
+
+        private void ExigirActivo_883SC(int id)
+        {
+            ProveedorBE_883SC existente = BuscarProveedor_883SC(id);
+            if (existente == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ABM_ERR_NO_EXISTE"));
+            }
+            if (!existente.Activo_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ABM_ERR_INACTIVO"));
+            }
+        }
+
+        private string UsuarioActual_883SC()
+        {
+            return SessionManager_883SC.Logged_883SC()
+                ? SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC
+                : "null";
+        }
+
+        //El campo viaja en Data y no en ParamName: ParamName se agrega al texto de Message y ensuciaria el mensaje
+        private ArgumentException CrearError_883SC(string clave, string campo)
+        {
+            ArgumentException ex = new ArgumentException(gestorIdioma_883SC.Traducir_883SC(clave));
+            ex.Data["Campo"] = campo;
+            return ex;
+        }
+
         private void ValidarDatos_883SC(string nombre, string especialidad, string telefono, string direccion, decimal margen)
         {
-            if (nombre == "" || telefono == "")
+            if (nombre == "")
             {
-                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ERR_INCOMPLETO"));
+                throw CrearError_883SC("PROV_ERR_INCOMPLETO", "Nombre");
+            }
+            if (telefono == "")
+            {
+                throw CrearError_883SC("PROV_ERR_INCOMPLETO", "Telefono");
             }
             if (!TelefonoValido_883SC(telefono))
             {
-                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ERR_TELEFONO"));
+                throw CrearError_883SC("PROV_ERR_TELEFONO", "Telefono");
             }
             //Mayor o igual a cero, dentro de lo que entra en decimal(5,2) y con hasta 2 decimales
             if (margen < 0 || margen > MARGEN_MAXIMO_883SC || Math.Round(margen, 2) != margen)
             {
-                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ERR_MARGEN"));
+                throw CrearError_883SC("PROV_ERR_MARGEN", "Margen");
             }
             //Longitudes de las columnas de Proveedores
-            if (nombre.Length > 50
-                || (direccion ?? "").Trim().Length > 50
-                || (especialidad ?? "").Trim().Length > 100)
+            if (nombre.Length > 50)
             {
-                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROV_ERR_LONGITUD"));
+                throw CrearError_883SC("PROV_ERR_LONGITUD", "Nombre");
+            }
+            if ((direccion ?? "").Trim().Length > 50)
+            {
+                throw CrearError_883SC("PROV_ERR_LONGITUD", "Direccion");
+            }
+            if ((especialidad ?? "").Trim().Length > 100)
+            {
+                throw CrearError_883SC("PROV_ERR_LONGITUD", "Especialidad");
             }
         }
 

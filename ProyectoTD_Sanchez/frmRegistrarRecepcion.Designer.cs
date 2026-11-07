@@ -30,6 +30,7 @@ namespace TP_SanchezVillaverde
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.btnRecibir = new System.Windows.Forms.Button();
+            this.btnReimprimir = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).BeginInit();
@@ -149,13 +150,27 @@ namespace TP_SanchezVillaverde
             this.btnRecibir.UseVisualStyleBackColor = false;
             this.btnRecibir.Click += new System.EventHandler(this.btnRecibir_Click_883SC);
             //
+            // btnReimprimir
+            //
+            this.btnReimprimir.BackColor = System.Drawing.Color.Gray;
+            this.btnReimprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReimprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnReimprimir.Location = new System.Drawing.Point(430, 436);
+            this.btnReimprimir.Name = "btnReimprimir";
+            this.btnReimprimir.Size = new System.Drawing.Size(200, 29);
+            this.btnReimprimir.TabIndex = 11;
+            this.btnReimprimir.Text = "Reimprimir comprobante";
+            this.btnReimprimir.UseVisualStyleBackColor = false;
+            this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click_883SC);
+            //
             // lblError
             //
             this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lblError.ForeColor = System.Drawing.Color.Red;
             this.lblError.Location = new System.Drawing.Point(20, 436);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(600, 32);
+            this.lblError.Size = new System.Drawing.Size(400, 32);
             this.lblError.TabIndex = 9;
             //
             // btnSalir
@@ -180,6 +195,7 @@ namespace TP_SanchezVillaverde
             this.ClientSize = new System.Drawing.Size(900, 525);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.lblError);
+            this.Controls.Add(this.btnReimprimir);
             this.Controls.Add(this.btnRecibir);
             this.Controls.Add(this.btnEnviar);
             this.Controls.Add(this.dgvDetalle);
@@ -211,6 +227,7 @@ namespace TP_SanchezVillaverde
         private System.Windows.Forms.DataGridView dgvDetalle;
         private System.Windows.Forms.Button btnEnviar;
         private System.Windows.Forms.Button btnRecibir;
+        private System.Windows.Forms.Button btnReimprimir;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Button btnSalir;
     }

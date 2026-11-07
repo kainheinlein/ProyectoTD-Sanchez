@@ -56,9 +56,10 @@
             this.tsAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administrarProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsGestion = new System.Windows.Forms.ToolStripMenuItem();
             this.altaProveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.administrarProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosGestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsCompras = new System.Windows.Forms.ToolStripMenuItem();
             this.importarListaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -236,7 +237,7 @@
             //
             this.tsGestion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.altaProveedorToolStripMenuItem,
-            this.administrarProductosToolStripMenuItem});
+            this.productosGestionToolStripMenuItem});
             this.tsGestion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsGestion.Name = "tsGestion";
             this.tsGestion.Size = new System.Drawing.Size(66, 30);
@@ -249,17 +250,25 @@
             this.altaProveedorToolStripMenuItem.Text = "Proveedores";
             this.altaProveedorToolStripMenuItem.Click += new System.EventHandler(this.altaProveedorToolStripMenuItem_Click_883SC);
             //
+            // productosGestionToolStripMenuItem
+            //
+            this.productosGestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.administrarProductosToolStripMenuItem,
+            this.importarListaToolStripMenuItem});
+            this.productosGestionToolStripMenuItem.Name = "productosGestionToolStripMenuItem";
+            this.productosGestionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productosGestionToolStripMenuItem.Text = "Productos";
+            //
             // administrarProductosToolStripMenuItem
             //
             this.administrarProductosToolStripMenuItem.Name = "administrarProductosToolStripMenuItem";
             this.administrarProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.administrarProductosToolStripMenuItem.Text = "Productos";
+            this.administrarProductosToolStripMenuItem.Text = "Administrar";
             this.administrarProductosToolStripMenuItem.Click += new System.EventHandler(this.administrarProductosToolStripMenuItem_Click_883SC);
             //
             // tsCompras
             //
             this.tsCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importarListaToolStripMenuItem,
             this.generarOrdenesToolStripMenuItem,
             this.autorizarOrdenesToolStripMenuItem,
             this.registrarRecepcionToolStripMenuItem});
@@ -306,10 +315,10 @@
             // tsMaestros
             // 
             this.tsMaestros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usuariosToolStripMenuItem,
             this.clientesToolStripMenuItem,
             this.proveedoresToolStripMenuItem1,
-            this.productosToolStripMenuItem});
+            this.productosToolStripMenuItem,
+            this.usuariosToolStripMenuItem});
             this.tsMaestros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsMaestros.Name = "tsMaestros";
             this.tsMaestros.Size = new System.Drawing.Size(70, 30);
@@ -420,9 +429,10 @@
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem administrarProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsGestion;
         private System.Windows.Forms.ToolStripMenuItem altaProveedorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem administrarProductosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem productosGestionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsCompras;
         private System.Windows.Forms.ToolStripMenuItem importarListaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarOrdenesToolStripMenuItem;
