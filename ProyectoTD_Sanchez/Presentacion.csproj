@@ -71,6 +71,12 @@
     <Compile Include="frmProductoDatos.Designer.cs">
       <DependentUpon>frmProductoDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAutorizarOrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAutorizarOrdenesCompra.Designer.cs">
+      <DependentUpon>frmAutorizarOrdenesCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGenerarOrdenesCompra.cs">
       <SubType>Form</SubType>
     </Compile>

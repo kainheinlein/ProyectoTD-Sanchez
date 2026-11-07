@@ -157,6 +157,77 @@ namespace Negocio_BLL
             return ordenes;
         }
 
+        //Largo maximo de OrdenCompra.ObservacionesDecision
+        private const int MAX_OBSERVACIONES = 500;
+
+        /// Ordenes en el estado indicado, con su detalle.
+        public List<OrdenCompraBE_883SC> ListarPorEstado_883SC(EstadoOrdenCompra_883SC estado)
+        {
+            return mpOrdenCompra_883SC.ListarPorEstado_883SC(estado);
+        }
+
+        /// Pendiente -> Autorizada. Las observaciones son opcionales (vacias se guardan como NULL).
+        /// Orden nula: OC_AUT_ERR_SEL_ORDEN. Orden que no esta Pendiente (la que tiene la pantalla o la que
+        /// encuentra el SP dentro de su transaccion): ArgumentException. Error de base de datos: sube sin tratar.
+        public void Autorizar_883SC(OrdenCompraBE_883SC orden, string observaciones)
+        {
+            Decidir_883SC(orden, observaciones, EstadoOrdenCompra_883SC.Autorizada);
+        }
+
+        /// Pendiente -> Rechazada. El motivo (observaciones) es obligatorio: OC_AUT_ERR_MOTIVO.
+        public void Rechazar_883SC(OrdenCompraBE_883SC orden, string observaciones)
+        {
+            Decidir_883SC(orden, observaciones, EstadoOrdenCompra_883SC.Rechazada);
+        }
+
+        private void Decidir_883SC(OrdenCompraBE_883SC orden, string observaciones, EstadoOrdenCompra_883SC nuevo)
+        {
+            if (orden == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("OC_AUT_ERR_SEL_ORDEN"));
+            }
+            ValidarTransicion_883SC(orden.Estado_883SC, nuevo);
+
+            string obs = string.IsNullOrWhiteSpace(observaciones) ? null : observaciones.Trim();
+            if (nuevo == EstadoOrdenCompra_883SC.Rechazada && obs == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("OC_AUT_ERR_MOTIVO"));
+            }
+            if (obs != null && obs.Length > MAX_OBSERVACIONES)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("OC_AUT_ERR_OBS_LARGO"));
+            }
+
+            UsuarioBE_883SC usuario = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+            try
+            {
+                if (nuevo == EstadoOrdenCompra_883SC.Autorizada)
+                {
+                    mpOrdenCompra_883SC.Autorizar_883SC(orden.IdOrdenCompra_883SC, usuario.cod_883SC, obs);
+                }
+                else
+                {
+                    mpOrdenCompra_883SC.Rechazar_883SC(orden.IdOrdenCompra_883SC, usuario.cod_883SC, obs);
+                }
+            }
+            catch (OrdenNoPendienteException_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("OC_ERR_YA_RESUELTA"));
+            }
+
+            orden.Estado_883SC = nuevo;
+            orden.IdUsuarioDecision_883SC = usuario.cod_883SC;
+            orden.FechaDecision_883SC = DateTime.Now;
+            orden.ObservacionesDecision_883SC = obs;
+
+            //Las observaciones son texto libre: no van a la bitacora
+            TipoAccion_883SC accion = nuevo == EstadoOrdenCompra_883SC.Autorizada
+                ? TipoAccion_883SC.AutorizacionOrdenCompra
+                : TipoAccion_883SC.RechazoOrdenCompra;
+            bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, accion,
+                "orden=" + orden.IdOrdenCompra_883SC + ";proveedor=" + orden.Proveedor_883SC.Id_883SC);
+        }
+
         //Precio de lista actual del producto en el proveedor de la linea
         private decimal PrecioVigente_883SC(LineaCompraBE_883SC linea)
         {

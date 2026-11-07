@@ -35,6 +35,95 @@ namespace Acceso_DAL
             return ordenes;
         }
 
+        public List<OrdenCompraBE_883SC> ListarPorEstado_883SC(EstadoOrdenCompra_883SC estado)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@Estado", estado.ToString());
+
+            DataTable dt = conexDB_883SC.LeerTabla_883SC("ListarOrdenesPorEstado_SP", parametros);
+            List<OrdenCompraBE_883SC> ordenes = new List<OrdenCompraBE_883SC>();
+            OrdenCompraBE_883SC actual = null;
+            foreach (DataRow dr in dt.Rows)
+            {
+                int id = Convert.ToInt32(dr["IdOrdenCompra"]);
+                if (actual == null || actual.IdOrdenCompra_883SC != id)
+                {
+                    actual = MapearCabecera_883SC(dr, id);
+                    ordenes.Add(actual);
+                }
+
+                DetalleOrdenCompraBE_883SC detalle = new DetalleOrdenCompraBE_883SC();
+                ProductoBE_883SC producto = new ProductoBE_883SC();
+                producto.Codigo_883SC = dr["Codigo"].ToString();
+                producto.Nombre_883SC = dr["Producto"].ToString();
+                detalle.Producto_883SC = producto;
+                detalle.Cantidad_883SC = Convert.ToInt32(dr["Cantidad"]);
+                detalle.PrecioUnitario_883SC = Convert.ToDecimal(dr["PrecioUnitario"]);
+                if (dr["CantidadRecibida"] != DBNull.Value)
+                {
+                    detalle.CantidadRecibida_883SC = Convert.ToInt32(dr["CantidadRecibida"]);
+                }
+                actual.Detalle_883SC.Add(detalle);
+            }
+            return ordenes;
+        }
+
+        private OrdenCompraBE_883SC MapearCabecera_883SC(DataRow dr, int id)
+        {
+            OrdenCompraBE_883SC orden = new OrdenCompraBE_883SC();
+            orden.AsignarId_883SC(id);
+
+            ProveedorBE_883SC proveedor = new ProveedorBE_883SC();
+            proveedor.AsignarId_883SC(Convert.ToInt32(dr["IdProveedor"]));
+            proveedor.Nombre_883SC = dr["Proveedor"].ToString();
+            orden.Proveedor_883SC = proveedor;
+
+            orden.Estado_883SC = (EstadoOrdenCompra_883SC)Enum.Parse(typeof(EstadoOrdenCompra_883SC), dr["Estado"].ToString());
+            orden.FechaCreacion_883SC = Convert.ToDateTime(dr["FechaCreacion"]);
+            orden.IdUsuarioCreacion_883SC = Convert.ToInt32(dr["IdUsuarioCreacion"]);
+            if (dr["IdUsuarioDecision"] != DBNull.Value) { orden.IdUsuarioDecision_883SC = Convert.ToInt32(dr["IdUsuarioDecision"]); }
+            if (dr["FechaDecision"] != DBNull.Value) { orden.FechaDecision_883SC = Convert.ToDateTime(dr["FechaDecision"]); }
+            if (dr["ObservacionesDecision"] != DBNull.Value) { orden.ObservacionesDecision_883SC = dr["ObservacionesDecision"].ToString(); }
+            if (dr["FechaEnvio"] != DBNull.Value) { orden.FechaEnvio_883SC = Convert.ToDateTime(dr["FechaEnvio"]); }
+            if (dr["FechaRecepcion"] != DBNull.Value) { orden.FechaRecepcion_883SC = Convert.ToDateTime(dr["FechaRecepcion"]); }
+            if (dr["ObservacionesRecepcion"] != DBNull.Value) { orden.ObservacionesRecepcion_883SC = dr["ObservacionesRecepcion"].ToString(); }
+            return orden;
+        }
+
+        /// Pendiente -> Autorizada. Lanza OrdenNoPendienteException_883SC si ya fue resuelta
+        public void Autorizar_883SC(int idOrden, int idUsuario, string observaciones)
+        {
+            Decidir_883SC("AutorizarOrdenCompra_SP", idOrden, idUsuario, observaciones);
+        }
+
+        ///  Pendiente -> Rechazada. Lanza OrdenNoPendienteException_883SC si ya fue resuelta.
+        public void Rechazar_883SC(int idOrden, int idUsuario, string observaciones)
+        {
+            Decidir_883SC("RechazarOrdenCompra_SP", idOrden, idUsuario, observaciones);
+        }
+
+        private void Decidir_883SC(string sp, int idOrden, int idUsuario, string observaciones)
+        {
+            SqlParameter[] parametros = new SqlParameter[3];
+            parametros[0] = new SqlParameter("@IdOrdenCompra", idOrden);
+            parametros[1] = new SqlParameter("@IdUsuario", idUsuario);
+            parametros[2] = new SqlParameter("@Observaciones", (object)observaciones ?? DBNull.Value);
+
+            try
+            {
+                //LeerTabla y no Escribir: Escribir abre una transaccion propia y, cuando el SP hace THROW con
+                //XACT_ABORT ON, el servidor ya la cancelo y el Rollback posterior ocultaria la excepcion original.
+                //El SP ya es transaccional por si mismo (igual que GuardarOrdenes_883SC).
+                conexDB_883SC.LeerTabla_883SC(sp, parametros);
+            }
+            catch (SqlException ex)
+            {
+                //50001 = el SP encontro la orden en otro estado (resuelta por otro usuario)
+                if (ex.Number == 50001) { throw new OrdenNoPendienteException_883SC(ex); }
+                throw;
+            }
+        }
+
         //Las columnas van en el mismo orden que dbo.TipoDetalleOrdenCompra
         private DataTable ArmarTablaDetalle_883SC(List<OrdenCompraBE_883SC> ordenes)
         {
