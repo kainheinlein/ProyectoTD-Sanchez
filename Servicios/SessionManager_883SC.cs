@@ -14,6 +14,15 @@ namespace Servicios
         private static object _lock_883SC = new object();//Bloquear acceso multihilo
         private UsuarioBE_883SC _usuario_883SC;
         private bool logged_883SC = false;
+        private bool _integridadVerificada_883SC = false;
+
+        //Candado del DVV: true cuando en esta sesion se verifico la integridad o se recalculo.
+        //Mientras sea false no se debe refrescar el DVV (taparia una inconsistencia previa).
+        public bool IntegridadVerificada_883SC
+        {
+            get { return _integridadVerificada_883SC; }
+            set { _integridadVerificada_883SC = value; }
+        }
 
         private SessionManager_883SC() { }
 
@@ -49,6 +58,7 @@ namespace Servicios
         public void Logout_883SC()
         {
             logged_883SC = false;
+            _integridadVerificada_883SC = false;
             _usuario_883SC = null;
             _sesion_883SC = null;
         }

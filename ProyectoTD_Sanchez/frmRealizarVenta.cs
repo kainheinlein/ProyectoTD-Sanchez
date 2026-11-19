@@ -235,16 +235,36 @@ namespace TP_SanchezVillaverde
 
         private void btnGenerar_Click_883SC(object sender, EventArgs e)
         {
+            FacturaBE_883SC factura;
             try
             {
-                FacturaBE_883SC factura = facturaBLL_883SC.CrearFactura_883SC(
+                factura = facturaBLL_883SC.CrearFactura_883SC(
                     carritoSeleccionado_883SC, clienteSeleccionado_883SC, metodoPago_883SC, codigoAutorizacion_883SC);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("FACT_MSG_EXITO"), factura.IdFactura_883SC),
-                    gestorIdioma_883SC.Traducir_883SC("FACT_TITULO"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //La venta ya esta persistida: se muestra el comprobante
+            MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("FACT_MSG_EXITO"), factura.IdFactura_883SC),
+                gestorIdioma_883SC.Traducir_883SC("FACT_TITULO"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                //El carrito recien facturado ya no es pendiente: la lista se refresca desde la base
-                CargarPendientes_883SC();
+            MostrarComprobante_883SC(factura);
+
+            //El carrito recien facturado ya no es pendiente: la lista se refresca desde la base
+            CargarPendientes_883SC();
+        }
+
+        private void MostrarComprobante_883SC(FacturaBE_883SC factura)
+        {
+            try
+            {
+                using (frmComprobante_883SC frmComprobante = new frmComprobante_883SC(factura))
+                {
+                    frmComprobante.ShowDialog();
+                }
             }
             catch (Exception ex)
             {

@@ -18,9 +18,9 @@ namespace Negocio_BLL
             return mpBitacora_883SC.ListarEventos_883SC();
         }
 
-        public void RegistrarBitacora_883SC(string us, TipoAccion_883SC acc)
+        public void RegistrarBitacora_883SC(string us, TipoAccion_883SC acc, string detalle = null)
         {
-            mpBitacora_883SC.RegistrarEvento_883SC(Bitacora_883SC.RegistrarEvento_883SC(us, acc));
+            mpBitacora_883SC.RegistrarEvento_883SC(Bitacora_883SC.RegistrarEvento_883SC(us, acc, detalle));
         }
 
         public List<EventoBE_883SC> BuscarEventos_883SC(string us, TipoAccion_883SC? acc, DateTime fIni, DateTime fFin)

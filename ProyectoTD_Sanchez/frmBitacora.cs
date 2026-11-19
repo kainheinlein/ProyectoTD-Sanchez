@@ -58,6 +58,7 @@ namespace TP_SanchezVillaverde
             dgvBitacora.Columns[1].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_USUARIO");
             dgvBitacora.Columns[2].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_ACCION");
             dgvBitacora.Columns[3].HeaderText = gestorIdioma_883SC.Traducir_883SC("COMUN_FECHA");
+            if (dgvBitacora.Columns.Count > 4) { dgvBitacora.Columns[4].HeaderText = gestorIdioma_883SC.Traducir_883SC("BIT_COL_DETALLE"); }
         }
 
         #endregion
@@ -66,10 +67,8 @@ namespace TP_SanchezVillaverde
         private void CargarDGV_883SC(List<EventoBE_883SC> ev)
         {
             dgvBitacora.DataSource = ev;
-            dgvBitacora.Columns[0].HeaderText = "ID Registro";
-            dgvBitacora.Columns[1].HeaderText = "Usuario";
-            dgvBitacora.Columns[2].HeaderText = "Accion";
-            dgvBitacora.Columns[3].HeaderText = "Fecha";
+            TraducirColumnas_883SC();
+            if (dgvBitacora.Columns.Count > 4) { dgvBitacora.Columns[4].FillWeight = 200; }
             dgvBitacora.EnableHeadersVisualStyles = false;
             dgvBitacora.ColumnHeadersDefaultCellStyle.Font = new Font(dgvBitacora.Font, FontStyle.Bold);
             dgvBitacora.ReadOnly = true;
@@ -80,13 +79,7 @@ namespace TP_SanchezVillaverde
             try
             {
                 CargarDGV_883SC(bitacora_883SC.ListarBitacora_883SC());
-                dgvBitacora.Columns[0].HeaderText = "ID Registro";
-                dgvBitacora.Columns[1].HeaderText = "Usuario";
-                dgvBitacora.Columns[2].HeaderText = "Accion";
-                dgvBitacora.Columns[3].HeaderText = "Fecha";
-                dgvBitacora.EnableHeadersVisualStyles = false;
-                dgvBitacora.ColumnHeadersDefaultCellStyle.Font = new Font(dgvBitacora.Font, FontStyle.Bold);
-                dgvBitacora.ReadOnly = true;
+                TraducirColumnas_883SC();
 
                 dtpDesde.Value = DateTime.Today.AddDays(-30);
                 dtpHasta.Value = DateTime.Today;

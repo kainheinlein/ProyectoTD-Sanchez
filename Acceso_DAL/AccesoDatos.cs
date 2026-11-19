@@ -11,13 +11,12 @@ namespace Acceso_DAL
     public class AccesoDatos_883SC
     {
         private SqlConnection _conexion_883SC;
-        private readonly string cadenaSQL_883SC = @"Data Source=KAINMPC;Initial Catalog=FerreDB;Integrated Security=True";
 
         public SqlConnection conexion_883SC { get => _conexion_883SC; }
 
         public void AbrirConexion_883SC()
         {
-            _conexion_883SC = new SqlConnection(cadenaSQL_883SC);
+            _conexion_883SC = new SqlConnection(Servicios.ConexionConfig_883SC.ObtenerCadena_883SC());
             _conexion_883SC.Open();
         }
 

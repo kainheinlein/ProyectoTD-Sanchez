@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,8 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupException_883SC.cs" />
+    <Compile Include="BackupService_883SC.cs" />
+    <Compile Include="RutasUsuario_883SC.cs" />
+    <Compile Include="ConexionConfig_883SC.cs" />
+    <Compile Include="ConexionNoDisponibleException_883SC.cs" />
+    <Compile Include="InicializacionException_883SC.cs" />
     <Compile Include="Bitacora_883SC.cs" />
     <Compile Include="IObservadorIdioma_883SC.cs" />
+    <Compile Include="FilaCSV_883SC.cs" />
+    <Compile Include="LectorCSV_883SC.cs" />
+    <Compile Include="SerializadorXML_883SC.cs" />
     <Compile Include="LectorTraducciones_883SC.cs" />
     <Compile Include="VerificadorIntegridad_883SC.cs" />
     <Compile Include="Encriptador_883SC.cs" />
@@ -56,4 +66,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

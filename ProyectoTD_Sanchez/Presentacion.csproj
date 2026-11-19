@@ -53,17 +53,119 @@
     <Compile Include="frmAltaClienteRapida.Designer.cs">
       <DependentUpon>frmAltaClienteRapida.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmClientes.Designer.cs">
+      <DependentUpon>frmClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVerXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVerXML.Designer.cs">
+      <DependentUpon>frmVerXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConectando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConectando.Designer.cs">
+      <DependentUpon>frmConectando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAltaProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAltaProveedor.Designer.cs">
+      <DependentUpon>frmAltaProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProveedores.Designer.cs">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdministrarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdministrarProductos.Designer.cs">
+      <DependentUpon>frmAdministrarProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductoDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductoDatos.Designer.cs">
+      <DependentUpon>frmProductoDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAutorizarOrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAutorizarOrdenesCompra.Designer.cs">
+      <DependentUpon>frmAutorizarOrdenesCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegistrarRecepcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegistrarRecepcion.Designer.cs">
+      <DependentUpon>frmRegistrarRecepcion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmComprobanteOrdenCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmComprobanteOrdenCompra.Designer.cs">
+      <DependentUpon>frmComprobanteOrdenCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecepcionDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecepcionDatos.Designer.cs">
+      <DependentUpon>frmRecepcionDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGenerarOrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGenerarOrdenesCompra.Designer.cs">
+      <DependentUpon>frmGenerarOrdenesCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmImportarListaPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportarListaPrecios.Designer.cs">
+      <DependentUpon>frmImportarListaPrecios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRealizarCobro.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmRealizarCobro.Designer.cs">
       <DependentUpon>frmRealizarCobro.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMaestro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMaestro.Designer.cs">
+      <DependentUpon>frmMaestro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmComprobante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmComprobante.Designer.cs">
+      <DependentUpon>frmComprobante.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRealizarVenta.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmRealizarVenta.Designer.cs">
       <DependentUpon>frmRealizarVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBackup.Designer.cs">
+      <DependentUpon>frmBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRestore.Designer.cs">
+      <DependentUpon>frmRestore.cs</DependentUpon>
     </Compile>
     <Compile Include="frmBitacora.cs">
       <SubType>Form</SubType>
@@ -113,11 +215,11 @@
     <Compile Include="frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmRecalcular.cs">
+    <Compile Include="frmErrorDB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRecalcular.Designer.cs">
-      <DependentUpon>frmRecalcular.cs</DependentUpon>
+    <Compile Include="frmErrorDB.Designer.cs">
+      <DependentUpon>frmErrorDB.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSeleccionarProducto.cs">
       <SubType>Form</SubType>
@@ -145,6 +247,9 @@
     <EmbeddedResource Include="frmHistorialUsuario.resx">
       <DependentUpon>frmHistorialUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmImportarListaPrecios.resx">
+      <DependentUpon>frmImportarListaPrecios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,8 +259,8 @@
     <EmbeddedResource Include="frmModClave.resx">
       <DependentUpon>frmModClave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRecalcular.resx">
-      <DependentUpon>frmRecalcular.cs</DependentUpon>
+    <EmbeddedResource Include="frmErrorDB.resx">
+      <DependentUpon>frmErrorDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSeleccionarProducto.resx">
       <DependentUpon>frmSeleccionarProducto.cs</DependentUpon>
@@ -203,4 +308,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

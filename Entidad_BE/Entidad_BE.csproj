@@ -41,10 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupBE.cs" />
     <Compile Include="CarritoBE.cs" />
     <Compile Include="ClienteBE.cs" />
+    <Compile Include="ClienteXMLBE.cs" />
     <Compile Include="DetalleCarritoBE.cs" />
     <Compile Include="DetalleFacturaBE.cs" />
+    <Compile Include="DetalleOrdenCompraBE.cs" />
+    <Compile Include="EstadoOrdenCompra.cs" />
+    <Compile Include="ItemListaPrecioBE.cs" />
+    <Compile Include="LineaCompraBE.cs" />
+    <Compile Include="LineaComprobanteOCBE.cs" />
+    <Compile Include="ComprobanteOrdenCompraBE.cs" />
+    <Compile Include="OrdenCompraBE.cs" />
     <Compile Include="FacturaBE.cs" />
     <Compile Include="EventoBE.cs" />
     <Compile Include="Familia.cs" />
@@ -56,10 +65,15 @@
     <Compile Include="Permiso.cs" />
     <Compile Include="PermisoSimple.cs" />
     <Compile Include="ProductoBE.cs" />
+    <Compile Include="FilaRechazadaBE.cs" />
+    <Compile Include="MapeoListaBE.cs" />
+    <Compile Include="ResumenImportacionBE.cs" />
+    <Compile Include="ResultadoInicializacionBE.cs" />
+    <Compile Include="ProveedorBE.cs" />
     <Compile Include="TipoAccion.cs" />
     <Compile Include="TipoPermiso.cs" />
     <Compile Include="UsuarioBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

@@ -5,13 +5,6 @@ using System.Collections.Generic;
 
 namespace Negocio_BLL
 {
-    /// <summary>
-    /// Sujeto observable del patron Observer de idiomas (Singleton).
-    /// Mantiene el idioma activo, el diccionario de traducciones cargado
-    /// desde la base de datos y la lista de observadores suscriptos.
-    /// Al cambiar el idioma notifica a todos los observadores para que
-    /// refresquen sus textos sin reiniciar la aplicacion.
-    /// </summary>
     public class GestorDeIdioma_883SC
     {
         private static GestorDeIdioma_883SC _gestor_883SC = null;
@@ -63,11 +56,6 @@ namespace Negocio_BLL
             return idiomaDAL_883SC.ObtenerTablaTraducciones_883SC(idIdioma);
         }
 
-        /// <summary>
-        /// Da de alta un idioma. Si se indica un archivo de traducciones
-        /// (formato CLAVE;Texto) se aplican sus textos sobre el idioma nuevo.
-        /// Devuelve la cantidad de traducciones importadas desde el archivo.
-        /// </summary>
         public int AgregarIdioma_883SC(string codigo, string nombre, string rutaArchivo = null)
         {
             codigo = (codigo ?? "").Trim().ToUpper();
@@ -141,6 +129,22 @@ namespace Negocio_BLL
             if (_idiomaActual_883SC != null)
             {
                 observador.ActualizarTextos_883SC();
+            }
+        }
+
+        //Tras un restore las traducciones de la base pueden ser otras: se recargan del idioma
+        //activo (o del idioma por defecto si ese idioma ya no existe) y se notifica a los observadores
+        public void Recargar_883SC()
+        {
+            string codigo = _idiomaActual_883SC != null ? _idiomaActual_883SC.Codigo_883SC : IdiomaPorDefecto_883SC;
+            try
+            {
+                CambiarIdioma_883SC(codigo);
+            }
+            catch (KeyNotFoundException)
+            {
+                if (codigo == IdiomaPorDefecto_883SC) { throw; }
+                CambiarIdioma_883SC(IdiomaPorDefecto_883SC);
             }
         }
 

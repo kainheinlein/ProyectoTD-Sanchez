@@ -2,14 +2,8 @@ namespace TP_SanchezVillaverde
 {
     partial class frmRealizarVenta_883SC
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -22,10 +16,6 @@ namespace TP_SanchezVillaverde
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -497,7 +487,7 @@ namespace TP_SanchezVillaverde
             this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btnSalir.Location = new System.Drawing.Point(750, 595);
+            this.btnSalir.Location = new System.Drawing.Point(699, 595);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(113, 29);
             this.btnSalir.TabIndex = 7;
@@ -512,11 +502,11 @@ namespace TP_SanchezVillaverde
             this.btnGenerar.Enabled = false;
             this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnGenerar.Location = new System.Drawing.Point(875, 595);
+            this.btnGenerar.Location = new System.Drawing.Point(822, 595);
             this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(112, 29);
+            this.btnGenerar.Size = new System.Drawing.Size(165, 29);
             this.btnGenerar.TabIndex = 8;
-            this.btnGenerar.Text = "Generar Factura";
+            this.btnGenerar.Text = "Generar Comprobante";
             this.btnGenerar.UseVisualStyleBackColor = false;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click_883SC);
             //

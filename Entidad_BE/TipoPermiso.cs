@@ -11,13 +11,17 @@ namespace Entidad_BE
         LlenarCarrito,
         SeleccionarProducto,
         GenerarFactura,
-        GenerarReserva,
         RealizarCobro,
         RegistrarCliente,
         GestionUsuarios,
         GestionPerfiles,
         GestionProductos,
         GestionBackup,
-        GestionBitacora
+        GestionBitacora,
+        RegistrarProveedor,
+        ImportarListaPrecios,
+        GenerarOrdenCompra,
+        RegistrarRecepcion,
+        AutorizarOrdenCompra
     }
 }

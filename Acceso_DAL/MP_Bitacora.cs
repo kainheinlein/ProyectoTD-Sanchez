@@ -24,6 +24,7 @@ namespace Acceso_DAL
                 ev.usuario_883SC = dr[1].ToString();
                 ev.accion_883SC = (TipoAccion_883SC)dr[2];
                 ev.fecha_883SC = Convert.ToDateTime(dr[3].ToString());
+                ev.detalle_883SC = dr.IsNull(4) ? null : dr[4].ToString();
                 eventos.Add(ev);
             }
             return eventos;
@@ -31,10 +32,12 @@ namespace Acceso_DAL
 
         public void RegistrarEvento_883SC(EventoBE_883SC ev)
         {
-            SqlParameter[] parametros = new SqlParameter[3];
+            SqlParameter[] parametros = new SqlParameter[4];
             parametros[0] = new SqlParameter("@usuario", ev.usuario_883SC);
             parametros[1] = new SqlParameter("@accion", (int)ev.accion_883SC);
             parametros[2] = new SqlParameter("fecha", ev.fecha_883SC);
+            if (ev.detalle_883SC == null) { parametros[3] = new SqlParameter("@detalle", DBNull.Value); }
+            else { parametros[3] = new SqlParameter("@detalle", ev.detalle_883SC); }
 
             conexDB_883SC.Escribir_883SC("SP_RegistrarEvento", parametros);
         }
@@ -57,6 +60,7 @@ namespace Acceso_DAL
                 ev.usuario_883SC = dr[1].ToString();
                 ev.accion_883SC = (TipoAccion_883SC)dr[2];
                 ev.fecha_883SC = Convert.ToDateTime(dr[3].ToString());
+                ev.detalle_883SC = dr.IsNull(4) ? null : dr[4].ToString();
                 eventos.Add(ev);
             }
             return eventos;

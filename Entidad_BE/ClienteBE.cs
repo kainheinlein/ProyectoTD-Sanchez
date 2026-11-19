@@ -36,5 +36,19 @@ namespace Entidad_BE
             get { return _telefono_883SC; }
             set { _telefono_883SC = value; }
         }
+
+        private bool _activo_883SC;
+        public bool Activo_883SC
+        {
+            get { return _activo_883SC; }
+            set { _activo_883SC = value; }
+        }
+
+        private bool _direccionSinCifrar_883SC;
+        public bool DireccionSinCifrar_883SC
+        {
+            get { return _direccionSinCifrar_883SC; }
+            set { _direccionSinCifrar_883SC = value; }
+        }
     }
 }

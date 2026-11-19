@@ -23,43 +23,82 @@ namespace TP_SanchezVillaverde
         UsuarioBLL_883SC usuario_883SC = new UsuarioBLL_883SC();
         BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
         VerificadorIntegridadBLL_883SC IntegridadBLL_883SC = new VerificadorIntegridadBLL_883SC();
+        PerfilBLL_883SC perfilBLL_883SC = new PerfilBLL_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
 
         private void frmLogin_Load_883SC(object sender, EventArgs e)
         {
+            txtContra.boton_883SC = this.btnIniciar;
+            lblError.Text = "";
+            CargarMenuIdiomas_883SC();
+            gestorIdioma_883SC.Suscribir_883SC(this);
+            this.FormClosed += frmLogin_FormClosed_883SC;
+        }
+
+        private void AbrirMenuTrasLogin_883SC()
+        {
+            bool integridadOk;
             try
             {
-                if (IntegridadBLL_883SC.VerificarIntegridad_883SC())
-                {
-                    txtContra.boton_883SC = this.btnIniciar;
-                    lblError.Text = "";
-                    CargarMenuIdiomas_883SC();
-                    gestorIdioma_883SC.Suscribir_883SC(this);
-                    this.FormClosed += frmLogin_FormClosed_883SC;
-                }
-                else
-                {
-                    using (var formRecalcular = new frmRecalcular_883SC())
-                    {
-                        if (formRecalcular.ShowDialog() == DialogResult.OK)
-                        {
-                            IntegridadBLL_883SC.RecalcularDV_883SC();
-                            if (!IntegridadBLL_883SC.VerificarIntegridad_883SC())
-                            {
-                                MessageBox.Show("No fue posible restaurar la integridad.");
-                                Application.Exit();
-                            }
-                        } else Application.Exit();
-                        MessageBox.Show("Integridad de la base de datos restaurada", "Integridad Restaurada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        lblError.Text = "";
-                    }
-                }
-
+                integridadOk = IntegridadBLL_883SC.VerificarIntegridad_883SC();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_ERROR_BD") + ex.Message);
+                SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+                return;
             }
+
+            if (!integridadOk)
+            {
+                string rol = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().rol_883SC;
+                if (!perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()))
+                {
+                    IntegridadBLL_883SC.DenegarAccesoPorIntegridad_883SC();
+                    MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("ERRORDB_MSG_SIN_PERMISOS"), gestorIdioma_883SC.Traducir_883SC("ERRORDB_TITULO"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (frmErrorDB_883SC frmError = new frmErrorDB_883SC())
+                {
+                    frmError.ShowDialog(this);
+                }
+
+                //Se decide por el estado real: un restore cierra la sesion; recalcular deja el candado en true
+                if (!SessionManager_883SC.Logged_883SC()) { return; }
+                if (!SessionManager_883SC.GetInstance_883SC.IntegridadVerificada_883SC)
+                {
+                    SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+                    return;
+                }
+            }
+
+            //Primer inicio: se pide DESPUES de la integridad. El DVV solo se refresca en el logout si la integridad
+            //fue verificada; cambiar la clave antes dejaria un DVH nuevo contra un DVV viejo (falso positivo).
+            if (SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().primer_883SC)
+            {
+                bool claveCambiada;
+                using (frmModClave_883SC frmClave = new frmModClave_883SC(true))
+                {
+                    claveCambiada = frmClave.ShowDialog(this) == DialogResult.OK;
+                }
+                if (!claveCambiada)
+                {
+                    //Cerrado sin guardar (Alt+F4) o con error: no se entra al menu
+                    try { usuario_883SC.Logout_883SC(); }
+                    finally
+                    {
+                        if (SessionManager_883SC.Logged_883SC()) { SessionManager_883SC.GetInstance_883SC.Logout_883SC(); }
+                    }
+                    return;
+                }
+            }
+
+            frmMenu_883SC frm = new frmMenu_883SC();
+            frm.Show();
+            this.Hide();
+
+            frm.FormClosing += frm_closing_883SC;
         }
 
         private void frmLogin_FormClosed_883SC(object sender, FormClosedEventArgs e)
@@ -165,12 +204,7 @@ namespace TP_SanchezVillaverde
                     LoginResult_883SC authOK = usuario_883SC.Login_883SC(user);
                     if (authOK == LoginResult_883SC.LoginOK_883SC)
                     {
-                        bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Login);
-                        frmMenu_883SC frm = new frmMenu_883SC();
-                        frm.Show();
-                        this.Hide();
-
-                        frm.FormClosing += frm_closing_883SC;
+                        AbrirMenuTrasLogin_883SC();
                     }
                     else
                     {
@@ -178,39 +212,28 @@ namespace TP_SanchezVillaverde
                         switch (authOK)
                         {
                             case LoginResult_883SC.UserInexistente_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_USER_INEXISTENTE");
                                 break;
                             case LoginResult_883SC.UserBloqueado_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_USER_BLOQUEADO");
                                 break;
                             case LoginResult_883SC.PassIncorrecta_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 lblError.Text = gestorIdioma_883SC.Traducir_883SC("LOGIN_ERR_PASS_INCORRECTA");
                                 break;
                             case LoginResult_883SC.UserInactivo_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.LoginFail);
                                 MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_USER_INACTIVO"), user.user_883SC), "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 break;
                             case LoginResult_883SC.FinIntentos_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.BloqueoUsuario);
                                 MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_FIN_INTENTOS"), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Application.Exit();
                                 break;
                             case LoginResult_883SC.SesionIniciada_883SC:
-                                bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Login);
                                 MessageBox.Show(string.Format(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_SESION_INICIADA"), user.user_883SC), "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                frmMenu_883SC frm = new frmMenu_883SC();
-                                frm.Show();
-                                this.Hide();
-
-                                frm.FormClosing += frm_closing_883SC;
+                                AbrirMenuTrasLogin_883SC();
                                 break;
                             case LoginResult_883SC.ExisteSesion_883SC:
                                 if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_EXISTE_SESION"), " ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
-                                    bitacora_883SC.RegistrarBitacora_883SC(user.user_883SC, TipoAccion_883SC.Logout);
                                     usuario_883SC.Logout_883SC();
                                     MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("LOGIN_MSG_SESION_CERRADA"), " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }

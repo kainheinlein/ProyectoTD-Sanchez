@@ -112,6 +112,14 @@ namespace Entidad_BE
             set { _dvh_883SC = value; }
         }
 
+        private Boolean _primer_883SC;
+
+        public Boolean primer_883SC
+        {
+            get { return _primer_883SC; }
+            set { _primer_883SC = value; }
+        }
+
         public string digito_883SC => _dvh_883SC;
 
         public UsuarioBE_883SC() { }
@@ -131,6 +139,7 @@ namespace Entidad_BE
             this.estado_883SC = Convert.ToBoolean(datos[10]);
             this.bloq_883SC = Convert.ToBoolean(datos[11]);
             this.dvh_883SC = datos[12];
+            this.primer_883SC = Convert.ToBoolean(datos[13]);
             return this;
         }
 
@@ -148,7 +157,8 @@ namespace Entidad_BE
                 tel_883SC,
                 email_883SC,
                 estado_883SC,
-                bloq_883SC);
+                bloq_883SC,
+                primer_883SC);
         }
     }
 }

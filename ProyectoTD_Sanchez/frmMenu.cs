@@ -62,10 +62,20 @@ namespace TP_SanchezVillaverde
             tsVentas.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_VENTAS");
             llenarCarritoToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_LLENAR_CARRITO");
             realizarVentaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REALIZAR_VENTA");
+            tsMaestros.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_MAESTROS");
+            usuariosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_USUARIOS");
+            clientesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_CLIENTES");
+            proveedoresToolStripMenuItem1.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PROVEEDORES");
+            productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PRODUCTOS");
+            administrarProductosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_ADMINISTRAR_PRODUCTOS");
             tsGestion.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_GESTION");
-            clienteToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CLIENTE");
-            productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
-            proveedoresToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
+            altaProveedorToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PROVEEDORES");
+            productosGestionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_PRODUCTOS");
+            tsCompras.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_COMPRAS");
+            importarListaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IMPORTAR_LISTA");
+            generarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_GENERAR_ORDENES");
+            autorizarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_AUTORIZAR_ORDENES");
+            registrarRecepcionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REGISTRAR_RECEPCION");
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
@@ -132,7 +142,9 @@ namespace TP_SanchezVillaverde
             cerrarSesionToolStripMenuItem.Enabled = true;
             tsAdmin.Enabled = true;
             tsReportes.Enabled = true;
+            tsMaestros.Enabled = true;
             tsGestion.Enabled = true;
+            tsCompras.Enabled = true;
             cambiarClaveToolStripMenuItem.Enabled = true;
 
             AplicarPermisos_883SC(usActual.rol_883SC);
@@ -147,9 +159,17 @@ namespace TP_SanchezVillaverde
             bitacoraToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString());
             llenarCarritoToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString());
             realizarVentaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString());
-            clienteToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
-            //Productos queda deshabilitado hasta que exista la pantalla de Gestion de Productos.
-            //Restaurar junto con ella: productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            usuariosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString());
+            clientesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
+            proveedoresToolStripMenuItem1.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            administrarProductosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            importarListaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString());
+            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
+            altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
+            productosGestionToolStripMenuItem.Enabled = administrarProductosToolStripMenuItem.Enabled || importarListaToolStripMenuItem.Enabled;
+            generarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString());
+            autorizarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString());
+            registrarRecepcionToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString());
         }
 
         public void FormDesconectado_883SC()
@@ -159,7 +179,9 @@ namespace TP_SanchezVillaverde
             cerrarSesionToolStripMenuItem.Visible = false;
             tsAdmin.Visible = false;
             tsReportes.Visible = false;
+            tsMaestros.Visible = false;
             tsGestion.Visible = false;
+            tsCompras.Visible = false;
             cambiarClaveToolStripMenuItem.Visible = false;
         }
 
@@ -190,6 +212,58 @@ namespace TP_SanchezVillaverde
             OpenForm_883SC(tsAdmin, new frmUsuario_883SC());
         }
 
+        private void usuariosMaestro_Click_883SC(object sender, System.EventArgs e)
+        {
+            bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.GestionUsuariosAbierta);
+            OpenForm_883SC(tsMaestros, new frmUsuario_883SC());
+        }
+
+        private void clientesMaestro_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsMaestros, new frmClientes_883SC());
+        }
+
+        private void proveedoresMaestro_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsMaestros, new frmProveedores_883SC());
+        }
+
+        private void productosMaestro_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsMaestros, new frmAdministrarProductos_883SC());
+        }
+
+        private void altaProveedorToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            frmAltaProveedor_883SC frmAlta = new frmAltaProveedor_883SC();
+            frmAlta.ShowDialog();
+        }
+
+        private void administrarProductosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsGestion, new frmAdministrarProductos_883SC());
+        }
+
+        private void importarListaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsGestion, new frmImportarListaPrecios_883SC());
+        }
+
+        private void generarOrdenesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsCompras, new frmGenerarOrdenesCompra_883SC());
+        }
+
+        private void autorizarOrdenesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsCompras, new frmAutorizarOrdenesCompra_883SC());
+        }
+
+        private void registrarRecepcionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsCompras, new frmRegistrarRecepcion_883SC());
+        }
+
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_CONFIRMA_SALIR_APP"), gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"),
@@ -198,7 +272,7 @@ namespace TP_SanchezVillaverde
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.AppClose);
                 if (SessionManager_883SC.Logged_883SC())
                 {
-                    verIntegridad_883SC.ActualizarDVV_883SC();
+                    verIntegridad_883SC.ActualizarDVVSiVerificado_883SC();
                 }
                 SessionManager_883SC.GetInstance_883SC.Logout_883SC();
                 Application.Exit();
@@ -259,6 +333,20 @@ namespace TP_SanchezVillaverde
         {
             frmHistorialUsuario_883SC frmhistorial = new frmHistorialUsuario_883SC();
             frmhistorial.ShowDialog();
+        }
+
+        private void backupToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsAdmin, new frmBackup_883SC());
+        }
+
+        private void restoreToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            frmRestore_883SC frmRestore = new frmRestore_883SC();
+            if (frmRestore.ShowDialog() == DialogResult.OK)
+            {
+                this.Close();
+            }
         }
 
         private void idiomasToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
