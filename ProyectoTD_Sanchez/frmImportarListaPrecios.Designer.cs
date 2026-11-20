@@ -21,6 +21,13 @@ namespace TP_SanchezVillaverde
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pImportar = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblProveedor = new System.Windows.Forms.Label();
             this.cmbProveedor = new System.Windows.Forms.ComboBox();
@@ -48,17 +55,50 @@ namespace TP_SanchezVillaverde
             ((System.ComponentModel.ISupportInitialize)(this.nudPrimeraFila)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVista)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRechazadas)).BeginInit();
+            this.pImportar.SuspendLayout();
             this.SuspendLayout();
+            //
+            // pImportar
+            //
+            this.pImportar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pImportar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pImportar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pImportar.Controls.Add(this.dgvVista);
+            this.pImportar.Controls.Add(this.lblVistaPrevia);
+            this.pImportar.Controls.Add(this.nudPrimeraFila);
+            this.pImportar.Controls.Add(this.lblPrimeraFila);
+            this.pImportar.Controls.Add(this.cmbColPrecio);
+            this.pImportar.Controls.Add(this.lblColPrecio);
+            this.pImportar.Controls.Add(this.cmbColDescripcion);
+            this.pImportar.Controls.Add(this.lblColDescripcion);
+            this.pImportar.Controls.Add(this.cmbColCodigo);
+            this.pImportar.Controls.Add(this.lblColCodigo);
+            this.pImportar.Controls.Add(this.dgvRechazadas);
+            this.pImportar.Controls.Add(this.lblRechazadas);
+            this.pImportar.Controls.Add(this.lblError);
+            this.pImportar.Controls.Add(this.btnImportar);
+            this.pImportar.Controls.Add(this.btnExaminar);
+            this.pImportar.Controls.Add(this.txtArchivo);
+            this.pImportar.Controls.Add(this.lblArchivo);
+            this.pImportar.Controls.Add(this.btnNuevoProveedor);
+            this.pImportar.Controls.Add(this.cmbProveedor);
+            this.pImportar.Controls.Add(this.lblProveedor);
+            this.pImportar.Controls.Add(this.lblTitulo);
+            this.pImportar.Location = new System.Drawing.Point(12, 11);
+            this.pImportar.Name = "pImportar";
+            this.pImportar.Size = new System.Drawing.Size(810, 650);
+            this.pImportar.TabIndex = 0;
             // 
             // lblTitulo
             // 
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.Location = new System.Drawing.Point(25, 20);
+            this.lblTitulo.Font = new System.Drawing.Font("Verdana", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.lblTitulo.Location = new System.Drawing.Point(217, 8);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(210, 20);
+            this.lblTitulo.Size = new System.Drawing.Size(375, 24);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Importar Lista de Precios";
+            this.lblTitulo.Text = "IMPORTAR LISTA DE PRECIOS";
             // 
             // lblProveedor
             // 
@@ -82,7 +122,7 @@ namespace TP_SanchezVillaverde
             // 
             // btnNuevoProveedor
             // 
-            this.btnNuevoProveedor.BackColor = System.Drawing.Color.Gray;
+            this.btnNuevoProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnNuevoProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevoProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -115,7 +155,7 @@ namespace TP_SanchezVillaverde
             // 
             // btnExaminar
             // 
-            this.btnExaminar.BackColor = System.Drawing.Color.Gray;
+            this.btnExaminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnExaminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExaminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExaminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -129,7 +169,7 @@ namespace TP_SanchezVillaverde
             // 
             // btnImportar
             // 
-            this.btnImportar.BackColor = System.Drawing.Color.Gray;
+            this.btnImportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -250,8 +290,29 @@ namespace TP_SanchezVillaverde
             this.dgvVista.AllowUserToDeleteRows = false;
             this.dgvVista.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvVista.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvVista.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvVista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVista.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvVista.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVista.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvVista.ColumnHeadersHeight = 32;
+            this.dgvVista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvVista.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvVista.EnableHeadersVisualStyles = false;
             this.dgvVista.Location = new System.Drawing.Point(25, 282);
             this.dgvVista.Name = "dgvVista";
             this.dgvVista.ReadOnly = true;
@@ -285,8 +346,29 @@ namespace TP_SanchezVillaverde
             this.dgvRechazadas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvRechazadas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvRechazadas.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvRechazadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRechazadas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvRechazadas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRechazadas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvRechazadas.ColumnHeadersHeight = 32;
+            this.dgvRechazadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvRechazadas.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvRechazadas.EnableHeadersVisualStyles = false;
             this.dgvRechazadas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colFila,
             this.colCodigo,
@@ -327,36 +409,19 @@ namespace TP_SanchezVillaverde
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(810, 650);
-            this.Controls.Add(this.dgvVista);
-            this.Controls.Add(this.lblVistaPrevia);
-            this.Controls.Add(this.nudPrimeraFila);
-            this.Controls.Add(this.lblPrimeraFila);
-            this.Controls.Add(this.cmbColPrecio);
-            this.Controls.Add(this.lblColPrecio);
-            this.Controls.Add(this.cmbColDescripcion);
-            this.Controls.Add(this.lblColDescripcion);
-            this.Controls.Add(this.cmbColCodigo);
-            this.Controls.Add(this.lblColCodigo);
-            this.Controls.Add(this.dgvRechazadas);
-            this.Controls.Add(this.lblRechazadas);
-            this.Controls.Add(this.lblError);
-            this.Controls.Add(this.btnImportar);
-            this.Controls.Add(this.btnExaminar);
-            this.Controls.Add(this.txtArchivo);
-            this.Controls.Add(this.lblArchivo);
-            this.Controls.Add(this.btnNuevoProveedor);
-            this.Controls.Add(this.cmbProveedor);
-            this.Controls.Add(this.lblProveedor);
-            this.Controls.Add(this.lblTitulo);
+            this.ClientSize = new System.Drawing.Size(834, 672);
+            this.Controls.Add(this.pImportar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimumSize = new System.Drawing.Size(834, 672);
             this.Name = "frmImportarListaPrecios_883SC";
             this.Text = "Importar Lista de Precios";
             this.Load += new System.EventHandler(this.frmImportarListaPrecios_Load_883SC);
             ((System.ComponentModel.ISupportInitialize)(this.nudPrimeraFila)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVista)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRechazadas)).EndInit();
+            this.pImportar.ResumeLayout(false);
+            this.pImportar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,6 +429,7 @@ namespace TP_SanchezVillaverde
 
         #endregion
 
+        private System.Windows.Forms.Panel pImportar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblProveedor;
         private System.Windows.Forms.ComboBox cmbProveedor;

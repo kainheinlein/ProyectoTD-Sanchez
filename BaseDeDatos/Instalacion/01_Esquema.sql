@@ -447,6 +447,7 @@ CREATE TABLE [dbo].[Usuarios](
 	[Bloqueado] [bit] NOT NULL,
 	[DVH] [nvarchar](65) NULL,
 	[PrimerInicio] [bit] NOT NULL,
+	[IdiomaPreferido] [nvarchar](5) NOT NULL CONSTRAINT [DF_Usuarios_IdiomaPreferido] DEFAULT (N'ES'),
  CONSTRAINT [PK_Usuarios] PRIMARY KEY CLUSTERED 
 (
 	[Codigo] ASC
@@ -2526,6 +2527,26 @@ BEGIN
     SELECT *
     FROM Usuarios
     WHERE Usuario = @user;
+END
+GO
+/****** Objeto: StoredProcedure [dbo].[ActualizarIdiomaUsuario_SP] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActualizarIdiomaUsuario_SP]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[ActualizarIdiomaUsuario_SP] AS' 
+END
+GO
+-- Idioma preferido del usuario. NO forma parte del digito verificador: solo se actualiza esta columna (no se toca el DVH).
+ALTER PROCEDURE [dbo].[ActualizarIdiomaUsuario_SP]
+    @Codigo INT,
+    @Idioma NVARCHAR(5)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE Usuarios SET IdiomaPreferido = @Idioma WHERE Codigo = @Codigo;
 END
 GO
 /****** Objeto: StoredProcedure [dbo].[SP_ListarHistorialUsuario] Fecha de script: 07/11/2026 4:20:28 ******/

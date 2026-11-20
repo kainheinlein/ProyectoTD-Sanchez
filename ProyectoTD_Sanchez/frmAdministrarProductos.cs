@@ -52,7 +52,9 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = Traducir_883SC("PROD_TITULO");
-            lblTitulo.Text = Traducir_883SC("PROD_TITULO");
+            lblTitulo.Text = Traducir_883SC("PROD_TITULO").ToUpper();
+            lblBuscar.Text = Traducir_883SC("PROD_COL_DESCRIPCION") + ":";
+            btnBuscar.Text = Traducir_883SC("PROD_SEL_BTN_BUSCAR");
             lblProductos.Text = Traducir_883SC("PROD_LBL_PRODUCTOS");
             lblPendientes.Text = Traducir_883SC("PROD_LBL_PENDIENTES");
             lblVinculados.Text = Traducir_883SC("PROD_LBL_VINCULADOS");
@@ -80,32 +82,34 @@ namespace TP_SanchezVillaverde
             return gestorIdioma_883SC.Traducir_883SC(clave);
         }
 
-        private void AgregarColumna_883SC(DataGridView dgv, string nombre, string claveEncabezado, string formato = null)
+        private void AgregarColumna_883SC(DataGridView dgv, string nombre, string claveEncabezado, string formato = null, float peso = 100)
         {
             DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
             columna.Name = nombre;
             columna.Tag = claveEncabezado;
             columna.ReadOnly = true;
+            columna.FillWeight = peso;
+            columna.MinimumWidth = 50;
             if (formato != null) { columna.DefaultCellStyle.Format = formato; }
             dgv.Columns.Add(columna);
         }
 
         private void ConfigurarColumnas_883SC()
         {
-            AgregarColumna_883SC(dgvProductos, "colCodigo", "MAESTRO_COL_CODIGO");
-            AgregarColumna_883SC(dgvProductos, "colNombre", "COMUN_NOMBRE");
-            AgregarColumna_883SC(dgvProductos, "colStock", "MAESTRO_COL_STOCK");
-            AgregarColumna_883SC(dgvProductos, "colStockMin", "PROD_COL_STOCK_MIN");
-            AgregarColumna_883SC(dgvProductos, "colProvRef", "PROD_COL_PROV_REF");
-            AgregarColumna_883SC(dgvProductos, "colPrecio", "MAESTRO_COL_PRECIO", "N2");
+            AgregarColumna_883SC(dgvProductos, "colCodigo", "MAESTRO_COL_CODIGO", null, 15);
+            AgregarColumna_883SC(dgvProductos, "colNombre", "COMUN_NOMBRE", null, 30);
+            AgregarColumna_883SC(dgvProductos, "colStock", "MAESTRO_COL_STOCK", null, 10);
+            AgregarColumna_883SC(dgvProductos, "colStockMin", "PROD_COL_STOCK_MIN", null, 12);
+            AgregarColumna_883SC(dgvProductos, "colProvRef", "PROD_COL_PROV_REF", null, 20);
+            AgregarColumna_883SC(dgvProductos, "colPrecio", "MAESTRO_COL_PRECIO", "N2", 13);
 
             foreach (DataGridView dgv in new DataGridView[] { dgvPendientes, dgvVinculados })
             {
-                AgregarColumna_883SC(dgv, "colProveedor", "PROD_COL_PROVEEDOR");
-                AgregarColumna_883SC(dgv, "colCodigoProv", "PROD_COL_CODIGO_PROV");
-                AgregarColumna_883SC(dgv, "colDescripcion", "PROD_COL_DESCRIPCION");
-                AgregarColumna_883SC(dgv, "colPrecioLista", "PROD_COL_PRECIO_LISTA", "N2");
-                AgregarColumna_883SC(dgv, "colFecha", "PROD_COL_FECHA", "d");
+                AgregarColumna_883SC(dgv, "colProveedor", "PROD_COL_PROVEEDOR", null, 20);
+                AgregarColumna_883SC(dgv, "colCodigoProv", "PROD_COL_CODIGO_PROV", null, 17);
+                AgregarColumna_883SC(dgv, "colDescripcion", "PROD_COL_DESCRIPCION", null, 30);
+                AgregarColumna_883SC(dgv, "colPrecioLista", "PROD_COL_PRECIO_LISTA", "N2", 15);
+                AgregarColumna_883SC(dgv, "colFecha", "PROD_COL_FECHA", "d", 18);
             }
         }
 
@@ -171,6 +175,14 @@ namespace TP_SanchezVillaverde
             dgvPendientes.SuspendLayout();
             dgvPendientes.Rows.Clear();
             List<ItemListaPrecioBE_883SC> items = listaPrecioBLL_883SC.ListarPendientes_883SC(idProveedor);
+
+            //Busqueda por descripcion (sin distinguir mayusculas), combinada con el filtro de proveedor
+            string texto = txtBuscar.Text.Trim();
+            if (texto.Length > 0)
+            {
+                items = items.FindAll(i => i.Descripcion_883SC != null
+                    && i.Descripcion_883SC.IndexOf(texto, StringComparison.CurrentCultureIgnoreCase) >= 0);
+            }
             foreach (ItemListaPrecioBE_883SC item in items)
             {
                 int fila = dgvPendientes.Rows.Add(NombreProveedor_883SC(item.IdProveedor_883SC), item.CodigoProveedor_883SC,
@@ -220,6 +232,28 @@ namespace TP_SanchezVillaverde
         private void dgvProductos_SelectionChanged_883SC(object sender, EventArgs e)
         {
             CargarVinculados_883SC();
+        }
+
+        private void btnBuscar_Click_883SC(object sender, EventArgs e)
+        {
+            lblError.Text = "";
+            try
+            {
+                CargarPendientes_883SC();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = Traducir_883SC("COMUN_ERROR_BD") + ex.Message;
+            }
+        }
+
+        private void txtBuscar_KeyDown_883SC(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnBuscar_Click_883SC(sender, EventArgs.Empty);
+            }
         }
 
         private void cmbFiltro_SelectedIndexChanged_883SC(object sender, EventArgs e)

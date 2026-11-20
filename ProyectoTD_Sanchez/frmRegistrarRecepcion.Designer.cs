@@ -21,6 +21,13 @@ namespace TP_SanchezVillaverde
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pRecepcion = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
             this.cboEstado = new System.Windows.Forms.ComboBox();
@@ -35,22 +42,46 @@ namespace TP_SanchezVillaverde
             this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
+            this.pRecepcion.SuspendLayout();
             this.SuspendLayout();
+            //
+            // pRecepcion
+            //
+            this.pRecepcion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pRecepcion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pRecepcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pRecepcion.Controls.Add(this.btnSalir);
+            this.pRecepcion.Controls.Add(this.lblError);
+            this.pRecepcion.Controls.Add(this.btnReimprimir);
+            this.pRecepcion.Controls.Add(this.btnRecibir);
+            this.pRecepcion.Controls.Add(this.btnEnviar);
+            this.pRecepcion.Controls.Add(this.dgvDetalle);
+            this.pRecepcion.Controls.Add(this.lblDetalle);
+            this.pRecepcion.Controls.Add(this.dgvOrdenes);
+            this.pRecepcion.Controls.Add(this.lblOrdenes);
+            this.pRecepcion.Controls.Add(this.cboEstado);
+            this.pRecepcion.Controls.Add(this.lblEstado);
+            this.pRecepcion.Controls.Add(this.lblTitulo);
+            this.pRecepcion.Location = new System.Drawing.Point(12, 11);
+            this.pRecepcion.Name = "pRecepcion";
+            this.pRecepcion.Size = new System.Drawing.Size(900, 525);
+            this.pRecepcion.TabIndex = 0;
             //
             // lblTitulo
             //
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.Location = new System.Drawing.Point(20, 12);
+            this.lblTitulo.Font = new System.Drawing.Font("Verdana", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.lblTitulo.Location = new System.Drawing.Point(307, 8);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(180, 20);
+            this.lblTitulo.Size = new System.Drawing.Size(285, 24);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Registrar Recepcion";
+            this.lblTitulo.Text = "REGISTRAR RECEPCION";
             //
             // lblEstado
             //
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(640, 17);
+            this.lblEstado.Location = new System.Drawing.Point(640, 49);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(43, 13);
             this.lblEstado.TabIndex = 1;
@@ -60,7 +91,7 @@ namespace TP_SanchezVillaverde
             //
             this.cboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstado.FormattingEnabled = true;
-            this.cboEstado.Location = new System.Drawing.Point(700, 14);
+            this.cboEstado.Location = new System.Drawing.Point(700, 45);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(180, 21);
             this.cboEstado.TabIndex = 2;
@@ -83,8 +114,29 @@ namespace TP_SanchezVillaverde
             this.dgvOrdenes.AllowUserToDeleteRows = false;
             this.dgvOrdenes.AllowUserToResizeRows = false;
             this.dgvOrdenes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvOrdenes.BackgroundColor = System.Drawing.Color.White;
-            this.dgvOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvOrdenes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvOrdenes.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvOrdenes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvOrdenes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOrdenes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvOrdenes.ColumnHeadersHeight = 32;
+            this.dgvOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvOrdenes.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvOrdenes.EnableHeadersVisualStyles = false;
             this.dgvOrdenes.Location = new System.Drawing.Point(20, 68);
             this.dgvOrdenes.MultiSelect = false;
             this.dgvOrdenes.Name = "dgvOrdenes";
@@ -111,8 +163,29 @@ namespace TP_SanchezVillaverde
             this.dgvDetalle.AllowUserToDeleteRows = false;
             this.dgvDetalle.AllowUserToResizeRows = false;
             this.dgvDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDetalle.BackgroundColor = System.Drawing.Color.White;
-            this.dgvDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvDetalle.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvDetalle.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvDetalle.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvDetalle.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Firebrick;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvDetalle.ColumnHeadersHeight = 32;
+            this.dgvDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvDetalle.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvDetalle.EnableHeadersVisualStyles = false;
             this.dgvDetalle.Location = new System.Drawing.Point(20, 262);
             this.dgvDetalle.MultiSelect = false;
             this.dgvDetalle.Name = "dgvDetalle";
@@ -124,7 +197,7 @@ namespace TP_SanchezVillaverde
             //
             // btnEnviar
             //
-            this.btnEnviar.BackColor = System.Drawing.Color.Gray;
+            this.btnEnviar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnEnviar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -138,7 +211,7 @@ namespace TP_SanchezVillaverde
             //
             // btnRecibir
             //
-            this.btnRecibir.BackColor = System.Drawing.Color.Gray;
+            this.btnRecibir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnRecibir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRecibir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecibir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -152,7 +225,7 @@ namespace TP_SanchezVillaverde
             //
             // btnReimprimir
             //
-            this.btnReimprimir.BackColor = System.Drawing.Color.Gray;
+            this.btnReimprimir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnReimprimir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReimprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -175,7 +248,7 @@ namespace TP_SanchezVillaverde
             //
             // btnSalir
             //
-            this.btnSalir.BackColor = System.Drawing.Color.Gray;
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -192,25 +265,17 @@ namespace TP_SanchezVillaverde
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(900, 525);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.lblError);
-            this.Controls.Add(this.btnReimprimir);
-            this.Controls.Add(this.btnRecibir);
-            this.Controls.Add(this.btnEnviar);
-            this.Controls.Add(this.dgvDetalle);
-            this.Controls.Add(this.lblDetalle);
-            this.Controls.Add(this.dgvOrdenes);
-            this.Controls.Add(this.lblOrdenes);
-            this.Controls.Add(this.cboEstado);
-            this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.lblTitulo);
+            this.ClientSize = new System.Drawing.Size(924, 547);
+            this.Controls.Add(this.pRecepcion);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.MinimumSize = new System.Drawing.Size(924, 547);
             this.Name = "frmRegistrarRecepcion_883SC";
             this.Text = "Registrar Recepcion";
             this.Load += new System.EventHandler(this.frmRegistrarRecepcion_Load_883SC);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).EndInit();
+            this.pRecepcion.ResumeLayout(false);
+            this.pRecepcion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +283,7 @@ namespace TP_SanchezVillaverde
 
         #endregion
 
+        private System.Windows.Forms.Panel pRecepcion;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.ComboBox cboEstado;

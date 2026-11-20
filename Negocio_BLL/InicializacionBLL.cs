@@ -21,8 +21,10 @@ namespace Negocio_BLL
 
         private MP_Instalacion_883SC mpInstalacion_883SC = new MP_Instalacion_883SC();
 
-        //informarEtapa: delegado inyectado desde la GUI (la BLL no conoce formularios). Puede ser null.
-        public ResultadoInicializacionBE_883SC Inicializar_883SC(Action<string> informarEtapa)
+        //informarEtapa y confirmarBaseNueva: delegados inyectados desde la GUI (la BLL no conoce formularios). Pueden ser null.
+        //confirmarBaseNueva(instanciaConfigurada, instanciaUsada) se invoca solo cuando hay que CREAR la base en una instancia
+        //alternativa (la configurada no respondio); si devuelve false no se crea nada y se lanza InicializacionException (CanceladaPorUsuario).
+        public ResultadoInicializacionBE_883SC Inicializar_883SC(Action<string> informarEtapa, Func<string, string, bool> confirmarBaseNueva)
         {
             Action<string> etapa = informarEtapa ?? (t => { });
             ResultadoInicializacionBE_883SC resultado = new ResultadoInicializacionBE_883SC();
@@ -33,6 +35,12 @@ namespace Negocio_BLL
 
             if (!mpInstalacion_883SC.ExisteBase_883SC())
             {
+                if (resultado.UsoInstanciaAlternativa_883SC && confirmarBaseNueva != null
+                    && !confirmarBaseNueva(resultado.InstanciaConfigurada_883SC, resultado.InstanciaUsada_883SC))
+                {
+                    throw new InicializacionException_883SC(MotivoInicializacion_883SC.CanceladaPorUsuario,
+                        "Se cancelo la creacion de la base de datos en la instancia alternativa.", null);
+                }
                 etapa("Creando la base de datos...");
                 mpInstalacion_883SC.CrearBase_883SC();
                 resultado.BaseCreada_883SC = true;

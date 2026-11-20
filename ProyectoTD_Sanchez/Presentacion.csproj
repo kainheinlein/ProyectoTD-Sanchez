@@ -137,12 +137,6 @@
     <Compile Include="frmRealizarCobro.Designer.cs">
       <DependentUpon>frmRealizarCobro.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMaestro.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMaestro.Designer.cs">
-      <DependentUpon>frmMaestro.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmComprobante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,8 +235,17 @@
     <Compile Include="ucAlfaNum.Designer.cs">
       <DependentUpon>ucAlfaNum.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmAdministrarProductos.resx">
+      <DependentUpon>frmAdministrarProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAutorizarOrdenesCompra.resx">
+      <DependentUpon>frmAutorizarOrdenesCompra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBitacora.resx">
       <DependentUpon>frmBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGenerarOrdenesCompra.resx">
+      <DependentUpon>frmGenerarOrdenesCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHistorialUsuario.resx">
       <DependentUpon>frmHistorialUsuario.cs</DependentUpon>
@@ -308,4 +311,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>

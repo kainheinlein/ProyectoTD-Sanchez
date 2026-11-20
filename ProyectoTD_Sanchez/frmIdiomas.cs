@@ -36,6 +36,7 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = gestorIdioma_883SC.Traducir_883SC("IDI_TITULO");
+            lblTitulo.Text = this.Text.ToUpper();
             gbNuevo.Text = gestorIdioma_883SC.Traducir_883SC("IDI_GB_NUEVO");
             lblCodigo.Text = gestorIdioma_883SC.Traducir_883SC("IDI_LBL_CODIGO");
             lblNombre.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_NOMBRE");

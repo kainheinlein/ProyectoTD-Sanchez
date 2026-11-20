@@ -148,6 +148,20 @@ namespace Negocio_BLL
             }
         }
 
+        public void AplicarIdiomaDeUsuario_883SC(UsuarioBE_883SC usuario)
+        {
+            string codigo = string.IsNullOrWhiteSpace(usuario.idioma_883SC) ? IdiomaPorDefecto_883SC : usuario.idioma_883SC.Trim();
+            try
+            {
+                CambiarIdioma_883SC(codigo);
+            }
+            catch (KeyNotFoundException)
+            {
+                if (codigo == IdiomaPorDefecto_883SC) { throw; }
+                CambiarIdioma_883SC(IdiomaPorDefecto_883SC);
+            }
+        }
+
         public void Desuscribir_883SC(IObservadorIdioma_883SC observador)
         {
             _observadores_883SC.Remove(observador);

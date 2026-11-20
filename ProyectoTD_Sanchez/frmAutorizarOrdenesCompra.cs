@@ -42,7 +42,7 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = Traducir_883SC("OC_AUT_TITULO");
-            lblTitulo.Text = Traducir_883SC("OC_AUT_TITULO");
+            lblTitulo.Text = Traducir_883SC("OC_AUT_TITULO").ToUpper();
             lblEstado.Text = Traducir_883SC("OC_AUT_LBL_ESTADO");
             lblOrdenes.Text = Traducir_883SC("OC_AUT_LBL_ORDENES");
             lblDetalle.Text = Traducir_883SC("OC_AUT_LBL_DETALLE");

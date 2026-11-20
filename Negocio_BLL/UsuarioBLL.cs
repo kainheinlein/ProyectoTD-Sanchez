@@ -134,7 +134,18 @@ namespace Negocio_BLL
                 bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.Logout);
                 integridad_883SC.ActualizarDVVSiVerificado_883SC();
                 SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+                //El login y el proximo usuario arrancan en el idioma por defecto (el del usuario ya quedo guardado)
+                try { GestorDeIdioma_883SC.GetInstance_883SC.CambiarIdioma_883SC(GestorDeIdioma_883SC.IdiomaPorDefecto_883SC); }
+                catch (Exception) { }//Sin conexion a la base se conserva el idioma actual
             }
+        }
+
+        public void ActualizarIdioma_883SC(string codigoIdioma)
+        {
+            if (!SessionManager_883SC.Logged_883SC()) { return; }
+            UsuarioBE_883SC actual = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
+            mpUsuario_883SC.ActualizarIdioma_883SC(actual.cod_883SC, codigoIdioma);
+            actual.idioma_883SC = codigoIdioma;
         }
 
         public void DesbloquearUS_883SC(UsuarioBE_883SC us)

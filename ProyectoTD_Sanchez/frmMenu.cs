@@ -120,7 +120,9 @@ namespace TP_SanchezVillaverde
         {
             try
             {
-                gestorIdioma_883SC.CambiarIdioma_883SC((sender as ToolStripMenuItem).Tag.ToString());
+                string codigoIdioma = (sender as ToolStripMenuItem).Tag.ToString();
+                gestorIdioma_883SC.CambiarIdioma_883SC(codigoIdioma);
+                usuario_883SC.ActualizarIdioma_883SC(codigoIdioma);//Queda guardado para la proxima sesion del usuario (sin sesion no hace nada)
                 string user = SessionManager_883SC.Logged_883SC() ? SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC : "null";
                 bitacora_883SC.RegistrarBitacora_883SC(user, TipoAccion_883SC.CambioIdioma);
             }
@@ -140,36 +142,61 @@ namespace TP_SanchezVillaverde
             lblUsuario.Text = "Usuario: " + usActual.user_883SC;
             iniciarSesionToolStripMenuItem.Enabled = false;
             cerrarSesionToolStripMenuItem.Enabled = true;
-            tsAdmin.Enabled = true;
-            tsReportes.Enabled = true;
-            tsMaestros.Enabled = true;
-            tsGestion.Enabled = true;
-            tsCompras.Enabled = true;
+            cerrarSesionToolStripMenuItem.Visible = true;
             cambiarClaveToolStripMenuItem.Enabled = true;
+            cambiarClaveToolStripMenuItem.Visible = true;
 
             AplicarPermisos_883SC(usActual.rol_883SC);
         }
 
+        //Una opcion sin permiso no se muestra (en lugar de quedar deshabilitada)
+        private void MostrarSi_883SC(ToolStripItem opcion, bool permitido)
+        {
+            opcion.Enabled = true;
+            opcion.Visible = permitido;
+        }
+
         private void AplicarPermisos_883SC(string rol)
         {
-            gestionDeUsuariosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString());
-            tsPerfiles.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionPerfiles.ToString());
-            backupToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString());
-            restoreToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString());
-            bitacoraToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString());
-            llenarCarritoToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString());
-            realizarVentaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString());
-            usuariosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString());
-            clientesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString());
-            proveedoresToolStripMenuItem1.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
-            administrarProductosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
-            importarListaToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString());
-            productosToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString());
-            altaProveedorToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString());
-            productosGestionToolStripMenuItem.Enabled = administrarProductosToolStripMenuItem.Enabled || importarListaToolStripMenuItem.Enabled;
-            generarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString());
-            autorizarOrdenesToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString());
-            registrarRecepcionToolStripMenuItem.Enabled = perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString());
+            MostrarSi_883SC(gestionDeUsuariosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString()));
+            MostrarSi_883SC(tsPerfiles, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionPerfiles.ToString()));
+            MostrarSi_883SC(hToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ConsultarHistorial.ToString()));
+            MostrarSi_883SC(idiomasToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionIdiomas.ToString()));
+            MostrarSi_883SC(backupToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
+            MostrarSi_883SC(restoreToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
+            MostrarSi_883SC(bitacoraToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString()));
+            MostrarSi_883SC(llenarCarritoToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString()));
+            MostrarSi_883SC(realizarVentaToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString()));
+            MostrarSi_883SC(usuariosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString()));
+            MostrarSi_883SC(clientesToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString()));
+            MostrarSi_883SC(proveedoresToolStripMenuItem1, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString()));
+            MostrarSi_883SC(administrarProductosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString()));
+            MostrarSi_883SC(importarListaToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.ImportarListaPrecios.ToString()));
+            MostrarSi_883SC(productosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString()));
+            MostrarSi_883SC(altaProveedorToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarProveedor.ToString()));
+            MostrarSi_883SC(productosGestionToolStripMenuItem, administrarProductosToolStripMenuItem.Available || importarListaToolStripMenuItem.Available);
+            MostrarSi_883SC(generarOrdenesToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GenerarOrdenCompra.ToString()));
+            MostrarSi_883SC(autorizarOrdenesToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString()));
+            MostrarSi_883SC(registrarRecepcionToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString()));
+
+            MostrarSi_883SC(tsReportes, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.VerReportes.ToString()));
+
+            //Un menu principal solo se muestra si tiene alguna opcion visible
+            MostrarSi_883SC(tsAdmin, TieneOpcionVisible_883SC(tsAdmin));
+            MostrarSi_883SC(tsVentas, TieneOpcionVisible_883SC(tsVentas));
+            MostrarSi_883SC(tsMaestros, TieneOpcionVisible_883SC(tsMaestros));
+            MostrarSi_883SC(tsGestion, TieneOpcionVisible_883SC(tsGestion));
+            MostrarSi_883SC(tsCompras, TieneOpcionVisible_883SC(tsCompras));
+        }
+
+        private bool TieneOpcionVisible_883SC(ToolStripMenuItem menu)
+        {
+            foreach (ToolStripItem hijo in menu.DropDownItems)
+            {
+                //Available (no Visible): Visible es false mientras el desplegable esta cerrado
+                if (hijo.Available && !(hijo is ToolStripSeparator)) { return true; }
+            }
+            return false;
         }
 
         public void FormDesconectado_883SC()
@@ -287,16 +314,12 @@ namespace TP_SanchezVillaverde
                 UsuarioBLL_883SC usuario = new UsuarioBLL_883SC();
                 usuario.Logout_883SC();
 
-                frmLogin_883SC frm = new frmLogin_883SC();
-                frm.Show();
                 this.Close();
             }
         }
 
         private void iniciarSesionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmLogin_883SC frm = new frmLogin_883SC();
-            frm.Show();
             this.Close();
         }
 
@@ -314,9 +337,7 @@ namespace TP_SanchezVillaverde
 
         private void perfilesToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
-            frmGestionPerfiles_883SC frmperfil = new frmGestionPerfiles_883SC();
-            frmperfil.ShowDialog();
-            //OpenForm(tsPerfiles, new frmGestionPerfiles());
+            OpenForm_883SC(tsAdmin, new frmGestionPerfiles_883SC());
         }
 
         private void llenarCarritoToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
@@ -352,9 +373,14 @@ namespace TP_SanchezVillaverde
         private void idiomasToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             frmIdiomas_883SC frmIdiomas = new frmIdiomas_883SC();
-            frmIdiomas.ShowDialog();
-            CargarMenuIdiomas_883SC();
-            MarcarIdiomaActivo_883SC();
+            //Al cerrarse (Salir u otra opcion del menu) se refresca la lista de idiomas
+            frmIdiomas.FormClosed += (s, ev) =>
+            {
+                if (this.IsDisposed || this.Disposing) { return; }
+                CargarMenuIdiomas_883SC();
+                MarcarIdiomaActivo_883SC();
+            };
+            OpenForm_883SC(tsAdmin, frmIdiomas);
         }
     }
 }

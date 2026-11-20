@@ -17,7 +17,9 @@ namespace TP_SanchezVillaverde
 
         ProductoBLL_883SC productoBLL_883SC = new ProductoBLL_883SC();
         CarritoBLL_883SC carritoBLL_883SC = new CarritoBLL_883SC();
+        ProveedorBLL_883SC proveedorBLL_883SC = new ProveedorBLL_883SC();
         GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
+        Dictionary<int, string> nombresProveedores_883SC = new Dictionary<int, string>();
 
         List<ProductoBE_883SC> productosEncontrados_883SC = new List<ProductoBE_883SC>();
         List<DetalleCarritoBE_883SC> carritoEnProgreso_883SC = new List<DetalleCarritoBE_883SC>();
@@ -30,6 +32,7 @@ namespace TP_SanchezVillaverde
         private void frmSeleccionarProducto_Load_883SC(object sender, EventArgs e)
         {
             cmbCriterio.SelectedIndex = 0;
+            dgvProductos.CellFormatting += dgvProductos_CellFormatting_883SC;
             gestorIdioma_883SC.Suscribir_883SC(this);
             this.FormClosed += frmSeleccionarProducto_FormClosed_883SC;
         }
@@ -75,6 +78,7 @@ namespace TP_SanchezVillaverde
                 string dato = txtBusqueda.Text.Trim();
 
                 productosEncontrados_883SC = productoBLL_883SC.BuscarProductos_883SC(criterio, dato);
+                CargarNombresProveedores_883SC();
                 dgvProductos.DataSource = null;
                 dgvProductos.DataSource = productosEncontrados_883SC;
 
@@ -113,6 +117,36 @@ namespace TP_SanchezVillaverde
                 dgvProductos.Columns["Tipo_883SC"].HeaderText = gestorIdioma_883SC.Traducir_883SC("PROD_SEL_COL_TIPO");
                 dgvProductos.Columns["Precio_883SC"].HeaderText = gestorIdioma_883SC.Traducir_883SC("PROD_SEL_COL_PRECIO");
                 dgvProductos.Columns["Proveedor_883SC"].HeaderText = gestorIdioma_883SC.Traducir_883SC("PROD_SEL_COL_PROVEEDOR");
+
+                OcultarColumna_883SC("StockMinimo_883SC");
+                OcultarColumna_883SC("CantidadProveedores_883SC");
+                OcultarColumna_883SC("CantidadFaltante_883SC");
+            }
+        }
+
+        private void OcultarColumna_883SC(string nombre)
+        {
+            if (dgvProductos.Columns[nombre] != null) { dgvProductos.Columns[nombre].Visible = false; }
+        }
+
+        private void dgvProductos_CellFormatting_883SC(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) { return; }
+            if (dgvProductos.Columns[e.ColumnIndex].Name != "Proveedor_883SC") { return; }
+
+            if (e.Value is int && nombresProveedores_883SC.ContainsKey((int)e.Value))
+            {
+                e.Value = nombresProveedores_883SC[(int)e.Value];
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void CargarNombresProveedores_883SC()
+        {
+            nombresProveedores_883SC.Clear();
+            foreach (ProveedorBE_883SC proveedor in proveedorBLL_883SC.ListarProveedores_883SC())
+            {
+                nombresProveedores_883SC[proveedor.Id_883SC] = proveedor.Nombre_883SC;
             }
         }
 

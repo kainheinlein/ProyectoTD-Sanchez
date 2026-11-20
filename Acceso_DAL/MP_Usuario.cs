@@ -36,6 +36,7 @@ namespace Acceso_DAL
                 us.bloq_883SC = Convert.ToBoolean(dr[11].ToString());
                 us.dvh_883SC = dr[12].ToString();
                 us.primer_883SC = Convert.ToBoolean(dr[13].ToString());
+                us.idioma_883SC = LeerIdioma_883SC(dr);
                 usuarios.Add(us);
             }
             return usuarios;
@@ -144,9 +145,28 @@ namespace Acceso_DAL
                 aux.bloq_883SC = Convert.ToBoolean(dt.Rows[0][11].ToString());
                 aux.dvh_883SC = dt.Rows[0][12].ToString();
                 aux.primer_883SC = Convert.ToBoolean(dt.Rows[0][13].ToString());
+                aux.idioma_883SC = LeerIdioma_883SC(dt.Rows[0]);
                 return aux;
             }
             else return null;
+        }
+
+        private static string LeerIdioma_883SC(DataRow fila)
+        {
+            if (!fila.Table.Columns.Contains("IdiomaPreferido") || fila["IdiomaPreferido"] == DBNull.Value)
+            {
+                return "ES";
+            }
+            return fila["IdiomaPreferido"].ToString();
+        }
+
+        public void ActualizarIdioma_883SC(int codigoUsuario, string codigoIdioma)
+        {
+            SqlParameter[] parametros = new SqlParameter[2];
+            parametros[0] = new SqlParameter("@Codigo", codigoUsuario);
+            parametros[1] = new SqlParameter("@Idioma", codigoIdioma);
+
+            conexDB_883SC.Escribir_883SC("ActualizarIdiomaUsuario_SP", parametros);
         }
 
         public void ActualizarUsuarioConHistorial_883SC(UsuarioBE_883SC us, string usuarioResponsable, TipoAccion_883SC accion)

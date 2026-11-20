@@ -178,6 +178,7 @@ namespace TP_SanchezVillaverde
             dgvUsuarios.Columns["dvh_883SC"].Visible = false;
             dgvUsuarios.Columns["digito_883SC"].Visible = false;
             dgvUsuarios.Columns["primer_883SC"].Visible = false;
+            dgvUsuarios.Columns["idioma_883SC"].Visible = false;
             dgvUsuarios.Columns["ape_883SC"].HeaderText = "Apellido";
             dgvUsuarios.Columns["nomb_883SC"].HeaderText = "Nombre";
             dgvUsuarios.Columns["dni_883SC"].HeaderText = "DNI";

@@ -22,6 +22,9 @@ namespace Entidad_BE
         ImportarListaPrecios,
         GenerarOrdenCompra,
         RegistrarRecepcion,
-        AutorizarOrdenCompra
+        AutorizarOrdenCompra,
+        ConsultarHistorial,
+        GestionIdiomas,
+        VerReportes
     }
 }

@@ -39,7 +39,7 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = gestorIdioma_883SC.Traducir_883SC("LIST_TITULO");
-            lblTitulo.Text = gestorIdioma_883SC.Traducir_883SC("LIST_TITULO");
+            lblTitulo.Text = gestorIdioma_883SC.Traducir_883SC("LIST_TITULO").ToUpper();
             lblProveedor.Text = gestorIdioma_883SC.Traducir_883SC("LIST_LBL_PROVEEDOR");
             lblArchivo.Text = gestorIdioma_883SC.Traducir_883SC("LIST_LBL_ARCHIVO");
             lblRechazadas.Text = gestorIdioma_883SC.Traducir_883SC("LIST_LBL_RECHAZADAS");

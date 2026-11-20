@@ -33,7 +33,7 @@ namespace TP_SanchezVillaverde
                     {
                         conectando.MostrarEtapa_883SC("Conectando con SQL Server...");
                         ConexionConfig_883SC.ObtenerCadena_883SC();
-                        resultado = new InicializacionBLL_883SC().Inicializar_883SC(conectando.MostrarEtapa_883SC);
+                        resultado = new InicializacionBLL_883SC().Inicializar_883SC(conectando.MostrarEtapa_883SC, conectando.ConfirmarBaseNueva_883SC);
                     }
                     catch (Exception ex)
                     {
@@ -49,15 +49,12 @@ namespace TP_SanchezVillaverde
 
             if (error != null)
             {
+                //El usuario eligio no crear la base en la instancia alternativa: se cierra sin mensaje de error
+                InicializacionException_883SC cancelada = error as InicializacionException_883SC;
+                if (cancelada != null && cancelada.Motivo_883SC == MotivoInicializacion_883SC.CanceladaPorUsuario) { return; }
+
                 MessageBox.Show(MensajeDeError_883SC(error), "FerreSV", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
-
-            if (resultado.UsoInstanciaAlternativa_883SC)
-            {
-                MessageBox.Show("La instancia configurada (" + resultado.InstanciaConfigurada_883SC + ") no respondio. La aplicacion usa: " + resultado.InstanciaUsada_883SC +
-                    ".\r\n\r\nPara que no vuelva a aparecer este aviso, corrija la cadena 'FerreDB' en " + AppDomain.CurrentDomain.SetupInformation.ConfigurationFile + ".",
-                    "FerreSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             Application.Run(new frmLogin_883SC());

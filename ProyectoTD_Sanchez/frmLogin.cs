@@ -94,6 +94,11 @@ namespace TP_SanchezVillaverde
                 }
             }
 
+            //Ya paso la integridad y el primer inicio: se restaura el idioma que el usuario eligio la ultima vez.
+            //Un error de base no impide entrar: se sigue con el idioma actual.
+            try { gestorIdioma_883SC.AplicarIdiomaDeUsuario_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC()); }
+            catch (Exception) { }
+
             frmMenu_883SC frm = new frmMenu_883SC();
             frm.Show();
             this.Hide();
@@ -259,6 +264,8 @@ namespace TP_SanchezVillaverde
             frmMenu_883SC frm = new frmMenu_883SC();
             frm.Show();
             this.Hide();
+
+            frm.FormClosing += frm_closing_883SC;
         }
 
         private void lblSinConexion_MouseHover_883SC(object sender, EventArgs e)
@@ -281,6 +288,9 @@ namespace TP_SanchezVillaverde
 
         private void frm_closing_883SC(object sender, FormClosingEventArgs e)
         {
+            //Solo se vuelve al login si el menu se cierra para eso; al salir de la aplicacion no
+            if (e.CloseReason != CloseReason.UserClosing) { return; }
+
             txtContra.Limpiar_883SC();
             txtUsuario.Limpiar_883SC();
             this.Show();

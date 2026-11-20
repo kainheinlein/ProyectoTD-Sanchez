@@ -415,6 +415,12 @@ namespace TP_SanchezVillaverde
             button7.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_GUARDAR");
             btnEliminar.Text = gestorIdioma_883SC.Traducir_883SC("PERF_BTN_ELIMINAR");
             button1.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_CANCELAR");
+            btnSalir.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_SALIR");
+        }
+
+        private void btnSalir_Click_883SC(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion

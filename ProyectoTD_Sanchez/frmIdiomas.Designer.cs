@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pIdiomas = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.gbNuevo = new System.Windows.Forms.GroupBox();
             this.btnCrear = new System.Windows.Forms.Button();
             this.lblArchivo = new System.Windows.Forms.Label();
@@ -44,10 +46,36 @@
             this.cmbIdioma = new System.Windows.Forms.ComboBox();
             this.lblIdioma = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.pIdiomas.SuspendLayout();
             this.gbNuevo.SuspendLayout();
             this.gbTraducciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraducciones)).BeginInit();
             this.SuspendLayout();
+            //
+            // pIdiomas
+            //
+            this.pIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pIdiomas.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pIdiomas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pIdiomas.Controls.Add(this.lblTitulo);
+            this.pIdiomas.Controls.Add(this.btnSalir);
+            this.pIdiomas.Controls.Add(this.gbTraducciones);
+            this.pIdiomas.Controls.Add(this.gbNuevo);
+            this.pIdiomas.Location = new System.Drawing.Point(0, 0);
+            this.pIdiomas.Name = "pIdiomas";
+            this.pIdiomas.Size = new System.Drawing.Size(894, 616);
+            this.pIdiomas.TabIndex = 0;
+            //
+            // lblTitulo
+            //
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Verdana", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.lblTitulo.Location = new System.Drawing.Point(300, 12);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(290, 24);
+            this.lblTitulo.TabIndex = 3;
+            this.lblTitulo.Text = "GESTIÓN DE IDIOMAS";
             //
             // gbNuevo
             //
@@ -60,7 +88,7 @@
             this.gbNuevo.Controls.Add(this.lblNombre);
             this.gbNuevo.Controls.Add(this.txtCodigo);
             this.gbNuevo.Controls.Add(this.lblCodigo);
-            this.gbNuevo.Location = new System.Drawing.Point(12, 12);
+            this.gbNuevo.Location = new System.Drawing.Point(12, 62);
             this.gbNuevo.Name = "gbNuevo";
             this.gbNuevo.Size = new System.Drawing.Size(380, 290);
             this.gbNuevo.TabIndex = 0;
@@ -125,7 +153,10 @@
             this.btnExaminar.Size = new System.Drawing.Size(90, 25);
             this.btnExaminar.TabIndex = 6;
             this.btnExaminar.Text = "Examinar...";
-            this.btnExaminar.UseVisualStyleBackColor = true;
+            this.btnExaminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnExaminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExaminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExaminar.UseVisualStyleBackColor = false;
             this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click_883SC);
             //
             // lblBase
@@ -143,7 +174,10 @@
             this.btnCrear.Size = new System.Drawing.Size(130, 30);
             this.btnCrear.TabIndex = 8;
             this.btnCrear.Text = "Crear Idioma";
-            this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnCrear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCrear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrear.UseVisualStyleBackColor = false;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click_883SC);
             //
             // gbTraducciones
@@ -152,7 +186,7 @@
             this.gbTraducciones.Controls.Add(this.btnGuardar);
             this.gbTraducciones.Controls.Add(this.cmbIdioma);
             this.gbTraducciones.Controls.Add(this.lblIdioma);
-            this.gbTraducciones.Location = new System.Drawing.Point(410, 12);
+            this.gbTraducciones.Location = new System.Drawing.Point(410, 62);
             this.gbTraducciones.Name = "gbTraducciones";
             this.gbTraducciones.Size = new System.Drawing.Size(470, 540);
             this.gbTraducciones.TabIndex = 1;
@@ -197,34 +231,39 @@
             this.btnGuardar.Size = new System.Drawing.Size(120, 30);
             this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_883SC);
             //
             // btnSalir
             //
-            this.btnSalir.Location = new System.Drawing.Point(12, 522);
+            this.btnSalir.Location = new System.Drawing.Point(12, 572);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(120, 30);
             this.btnSalir.TabIndex = 2;
             this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             //
             // frmIdiomas
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 566);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.gbTraducciones);
-            this.Controls.Add(this.gbNuevo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(894, 616);
+            this.Controls.Add(this.pIdiomas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimumSize = new System.Drawing.Size(894, 616);
             this.Name = "frmIdiomas";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Gestión de Idiomas";
             this.Load += new System.EventHandler(this.frmIdiomas_Load_883SC);
+            this.pIdiomas.ResumeLayout(false);
             this.gbNuevo.ResumeLayout(false);
             this.gbNuevo.PerformLayout();
             this.gbTraducciones.ResumeLayout(false);
@@ -235,6 +274,8 @@
 
         #endregion
 
+        private System.Windows.Forms.Panel pIdiomas;
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.GroupBox gbNuevo;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Label lblArchivo;

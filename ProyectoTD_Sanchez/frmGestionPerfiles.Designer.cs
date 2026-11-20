@@ -30,6 +30,7 @@ namespace TP_SanchezVillaverde
         {
             this.labelTitulo = new System.Windows.Forms.Label();
             this.pPerfiles = new System.Windows.Forms.Panel();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.gbDatos = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -53,9 +54,10 @@ namespace TP_SanchezVillaverde
             //
             // labelTitulo
             //
+            this.labelTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTitulo.AutoSize = true;
             this.labelTitulo.Font = new System.Drawing.Font("Verdana", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.labelTitulo.Location = new System.Drawing.Point(330, 15);
+            this.labelTitulo.Location = new System.Drawing.Point(323, 12);
             this.labelTitulo.Name = "labelTitulo";
             this.labelTitulo.Size = new System.Drawing.Size(330, 24);
             this.labelTitulo.TabIndex = 0;
@@ -63,15 +65,32 @@ namespace TP_SanchezVillaverde
             //
             // pPerfiles
             //
+            this.pPerfiles.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pPerfiles.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pPerfiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pPerfiles.Controls.Add(this.labelTitulo);
+            this.pPerfiles.Controls.Add(this.btnSalir);
             this.pPerfiles.Controls.Add(this.gbDatos);
             this.pPerfiles.Controls.Add(this.gbPermisos);
             this.pPerfiles.Controls.Add(this.gbArbol);
-            this.pPerfiles.Location = new System.Drawing.Point(12, 55);
+            this.pPerfiles.Location = new System.Drawing.Point(12, 12);
             this.pPerfiles.Name = "pPerfiles";
-            this.pPerfiles.Size = new System.Drawing.Size(976, 550);
+            this.pPerfiles.Size = new System.Drawing.Size(976, 600);
             this.pPerfiles.TabIndex = 1;
+            //
+            // btnSalir
+            //
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnSalir.Location = new System.Drawing.Point(30, 380);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(250, 32);
+            this.btnSalir.TabIndex = 3;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_883SC);
             //
             // gbDatos
             //
@@ -86,7 +105,7 @@ namespace TP_SanchezVillaverde
             this.gbDatos.Controls.Add(this.comboFamilias);
             this.gbDatos.Controls.Add(this.labelRol);
             this.gbDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.gbDatos.Location = new System.Drawing.Point(16, 16);
+            this.gbDatos.Location = new System.Drawing.Point(16, 66);
             this.gbDatos.Name = "gbDatos";
             this.gbDatos.Size = new System.Drawing.Size(280, 300);
             this.gbDatos.TabIndex = 0;
@@ -214,7 +233,7 @@ namespace TP_SanchezVillaverde
             //
             this.gbPermisos.Controls.Add(this.checkedListBox1);
             this.gbPermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.gbPermisos.Location = new System.Drawing.Point(310, 16);
+            this.gbPermisos.Location = new System.Drawing.Point(310, 66);
             this.gbPermisos.Name = "gbPermisos";
             this.gbPermisos.Size = new System.Drawing.Size(310, 504);
             this.gbPermisos.TabIndex = 1;
@@ -234,7 +253,7 @@ namespace TP_SanchezVillaverde
             //
             this.gbArbol.Controls.Add(this.treeView1);
             this.gbArbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.gbArbol.Location = new System.Drawing.Point(634, 16);
+            this.gbArbol.Location = new System.Drawing.Point(634, 66);
             this.gbArbol.Name = "gbArbol";
             this.gbArbol.Size = new System.Drawing.Size(326, 504);
             this.gbArbol.TabIndex = 2;
@@ -259,13 +278,11 @@ namespace TP_SanchezVillaverde
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1000, 630);
             this.Controls.Add(this.pPerfiles);
-            this.Controls.Add(this.labelTitulo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimumSize = new System.Drawing.Size(1000, 630);
             this.Name = "frmGestionPerfiles";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Gestión de Perfiles";
             this.Load += new System.EventHandler(this.frmGestionPerfiles_Load_883SC);
             this.pPerfiles.ResumeLayout(false);
@@ -282,6 +299,7 @@ namespace TP_SanchezVillaverde
 
         private System.Windows.Forms.Label labelTitulo;
         private System.Windows.Forms.Panel pPerfiles;
+        private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.GroupBox gbDatos;
         private System.Windows.Forms.Label labelRol;
         private System.Windows.Forms.ComboBox comboFamilias;

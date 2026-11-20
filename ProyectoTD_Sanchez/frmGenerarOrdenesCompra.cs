@@ -49,7 +49,7 @@ namespace TP_SanchezVillaverde
         public void ActualizarTextos_883SC()
         {
             this.Text = Traducir_883SC("OC_TITULO");
-            lblTitulo.Text = Traducir_883SC("OC_TITULO");
+            lblTitulo.Text = Traducir_883SC("OC_TITULO").ToUpper();
             lblBajoStock.Text = Traducir_883SC("OC_LBL_BAJO_STOCK");
             lblPrecios.Text = Traducir_883SC("OC_LBL_PRECIOS");
             lblListaCompra.Text = Traducir_883SC("OC_LBL_LISTA_COMPRA");
@@ -75,38 +75,40 @@ namespace TP_SanchezVillaverde
             return gestorIdioma_883SC.Traducir_883SC(clave);
         }
 
-        private void AgregarColumna_883SC(DataGridView dgv, string nombre, string claveEncabezado, string formato = null)
+        private void AgregarColumna_883SC(DataGridView dgv, string nombre, string claveEncabezado, string formato = null, float peso = 100)
         {
             DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
             columna.Name = nombre;
             columna.Tag = claveEncabezado;
             columna.ReadOnly = true;
+            columna.FillWeight = peso;
+            columna.MinimumWidth = 50;
             if (formato != null) { columna.DefaultCellStyle.Format = formato; }
             dgv.Columns.Add(columna);
         }
 
         private void ConfigurarColumnas_883SC()
         {
-            AgregarColumna_883SC(dgvProductos, "colCodigo", "MAESTRO_COL_CODIGO");
-            AgregarColumna_883SC(dgvProductos, "colNombre", "COMUN_NOMBRE");
-            AgregarColumna_883SC(dgvProductos, "colStock", "MAESTRO_COL_STOCK");
-            AgregarColumna_883SC(dgvProductos, "colStockMin", "PROD_COL_STOCK_MIN");
-            AgregarColumna_883SC(dgvProductos, "colFaltante", "OC_COL_FALTANTE");
-            AgregarColumna_883SC(dgvProductos, "colProveedores", "OC_COL_PROVEEDORES");
+            AgregarColumna_883SC(dgvProductos, "colCodigo", "MAESTRO_COL_CODIGO", null, 14);
+            AgregarColumna_883SC(dgvProductos, "colNombre", "COMUN_NOMBRE", null, 30);
+            AgregarColumna_883SC(dgvProductos, "colStock", "MAESTRO_COL_STOCK", null, 11);
+            AgregarColumna_883SC(dgvProductos, "colStockMin", "PROD_COL_STOCK_MIN", null, 15);
+            AgregarColumna_883SC(dgvProductos, "colFaltante", "OC_COL_FALTANTE", null, 15);
+            AgregarColumna_883SC(dgvProductos, "colProveedores", "OC_COL_PROVEEDORES", null, 15);
 
-            AgregarColumna_883SC(dgvPrecios, "colProveedor", "PROD_COL_PROVEEDOR");
-            AgregarColumna_883SC(dgvPrecios, "colCodigoProv", "PROD_COL_CODIGO_PROV");
-            AgregarColumna_883SC(dgvPrecios, "colPrecioLista", "PROD_COL_PRECIO_LISTA", "N2");
-            AgregarColumna_883SC(dgvPrecios, "colFecha", "PROD_COL_FECHA", "d");
+            AgregarColumna_883SC(dgvPrecios, "colProveedor", "PROD_COL_PROVEEDOR", null, 30);
+            AgregarColumna_883SC(dgvPrecios, "colCodigoProv", "PROD_COL_CODIGO_PROV", null, 25);
+            AgregarColumna_883SC(dgvPrecios, "colPrecioLista", "PROD_COL_PRECIO_LISTA", "N2", 22);
+            AgregarColumna_883SC(dgvPrecios, "colFecha", "PROD_COL_FECHA", "d", 23);
 
-            AgregarColumna_883SC(dgvLista, "colProducto", "COMUN_NOMBRE");
-            AgregarColumna_883SC(dgvLista, "colProveedorL", "PROD_COL_PROVEEDOR");
-            AgregarColumna_883SC(dgvLista, "colCantidad", "OC_COL_CANTIDAD");
-            AgregarColumna_883SC(dgvLista, "colPrecioL", "PROD_COL_PRECIO_LISTA", "N2");
-            AgregarColumna_883SC(dgvLista, "colSubtotal", "OC_COL_SUBTOTAL", "N2");
+            AgregarColumna_883SC(dgvLista, "colProducto", "COMUN_NOMBRE", null, 30);
+            AgregarColumna_883SC(dgvLista, "colProveedorL", "PROD_COL_PROVEEDOR", null, 25);
+            AgregarColumna_883SC(dgvLista, "colCantidad", "OC_COL_CANTIDAD", null, 13);
+            AgregarColumna_883SC(dgvLista, "colPrecioL", "PROD_COL_PRECIO_LISTA", "N2", 16);
+            AgregarColumna_883SC(dgvLista, "colSubtotal", "OC_COL_SUBTOTAL", "N2", 16);
 
-            AgregarColumna_883SC(dgvTotales, "colProveedorT", "PROD_COL_PROVEEDOR");
-            AgregarColumna_883SC(dgvTotales, "colTotal", "OC_COL_TOTAL", "N2");
+            AgregarColumna_883SC(dgvTotales, "colProveedorT", "PROD_COL_PROVEEDOR", null, 65);
+            AgregarColumna_883SC(dgvTotales, "colTotal", "OC_COL_TOTAL", "N2", 35);
         }
 
         private void CargarProductos_883SC()

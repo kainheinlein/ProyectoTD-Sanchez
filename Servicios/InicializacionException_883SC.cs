@@ -9,7 +9,8 @@ namespace Servicios
         ErrorCrearBase = 3,
         SinAccesoBase = 4,
         EsquemaFallido = 5,
-        AdminFallido = 6
+        AdminFallido = 6,
+        CanceladaPorUsuario = 7
     }
 
     //Fallo al preparar la base en el primer arranque. El mensaje esta en espanol fijo: las traducciones viven en la base,

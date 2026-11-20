@@ -122,6 +122,14 @@ namespace Entidad_BE
 
         public string digito_883SC => _dvh_883SC;
 
+        private string _idioma_883SC = "ES";
+
+        public string idioma_883SC
+        {
+            get { return _idioma_883SC; }
+            set { _idioma_883SC = value; }
+        }
+
         public UsuarioBE_883SC() { }
 
         public UsuarioBE_883SC CrearUsuario_883SC(string[] datos)
