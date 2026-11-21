@@ -56,6 +56,7 @@
     <Compile Include="OrdenEstadoCambiadoException.cs" />
     <Compile Include="OrdenNoPendienteException.cs" />
     <Compile Include="MP_Proveedor.cs" />
+    <Compile Include="MP_ReporteVentas.cs" />
     <Compile Include="MP_Instalacion.cs" />
     <Compile Include="MP_Usuario.cs" />
     <Compile Include="MP_VerificadorIntegridad.cs" />

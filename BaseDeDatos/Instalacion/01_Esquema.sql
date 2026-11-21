@@ -1998,6 +1998,100 @@ BEGIN
 END
 
 GO
+/****** Objeto: StoredProcedure [dbo].[ReporteVentasResumen_SP] Fecha de script: 21/11/2026 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReporteVentasResumen_SP]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[ReporteVentasResumen_SP] AS'
+END
+GO
+
+-- CUN-012: indicadores del periodo [@desde, @hasta] (ambos inclusive). Solo lectura.
+-- La cantidad de ventas se cuenta desde Facturas; el detalle entra por LEFT JOIN (unidades e importes).
+-- Importe de una linea = cantidad * PrecioUnitario (el precio congelado de la factura).
+ALTER   PROCEDURE [dbo].[ReporteVentasResumen_SP]
+    @desde DATE,
+    @hasta DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT COUNT(DISTINCT f.IDFactura)                    AS CantidadVentas,
+           ISNULL(SUM(d.cantidad), 0)                     AS UnidadesVendidas,
+           ISNULL(SUM(d.cantidad * d.PrecioUnitario), 0)  AS MontoTotal
+    FROM dbo.Facturas f
+    LEFT JOIN dbo.Detalle_Factura d ON d.IDFactura = f.IDFactura
+    WHERE f.fecha_venta >= @desde
+      AND f.fecha_venta < DATEADD(DAY, 1, @hasta);
+END
+
+GO
+/****** Objeto: StoredProcedure [dbo].[ReporteVentasPorDia_SP] Fecha de script: 21/11/2026 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReporteVentasPorDia_SP]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[ReporteVentasPorDia_SP] AS'
+END
+GO
+
+-- CUN-012: ventas agrupadas por dia (solo los dias con ventas), de la mas antigua a la mas reciente. Solo lectura.
+ALTER   PROCEDURE [dbo].[ReporteVentasPorDia_SP]
+    @desde DATE,
+    @hasta DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT CAST(f.fecha_venta AS DATE)                    AS Fecha,
+           COUNT(DISTINCT f.IDFactura)                    AS CantidadVentas,
+           ISNULL(SUM(d.cantidad * d.PrecioUnitario), 0)  AS Importe
+    FROM dbo.Facturas f
+    LEFT JOIN dbo.Detalle_Factura d ON d.IDFactura = f.IDFactura
+    WHERE f.fecha_venta >= @desde
+      AND f.fecha_venta < DATEADD(DAY, 1, @hasta)
+    GROUP BY CAST(f.fecha_venta AS DATE)
+    ORDER BY CAST(f.fecha_venta AS DATE);
+END
+
+GO
+/****** Objeto: StoredProcedure [dbo].[ReporteVentasTopProductos_SP] Fecha de script: 21/11/2026 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReporteVentasTopProductos_SP]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[ReporteVentasTopProductos_SP] AS'
+END
+GO
+
+-- CUN-012: los @top productos con mas unidades vendidas en el periodo. Desempate: mayor importe y luego codigo. Solo lectura.
+ALTER   PROCEDURE [dbo].[ReporteVentasTopProductos_SP]
+    @desde DATE,
+    @hasta DATE,
+    @top   INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT TOP (@top)
+           d.Codigo                          AS Codigo,
+           p.Nombre                          AS Nombre,
+           SUM(d.cantidad)                   AS Unidades,
+           SUM(d.cantidad * d.PrecioUnitario) AS Importe
+    FROM dbo.Facturas f
+    INNER JOIN dbo.Detalle_Factura d ON d.IDFactura = f.IDFactura
+    LEFT JOIN dbo.Productos p ON p.Codigo = d.Codigo
+    WHERE f.fecha_venta >= @desde
+      AND f.fecha_venta < DATEADD(DAY, 1, @hasta)
+    GROUP BY d.Codigo, p.Nombre
+    ORDER BY SUM(d.cantidad) DESC, SUM(d.cantidad * d.PrecioUnitario) DESC, d.Codigo;
+END
+
+GO
 /****** Objeto: StoredProcedure [dbo].[SP_ActualizarBloqueado] Fecha de script: 07/11/2026 4:20:28 ******/
 SET ANSI_NULLS ON
 GO

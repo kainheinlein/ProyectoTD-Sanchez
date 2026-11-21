@@ -65,6 +65,7 @@
             this.generarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autorizarOrdenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarRecepcionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteVentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -305,8 +306,17 @@
             this.registrarRecepcionToolStripMenuItem.Text = "Registrar Recepcion";
             this.registrarRecepcionToolStripMenuItem.Click += new System.EventHandler(this.registrarRecepcionToolStripMenuItem_Click_883SC);
             //
+            // reporteVentasToolStripMenuItem
+            //
+            this.reporteVentasToolStripMenuItem.Name = "reporteVentasToolStripMenuItem";
+            this.reporteVentasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reporteVentasToolStripMenuItem.Text = "Reporte de Ventas";
+            this.reporteVentasToolStripMenuItem.Click += new System.EventHandler(this.reporteVentasToolStripMenuItem_Click_883SC);
+            //
             // tsReportes
             //
+            this.tsReportes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteVentasToolStripMenuItem});
             this.tsReportes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsReportes.Name = "tsReportes";
             this.tsReportes.Size = new System.Drawing.Size(70, 30);
@@ -438,6 +448,7 @@
         private System.Windows.Forms.ToolStripMenuItem generarOrdenesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autorizarOrdenesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarRecepcionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteVentasToolStripMenuItem;
     }
 }
 

@@ -77,6 +77,7 @@ namespace TP_SanchezVillaverde
             autorizarOrdenesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_AUTORIZAR_ORDENES");
             registrarRecepcionToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REGISTRAR_RECEPCION");
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
+            reporteVentasToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REPORTE_VENTAS");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
 
@@ -179,7 +180,7 @@ namespace TP_SanchezVillaverde
             MostrarSi_883SC(autorizarOrdenesToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.AutorizarOrdenCompra.ToString()));
             MostrarSi_883SC(registrarRecepcionToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarRecepcion.ToString()));
 
-            MostrarSi_883SC(tsReportes, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.VerReportes.ToString()));
+            MostrarSi_883SC(reporteVentasToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.VerReportes.ToString()));
 
             //Un menu principal solo se muestra si tiene alguna opcion visible
             MostrarSi_883SC(tsAdmin, TieneOpcionVisible_883SC(tsAdmin));
@@ -187,6 +188,7 @@ namespace TP_SanchezVillaverde
             MostrarSi_883SC(tsMaestros, TieneOpcionVisible_883SC(tsMaestros));
             MostrarSi_883SC(tsGestion, TieneOpcionVisible_883SC(tsGestion));
             MostrarSi_883SC(tsCompras, TieneOpcionVisible_883SC(tsCompras));
+            MostrarSi_883SC(tsReportes, TieneOpcionVisible_883SC(tsReportes));
         }
 
         private bool TieneOpcionVisible_883SC(ToolStripMenuItem menu)
@@ -289,6 +291,11 @@ namespace TP_SanchezVillaverde
         private void registrarRecepcionToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             OpenForm_883SC(tsCompras, new frmRegistrarRecepcion_883SC());
+        }
+
+        private void reporteVentasToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsReportes, new frmReporteVentas_883SC());
         }
 
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
