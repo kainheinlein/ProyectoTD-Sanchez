@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackupBLL.cs" />
+    <Compile Include="CatalogoBackupsDesactualizadoException.cs" />
     <Compile Include="BitacoraBLL.cs" />
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="ClienteBLL.cs" />
@@ -57,6 +58,8 @@
     <Compile Include="OrdenCompraBLL.cs" />
     <Compile Include="ComprobanteOrdenCompraBLL.cs" />
     <Compile Include="ProveedorBLL.cs" />
+    <Compile Include="AyudaBLL.cs" />
+    <Compile Include="DatosPruebaBLL.cs" />
     <Compile Include="ProductoCBLL.cs" />
     <Compile Include="ReporteVentasBLL.cs" />
     <Compile Include="UsuarioBLL.cs" />

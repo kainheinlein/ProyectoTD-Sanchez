@@ -63,6 +63,19 @@ namespace Negocio_BLL
             return resultado;
         }
 
+        //Solo lo invoca el desinstalador (Program --eliminar-base) cuando el usuario eligio no conservar la base.
+        //Nunca elimina bases del sistema.
+        public void EliminarBase_883SC()
+        {
+            string nombre = new System.Data.SqlClient.SqlConnectionStringBuilder(ConexionConfig_883SC.ObtenerCadena_883SC()).InitialCatalog;
+            string[] sistema = { "master", "model", "msdb", "tempdb" };
+            if (string.IsNullOrWhiteSpace(nombre) || Array.Exists(sistema, n => string.Equals(n, nombre, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new InvalidOperationException("Nombre de base no valido para eliminar: '" + nombre + "'.");
+            }
+            mpInstalacion_883SC.EliminarBase_883SC();
+        }
+
         private void CrearAdmin_883SC(ResultadoInicializacionBE_883SC resultado)
         {
             UsuarioBE_883SC admin = new UsuarioBE_883SC();

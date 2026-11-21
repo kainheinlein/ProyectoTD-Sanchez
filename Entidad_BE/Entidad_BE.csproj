@@ -69,6 +69,10 @@
     <Compile Include="MapeoListaBE.cs" />
     <Compile Include="ResumenImportacionBE.cs" />
     <Compile Include="ResultadoInicializacionBE.cs" />
+    <Compile Include="AyudaTemaBE.cs" />
+    <Compile Include="ContenidoBaseBE.cs" />
+    <Compile Include="UsuarioPruebaBE.cs" />
+    <Compile Include="ResultadoDatosPruebaBE.cs" />
     <Compile Include="ProductoCBE.cs" />
     <Compile Include="ProductoVendidoBE.cs" />
     <Compile Include="ProveedorBE.cs" />

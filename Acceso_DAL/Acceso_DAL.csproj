@@ -54,6 +54,8 @@
     <Compile Include="BajaProductoException.cs" />
     <Compile Include="ProductoDadoDeBajaException.cs" />
     <Compile Include="MP_Producto.cs" />
+    <Compile Include="MP_Ayuda.cs" />
+    <Compile Include="MP_DatosPrueba.cs" />
     <Compile Include="MP_ProductoC.cs" />
     <Compile Include="MP_ListaPrecio.cs" />
     <Compile Include="MP_OrdenCompra.cs" />
@@ -72,6 +74,10 @@
     <EmbeddedResource Include="..\BaseDeDatos\Instalacion\01_Esquema.sql">
       <Link>Instalacion\01_Esquema.sql</Link>
       <LogicalName>Acceso_DAL.Instalacion.01_Esquema.sql</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\BaseDeDatos\03_DatosPrueba.sql">
+      <Link>DatosPrueba\03_DatosPrueba.sql</Link>
+      <LogicalName>Acceso_DAL.DatosPrueba.03_DatosPrueba.sql</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="..\BaseDeDatos\Instalacion\02_DatosBase.sql">
       <Link>Instalacion\02_DatosBase.sql</Link>

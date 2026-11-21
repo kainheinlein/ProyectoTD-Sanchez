@@ -37,6 +37,7 @@
             this.idiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarDatosPruebaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsInicio = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +57,7 @@
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proveedoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsAyuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaEnLineaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administrarProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +104,7 @@
             this.idiomasToolStripMenuItem,
             this.backupToolStripMenuItem,
             this.restoreToolStripMenuItem,
+            this.cargarDatosPruebaToolStripMenuItem,
             this.bitacoraToolStripMenuItem});
             this.tsAdmin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsAdmin.Name = "tsAdmin";
@@ -149,6 +152,13 @@
             this.restoreToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click_883SC);
+            // 
+            // cargarDatosPruebaToolStripMenuItem
+            // 
+            this.cargarDatosPruebaToolStripMenuItem.Name = "cargarDatosPruebaToolStripMenuItem";
+            this.cargarDatosPruebaToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.cargarDatosPruebaToolStripMenuItem.Text = "Cargar datos de prueba";
+            this.cargarDatosPruebaToolStripMenuItem.Click += new System.EventHandler(this.cargarDatosPruebaToolStripMenuItem_Click_883SC);
             // 
             // bitacoraToolStripMenuItem
             // 
@@ -375,10 +385,20 @@
             // 
             // tsAyuda
             // 
+            this.tsAyuda.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ayudaEnLineaToolStripMenuItem});
             this.tsAyuda.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.tsAyuda.Name = "tsAyuda";
             this.tsAyuda.Size = new System.Drawing.Size(53, 30);
             this.tsAyuda.Text = "Ayuda";
+            //
+            // ayudaEnLineaToolStripMenuItem
+            //
+            this.ayudaEnLineaToolStripMenuItem.Name = "ayudaEnLineaToolStripMenuItem";
+            this.ayudaEnLineaToolStripMenuItem.ShortcutKeyDisplayString = "F1";
+            this.ayudaEnLineaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ayudaEnLineaToolStripMenuItem.Text = "Ayuda en línea";
+            this.ayudaEnLineaToolStripMenuItem.Click += new System.EventHandler(this.ayudaEnLineaToolStripMenuItem_Click_883SC);
             // 
             // lblUsuario
             // 
@@ -414,6 +434,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMenu_883SC";
@@ -421,6 +442,7 @@
             this.Text = "FerreSV";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMenu_Load_883SC);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMenu_KeyDown_883SC);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -437,6 +459,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsVentas;
         private System.Windows.Forms.ToolStripMenuItem tsReportes;
         private System.Windows.Forms.ToolStripMenuItem tsAyuda;
+        private System.Windows.Forms.ToolStripMenuItem ayudaEnLineaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iniciarSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
@@ -446,6 +469,7 @@
         private System.Windows.Forms.ToolStripMenuItem idiomasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cargarDatosPruebaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarClaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarIdiomaToolStripMenuItem;

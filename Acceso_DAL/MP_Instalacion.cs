@@ -100,6 +100,27 @@ namespace Acceso_DAL
             }
         }
 
+        //Desinstalador: elimina la base (solo si el usuario pidio no conservarla). Se conecta a master y exige que la instancia
+        //resuelta sea la del config: si la del config no respondio y se uso una alternativa, NO se toca nada (otra base, otro servidor).
+        //Cierra las conexiones abiertas con SINGLE_USER WITH ROLLBACK IMMEDIATE; el nombre se arma con QUOTENAME (parametro, sin concatenar).
+        public void EliminarBase_883SC()
+        {
+            string nombre = NombreBase_883SC();
+            if (!string.Equals(ConexionConfig_883SC.ObtenerInstanciaConfigurada_883SC(), ConexionConfig_883SC.ObtenerInstanciaUsada_883SC(), StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException("La instancia del config no responde: no se elimina la base '" + nombre + "' de otra instancia.");
+            }
+            using (SqlConnection cn = new SqlConnection(ConexionConfig_883SC.ObtenerCadenaMaster_883SC()))
+            using (SqlCommand cmd = new SqlCommand(
+                "IF DB_ID(@nombre) IS NOT NULL BEGIN DECLARE @sql nvarchar(600) = N'ALTER DATABASE ' + QUOTENAME(@nombre) + N' SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE ' + QUOTENAME(@nombre) + N';'; EXEC (@sql); END", cn))
+            {
+                cmd.CommandTimeout = TimeoutScriptSegundos_883SC;
+                cmd.Parameters.Add(new SqlParameter("@nombre", SqlDbType.NVarChar, 128) { Value = nombre });
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public bool ExisteEsquema_883SC()
         {
             return EjecutarEscalar_883SC("SELECT CASE WHEN OBJECT_ID(N'dbo.Usuarios', N'U') IS NULL THEN 0 ELSE 1 END") == 1;

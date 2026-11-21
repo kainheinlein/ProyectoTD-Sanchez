@@ -55,6 +55,7 @@ namespace TP_SanchezVillaverde
             idiomasToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IDIOMAS");
             backupToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BACKUP");
             restoreToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_RESTORE");
+            cargarDatosPruebaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CARGAR_DATOS_PRUEBA");
             bitacoraToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_BITACORA");
             bitacoraEventosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BITACORA_EVENTOS");
             tsUsuario.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_USUARIO");
@@ -81,6 +82,7 @@ namespace TP_SanchezVillaverde
             tsReportes.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_REPORTES");
             reporteVentasToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REPORTE_VENTAS");
             tsAyuda.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_AYUDA");
+            ayudaEnLineaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_AYUDA_EN_LINEA");
             hToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_HISTORIAL");
 
             if (SessionManager_883SC.Logged_883SC() && SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC() != null)
@@ -167,6 +169,7 @@ namespace TP_SanchezVillaverde
             MostrarSi_883SC(idiomasToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionIdiomas.ToString()));
             MostrarSi_883SC(backupToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
             MostrarSi_883SC(restoreToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
+            MostrarSi_883SC(cargarDatosPruebaToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.CargarDatosPrueba.ToString()));
             MostrarSi_883SC(bitacoraEventosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString()));
             MostrarSi_883SC(llenarCarritoToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString()));
             MostrarSi_883SC(realizarVentaToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString()));
@@ -308,6 +311,40 @@ namespace TP_SanchezVillaverde
             OpenForm_883SC(tsReportes, new frmReporteVentas_883SC());
         }
 
+        #region Ayuda en linea
+
+        //Una sola ventana de ayuda, no MDI: F1 no debe cerrar la pantalla en uso. No requiere sesion ni permisos
+        //y la apertura no se registra en la bitacora (el sistema solo registra la apertura de Usuarios y Bitacora).
+        private frmAyuda_883SC ayuda_883SC = null;
+
+        private void AbrirAyuda_883SC(string claveTema)
+        {
+            if (ayuda_883SC != null && !ayuda_883SC.IsDisposed)
+            {
+                ayuda_883SC.MostrarTema_883SC(claveTema);
+                ayuda_883SC.Activate();
+                return;
+            }
+            ayuda_883SC = new frmAyuda_883SC(claveTema);
+            ayuda_883SC.Show(this);
+        }
+
+        private void ayudaEnLineaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            AbrirAyuda_883SC(AyudaBLL_883SC.TemaInicio_883SC);
+        }
+
+        //F1 abre el tema de la pantalla activa (o el de inicio si no tiene tema propio)
+        private void frmMenu_KeyDown_883SC(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.F1) { return; }
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+            AbrirAyuda_883SC(AyudaMapa_883SC.TemaDe_883SC(formActivo_883SC));
+        }
+
+        #endregion
+
         private void salirToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
         {
             if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("COMUN_CONFIRMA_SALIR_APP"), gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"),
@@ -384,6 +421,20 @@ namespace TP_SanchezVillaverde
             if (frmRestore.ShowDialog() == DialogResult.OK)
             {
                 this.Close();
+            }
+        }
+
+        private void cargarDatosPruebaToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            //Confirmacion en la GUI; el resto (permiso, base sin datos, backup, carga) lo hace DatosPruebaBLL
+            if (MessageBox.Show(gestorIdioma_883SC.Traducir_883SC("DAT_MSG_CONFIRMAR"), gestorIdioma_883SC.Traducir_883SC("DAT_TITULO"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+            {
+                return;
+            }
+            using (frmCargaDatosPrueba_883SC frmCarga = new frmCargaDatosPrueba_883SC())
+            {
+                frmCarga.ShowDialog(this);
             }
         }
 

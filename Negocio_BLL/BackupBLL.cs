@@ -12,6 +12,7 @@ namespace Negocio_BLL
     {
         private MP_Backup_883SC mpBackup_883SC = new MP_Backup_883SC();
         private BitacoraBLL_883SC bitacora_883SC = new BitacoraBLL_883SC();
+        private VerificadorIntegridadBLL_883SC integridad_883SC = new VerificadorIntegridadBLL_883SC();
         private GestorDeIdioma_883SC gestorIdioma_883SC = GestorDeIdioma_883SC.GetInstance_883SC;
         private BackupService_883SC _servicio_883SC;
 
@@ -75,12 +76,16 @@ namespace Negocio_BLL
             return conocida == null ? ex.Message : Traducir_883SC(conocida).Message;
         }
 
-        public BackupBE_883SC RealizarBackup_883SC()
+        //prefijo: primera parte del nombre del archivo (por defecto "FerreDB"; la carga de datos de prueba usa "PreDatosPrueba").
+        public BackupBE_883SC RealizarBackup_883SC(string prefijo = "FerreDB")
         {
             string usuario = UsuarioActual_883SC();
+            //El DVV solo se refresca en el logout: tras un cambio de clave (primer inicio) o un alta de usuarios en esta misma sesion el
+            //DVV de la base esta desfasado, y un backup tomado asi lo restauraria inconsistente. Solo actua si la integridad fue verificada.
+            integridad_883SC.ActualizarDVVSiVerificado_883SC();
             string carpeta = Servicio_883SC.ObtenerCarpetaBackup_883SC();
             DateTime ahora = DateTime.Now;
-            string nombre = "FerreDB_" + ahora.ToString("yyyyMMdd_HHmmss") + ".bak";
+            string nombre = prefijo + "_" + ahora.ToString("yyyyMMdd_HHmmss") + ".bak";
             string ruta = Path.Combine(carpeta, nombre);
 
             long? tamanio;
@@ -127,6 +132,12 @@ namespace Negocio_BLL
             BackupBE_883SC backup = mpBackup_883SC.Obtener_883SC(id);
             string ruta = backup.RutaCompleta_883SC;
 
+            //El catalogo vive en la misma base que se restaura: la base restaurada trae el catalogo de cuando se tomo ese
+            //backup (sin el y sin los posteriores). Se guarda ahora para restituirlo despues. El aviso se traduce ahora
+            //porque un backup viejo puede no tener la clave.
+            List<BackupBE_883SC> catalogoPrevio = mpBackup_883SC.Listar_883SC();
+            string avisoCatalogo = gestorIdioma_883SC.Traducir_883SC("BKP_RESTORE_AVISO_CATALOGO");
+
             try
             {
                 if (!Servicio_883SC.Existe_883SC(ruta))
@@ -154,13 +165,25 @@ namespace Negocio_BLL
             try { gestorIdioma_883SC.Recargar_883SC(); }
             catch { }
 
+            //Si falla, el restore igual se completo: se informa al final (bitacora y logout van igual)
+            Exception falloCatalogo = null;
+            try { mpBackup_883SC.Sincronizar_883SC(catalogoPrevio); }
+            catch (Exception ex) { falloCatalogo = ex; }
+
             try
             {
-                bitacora_883SC.RegistrarBitacora_883SC(usuario, TipoAccion_883SC.RestoreRealizado, "archivo=" + backup.NombreArchivo_883SC);
+                string detalle = "archivo=" + backup.NombreArchivo_883SC;
+                if (falloCatalogo != null) { detalle += ";catalogo=sin_sincronizar"; }
+                bitacora_883SC.RegistrarBitacora_883SC(usuario, TipoAccion_883SC.RestoreRealizado, detalle);
             }
             finally
             {
                 SessionManager_883SC.GetInstance_883SC.Logout_883SC();
+            }
+
+            if (falloCatalogo != null)
+            {
+                throw new CatalogoBackupsDesactualizadoException_883SC(avisoCatalogo, falloCatalogo);
             }
         }
 

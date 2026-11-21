@@ -55,6 +55,7 @@ namespace Entidad_BE
         GeneracionReporteVentas = 45,
         ActivacionVersionProducto = 46,
         BajaProducto = 47,
-        ReactivacionProducto = 48
+        ReactivacionProducto = 48,
+        CargaDatosPrueba = 49
     }
 }

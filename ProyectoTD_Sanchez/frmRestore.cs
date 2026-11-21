@@ -106,6 +106,14 @@ namespace TP_SanchezVillaverde
                 //frmMenu cierra la sesion y vuelve al login
                 this.DialogResult = DialogResult.OK;
             }
+            catch (CatalogoBackupsDesactualizadoException_883SC ex)
+            {
+                //El restore se completo y la sesion ya se cerro: se avisa de la lista y se sigue igual que en el caso normal
+                this.Enabled = true;
+                this.UseWaitCursor = false;
+                MessageBox.Show(ex.Message, gestorIdioma_883SC.Traducir_883SC("COMUN_ATENCION"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.DialogResult = DialogResult.OK;
+            }
             catch (Exception ex)
             {
                 this.Enabled = true;

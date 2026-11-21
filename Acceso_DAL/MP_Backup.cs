@@ -31,6 +31,40 @@ namespace Acceso_DAL
             backup.AsignarId_883SC(Convert.ToInt32(id));
         }
 
+        //Deja la tabla Backups igual a "catalogo" (mismos IdBackup). Un SP con TVP, transaccional.
+        //Se llama con LeerTabla_883SC por el mismo motivo que los SP con THROW: Escribir abre una transaccion propia
+        //y el Rollback posterior taparia la excepcion original.
+        public void Sincronizar_883SC(List<BackupBE_883SC> catalogo)
+        {
+            DataTable tabla = new DataTable();
+            tabla.Columns.Add("IdBackup", typeof(int));
+            tabla.Columns.Add("NombreArchivo", typeof(string));
+            tabla.Columns.Add("Ruta", typeof(string));
+            tabla.Columns.Add("Fecha", typeof(DateTime));
+            tabla.Columns.Add("Usuario", typeof(string));
+            tabla.Columns.Add("TamanioBytes", typeof(long));
+            tabla.Columns.Add("Verificado", typeof(bool));
+            foreach (BackupBE_883SC b in catalogo)
+            {
+                DataRow fila = tabla.NewRow();
+                fila["IdBackup"] = b.Id_883SC;
+                fila["NombreArchivo"] = b.NombreArchivo_883SC;
+                fila["Ruta"] = b.Ruta_883SC;
+                fila["Fecha"] = b.Fecha_883SC;
+                fila["Usuario"] = b.Usuario_883SC;
+                if (b.TamanioBytes_883SC == null) { fila["TamanioBytes"] = DBNull.Value; }
+                else { fila["TamanioBytes"] = b.TamanioBytes_883SC.Value; }
+                fila["Verificado"] = b.Verificado_883SC;
+                tabla.Rows.Add(fila);
+            }
+
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@Catalogo", tabla);
+            parametros[0].SqlDbType = SqlDbType.Structured;
+            parametros[0].TypeName = "dbo.TipoCatalogoBackup";
+            conexDB_883SC.LeerTabla_883SC("SincronizarCatalogoBackups_SP", parametros);
+        }
+
         public List<BackupBE_883SC> Listar_883SC()
         {
             List<BackupBE_883SC> backups = new List<BackupBE_883SC>();

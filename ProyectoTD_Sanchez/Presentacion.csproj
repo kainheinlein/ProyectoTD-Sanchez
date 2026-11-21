@@ -71,6 +71,19 @@
     <Compile Include="frmConectando.Designer.cs">
       <DependentUpon>frmConectando.cs</DependentUpon>
     </Compile>
+    <Compile Include="AyudaMapa.cs" />
+    <Compile Include="frmCargaDatosPrueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCargaDatosPrueba.Designer.cs">
+      <DependentUpon>frmCargaDatosPrueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAyuda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAyuda.Designer.cs">
+      <DependentUpon>frmAyuda.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAltaProveedor.cs">
       <SubType>Form</SubType>
     </Compile>

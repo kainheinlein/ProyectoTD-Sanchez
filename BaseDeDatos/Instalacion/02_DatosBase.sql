@@ -1347,3 +1347,608 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave]
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[DigitoVertical] WHERE [Tabla] = N'Usuarios') INSERT [dbo].[DigitoVertical] ([Tabla], [DVV]) VALUES (N'Usuarios', N'')
 GO
+
+-- D02: Ayuda en linea (script 23): claves de la pantalla y temas de ayuda ES/EN
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'MENU_AYUDA_EN_LINEA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'MENU_AYUDA_EN_LINEA', N'Ayuda en línea')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'MENU_AYUDA_EN_LINEA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'MENU_AYUDA_EN_LINEA', N'Online Help')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'AYUDA_TITULO', N'Ayuda en línea')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'AYUDA_TITULO', N'Online Help')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_LBL_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'AYUDA_LBL_TITULO', N'AYUDA')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_LBL_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'AYUDA_LBL_TITULO', N'HELP')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_LBL_TEMAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'AYUDA_LBL_TEMAS', N'Temas')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_LBL_TEMAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'AYUDA_LBL_TEMAS', N'Topics')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_MSG_SIN_TEMAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'AYUDA_MSG_SIN_TEMAS', N'No hay temas de ayuda disponibles.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_MSG_SIN_TEMAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'AYUDA_MSG_SIN_TEMAS', N'No help topics are available.')
+GO
+
+-- ===== ES =====
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_INICIO') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_INICIO', 1, N'Inicio', N'== QUÉ ES ESTA AYUDA
+Aquí encuentra cómo usar cada pantalla de FerreSV. A la izquierda están los temas; a la derecha, el texto del tema elegido.
+
+== CÓMO LLEGAR A UN TEMA
+1. Elija un tema de la lista de la izquierda.
+2. Desde cualquier pantalla, presione F1: la ayuda se abre en el tema de esa pantalla. Si la pantalla no tiene tema propio, se abre en este.
+3. También puede abrirla desde el menú Ayuda → Ayuda en línea.
+
+== AVISOS
+- La ayuda está disponible sin iniciar sesión y no requiere ningún permiso.
+- Las opciones del menú que usted ve dependen de los permisos de su perfil. Si un tema describe una opción que no aparece en su menú, su perfil no la tiene asignada: consulte a un administrador.
+- Si cambia el idioma con la ayuda abierta, el árbol y el texto se actualizan solos. Si el idioma elegido no tiene ayuda traducida, se muestra en español.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_LOGIN') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_LOGIN', 2, N'Ingreso y cambio de clave', N'== QUÉ HACE
+Permite iniciar sesión con su usuario y contraseña. Según el perfil del usuario, el menú muestra solo las opciones permitidas. También permite cambiar la contraseña.
+
+== PASOS PARA INGRESAR
+1. Escriba su usuario y su contraseña.
+2. Presione Iniciar.
+3. Si ese usuario ya tiene una sesión iniciada, el sistema pregunta si desea finalizarla.
+4. Si es su primer ingreso (usuario nuevo o recién desbloqueado), el sistema le pide elegir una contraseña nueva antes de abrir el menú. Esa ventana no se puede cancelar: si no guarda la contraseña, se cierra la sesión.
+
+== PASOS PARA CAMBIAR LA CLAVE
+1. Con la sesión iniciada, abra el menú Usuario → Cambiar Clave.
+2. Escriba la contraseña actual, la nueva y repita la nueva.
+3. Presione Confirmar.
+
+== AVISOS
+- La contraseña nueva debe ser distinta a la anterior y tener solo letras y números.
+- Con contraseñas incorrectas repetidas el usuario se bloquea; solo un administrador lo puede desbloquear (Admin → Gestion de Usuarios → Desbloquear). Al desbloquearlo se le pedirá una contraseña nueva en el siguiente ingreso.
+- Iniciar sin conexión abre el menú sin sesión: solo quedan las opciones que no requieren permisos, como esta ayuda y el cambio de idioma.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_IDIOMA') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_IDIOMA', 3, N'Idioma', N'== QUÉ HACE
+Cambia el idioma de toda la aplicación (hoy Español e Inglés). Los administradores pueden además crear idiomas y editar sus textos.
+
+== PASOS PARA CAMBIAR DE IDIOMA
+1. Abra el menú Usuario → Cambiar Idioma.
+2. Elija el idioma. Las pantallas abiertas se actualizan al instante.
+
+== PASOS PARA ADMINISTRAR IDIOMAS (permiso GestionIdiomas)
+1. Abra Admin → Idiomas.
+2. Para crear uno: escriba el código (hasta 5 caracteres) y el nombre (hasta 50), opcionalmente elija un archivo de traducciones con Examinar y presione Crear Idioma.
+3. Para editar textos: elija el idioma, modifique la columna Texto y presione Guardar.
+
+== AVISOS
+- Si inicia sesión, el idioma elegido queda guardado como su preferido para la próxima sesión. Cada cambio de idioma se registra en la bitácora.
+- Un idioma nuevo nace con una copia de las traducciones de Español: hasta que las edite verá textos en español.
+- Esta ayuda tiene su propio texto por idioma: si el idioma no tiene ayuda traducida, se muestra la de español.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_CARRITO') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_CARRITO', 4, N'Llenar carrito', N'== QUÉ HACE
+Arma el carrito de un cliente: elige productos y cantidades y deja el carrito guardado, pendiente de facturar. Se abre en Ventas → Llenar Carrito (permiso LlenarCarrito).
+
+== PASOS
+1. Al abrir la pantalla aparece la selección de productos. Elija el criterio de búsqueda, escriba el dato y presione Buscar.
+2. Elija un producto de la lista, indique la cantidad y agréguelo al carrito. Puede editar la cantidad o eliminar líneas del carrito antes de seguir.
+3. Presione Finalizar. Se muestra el resumen del carrito con el total.
+4. Escriba el nombre del cliente.
+5. Si hace falta, seleccione una línea y presione Quitar.
+6. Presione Confirmar: el sistema informa el número del carrito creado.
+
+== AVISOS
+- La cantidad no puede superar el stock disponible.
+- El precio de cada producto se copia al agregarlo al carrito y no cambia después, aunque el producto cambie de precio.
+- Armar el carrito no descuenta stock: el stock se descuenta al generar el comprobante en Realizar Venta.
+- Los productos dados de baja no aparecen en la búsqueda.
+- Sin productos o sin nombre de cliente no se puede confirmar.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_VENTA') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_VENTA', 5, N'Realizar venta', N'== QUÉ HACE
+Convierte un carrito pendiente en una venta: elige el carrito, identifica al cliente, registra el cobro y genera el comprobante. Se abre en Ventas → Realizar Venta (permiso RealizarCobro).
+
+== PASOS
+1. Elija un carrito de la lista Carritos pendientes de facturar. Se muestran su detalle y el total.
+2. Escriba el DNI del cliente y presione Buscar Cliente. Si no existe, el sistema ofrece registrarlo con un alta rápida.
+3. Presione Cobrar y elija el método de pago. Si es con tarjeta, complete número (13 a 19 dígitos), vencimiento (MM/AA), CVV (3 o 4 dígitos), DNI y nombre del titular, y presione Confirmar Pago.
+4. Presione Generar Comprobante. Se guarda la venta y se muestra el comprobante, que se puede imprimir.
+
+== AVISOS
+- Cobrar solo se habilita con un carrito y un cliente elegidos; Generar Comprobante, solo después de cobrar.
+- Si elige otro carrito, el cobro anterior se descarta: hay que cobrar de nuevo.
+- Los precios son los del carrito, no el precio actual del producto.
+- Al generar el comprobante se descuenta el stock. Si el stock ya no alcanza, o el producto fue dado de baja, la venta se rechaza completa y no se guarda nada.
+- Si el cliente fue dado de baja, el alta rápida avisa que el DNI existe pero está inactivo: reactívelo en Maestros → Clientes.
+- El comprobante se imprime desde el cuadro de impresión; no se guarda como archivo.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_CLIENTES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_CLIENTES', 6, N'Clientes', N'== QUÉ HACE
+Alta, modificación, baja y reactivación de clientes. Se abre en Maestros → Clientes (permiso RegistrarCliente, asignado a Cajero y Propietario).
+
+== PASOS
+1. Para crear: presione Crear Cliente, complete los datos y presione Guardar.
+2. Para modificar: elija un cliente en la grilla, presione Modificar Cliente, cambie los datos y presione Guardar.
+3. Para dar de baja: elija el cliente y presione Eliminar Cliente.
+4. Para reactivar: tilde Mostrar inactivos, elija el cliente (se ve en gris) y presione Reactivar Cliente.
+5. Cancelar descarta los cambios en curso.
+
+== REGLAS DE LOS CAMPOS
+- DNI: número mayor que cero.
+- Nombre y apellido: obligatorios, hasta 50 caracteres, solo letras, espacios y guiones.
+- Dirección: hasta 100 caracteres.
+- Teléfono: opcional, de 6 a 15 dígitos.
+- El campo con error se pinta en rojo.
+
+== SERIALIZACIÓN XML
+Con la grilla sin edición en curso se puede guardar clientes en un archivo XML (Serializar: carpeta y nombre del archivo, por defecto en Documentos) y volver a verlos (Deserializar). Los clientes leídos de un XML solo se muestran en la grilla: la base de datos no se modifica. Use Actualizar para volver a ver los de la base.
+
+== AVISOS
+- La baja es lógica: el cliente se conserva porque las facturas lo referencian. Un cliente inactivo no se modifica: primero se reactiva.
+- No se puede crear un cliente con un DNI ya existente o dado de baja; el sistema no lo reactiva solo.
+- La dirección se guarda cifrada. Direcciones cargadas antes del cifrado quedan marcadas como sin cifrar y se cifran al modificar y guardar.
+- Un cliente inactivo no se encuentra en Realizar Venta.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_PRODUCTOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_PRODUCTOS', 7, N'Productos', N'== QUÉ HACE
+Administra el catálogo: crea productos desde los ítems de las listas de precios, vincula y desvincula códigos de proveedor, modifica datos y da de baja o reactiva. Se abre en Maestros → Productos o Gestion → Productos → Administrar (permiso GestionProductos).
+
+== PASOS
+1. Crear un producto: en la grilla de ítems pendientes de vinculación (se puede filtrar por proveedor) elija un ítem y presione Crear producto. Complete código, nombre, descripción y stock mínimo. El proveedor de referencia es el del ítem y el precio de venta se calcula solo: precio de lista × (1 + margen del proveedor / 100).
+2. Vincular: elija un ítem pendiente y un producto existente y presione Vincular. Desvincular: elija el código vinculado del producto y presione Desvincular.
+3. Modificar: elija el producto, presione Modificar, cambie los datos y presione Guardar.
+4. Dar de baja: elija el producto y presione Dar de baja (confirma). Con un producto de baja elegido el mismo botón dice Reactivar.
+5. Para ver los productos dados de baja tilde Mostrar inactivos (se ven en gris).
+
+== AVISOS
+- Vincular no cambia el proveedor de referencia ni el precio.
+- Modificar recalcula el precio solo si cambia el proveedor de referencia.
+- Desvincular el código del proveedor de referencia se rechaza si el producto tiene otros códigos vinculados. Si es el único vínculo se permite y el producto conserva su referencia y su precio.
+- BAJA LÓGICA: un producto de baja no se puede vender ni comprar, no aparece en el carrito ni en Compras, y no se modifica hasta reactivarlo. Si tiene stock, el sistema lo advierte: ese stock queda sin poder venderse hasta reactivar.
+- El código de un producto de baja sigue reservado. Una orden de compra ya en curso se puede recibir igual.
+- Reactivar exige que el proveedor de referencia esté activo.
+- Cada alta, modificación, baja o reactivación queda en la Bitácora de Cambios.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_PROVEEDORES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_PROVEEDORES', 8, N'Proveedores', N'== QUÉ HACE
+Registra y mantiene proveedores. Hay dos entradas: Maestros → Proveedores (ABM completo) y Gestion → Alta Proveedor (alta rápida, permiso RegistrarProveedor). Abrir el maestro exige el permiso GestionProductos; crear, modificar, eliminar y reactivar exigen RegistrarProveedor.
+
+== PASOS
+1. Crear: presione Crear Proveedor, complete los datos y presione Guardar.
+2. Modificar: elija el proveedor, presione Modificar Proveedor, cambie los datos y presione Guardar.
+3. Baja: elija el proveedor y presione Eliminar Proveedor.
+4. Reactivar: tilde Mostrar inactivos, elija el proveedor y presione Reactivar Proveedor.
+
+== CAMPOS
+- Obligatorios: nombre (hasta 50 caracteres, no puede repetirse), teléfono (solo dígitos, de 6 a 15) y margen (de 0 a 999,99 con hasta 2 decimales).
+- Opcionales: especialidad (hasta 100), dirección (hasta 50) y observaciones.
+
+== AVISOS
+- El margen define el precio de venta de los productos cuyo proveedor de referencia es este: al modificarlo, esos precios se recalculan y el sistema informa cuántos cambiaron.
+- La baja es lógica. No se puede dar de baja un proveedor que es referencia de algún producto (el mensaje indica cuántos).
+- Un proveedor inactivo no aparece en Importar Lista, no puede ser referencia de un producto y no admite listas nuevas. Sus órdenes de compra en curso siguen su camino.
+- Un proveedor inactivo no se modifica: primero se reactiva.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_COMPRAS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_COMPRAS', 9, N'Compras (órdenes, recepción e importar lista)', N'== QUÉ HACE
+Cubre el circuito de compras: importar la lista de precios de un proveedor, generar órdenes de compra de los productos con poco stock, autorizarlas y registrar la recepción de la mercadería. El pago al proveedor no está incluido.
+Una orden pasa por estos estados: Pendiente → Autorizada o Rechazada; Autorizada → EnEjecucion → Recibida.
+
+== IMPORTAR LISTA DE PRECIOS (Gestion → Productos → Importar Lista, permiso ImportarListaPrecios)
+1. Elija el proveedor (o presione Nuevo proveedor).
+2. Presione Examinar y elija el archivo .csv (separador punto y coma). Se muestra una vista previa de las primeras 40 filas.
+3. Elija qué columna es el código, cuál la descripción y cuál el precio, y desde qué fila empiezan los datos. El sistema sugiere un mapeo.
+4. Presione Importar. Se informa cuántos ítems se importaron, cuántos precios de venta cambiaron, cuántos ítems quedan pendientes de vincular y cuántas filas se rechazaron (con el motivo).
+- Se importa UNA columna de precio por vez: usted decide cuál usar (neto o con IVA).
+- El precio debe ser mayor a 0 con hasta 2 decimales. Un código repetido en el archivo: queda la primera fila.
+- No se borran los ítems que no estén en el archivo. Si ninguna fila es válida, no se guarda nada.
+- Se recalcula el precio de venta de los productos vinculados cuyo proveedor de referencia es este.
+
+== GENERAR ÓRDENES DE COMPRA (Compras → Generar Ordenes de Compra, permiso GenerarOrdenCompra)
+1. La pantalla lista los productos por debajo del stock mínimo. Los que no tienen ningún proveedor con precio se ven en gris y no se pueden agregar.
+2. Elija un producto: se muestran los precios de lista de cada proveedor, del menor al mayor.
+3. Elija proveedor y cantidad y presione Agregar. Quitar saca una línea de la lista de compra.
+4. Revise el total por proveedor y presione Generar Ordenes: se crea una orden Pendiente por proveedor.
+- Al confirmar, el sistema vuelve a leer el precio de lista de cada línea: ese precio queda congelado en la orden. Si un proveedor ya no tiene precio, se rechaza.
+- Si falla el guardado no se crea ninguna orden.
+
+== AUTORIZAR ÓRDENES (Compras → Autorizar Ordenes de Compra, permiso AutorizarOrdenCompra, rol Propietario)
+1. Elija el estado a ver (por defecto Pendiente) y una orden de la lista; abajo se ve su detalle.
+2. Escriba observaciones si corresponde (hasta 500 caracteres).
+3. Presione Autorizar o Rechazar y confirme. Rechazar exige escribir el motivo.
+- Los botones solo se habilitan con una orden Pendiente. Si otra persona ya la resolvió, el sistema avisa.
+
+== REGISTRAR RECEPCIÓN (Compras → Registrar Recepcion, permiso RegistrarRecepcion)
+1. Elija el estado (Autorizada o EnEjecucion) y una orden.
+2. Con una orden Autorizada presione Registrar envio: pasa a EnEjecucion.
+3. Con una orden EnEjecucion presione Recibir. En el diálogo, corrija la cantidad recibida de cada línea (inicia igual a la pedida), escriba observaciones (hasta 500) y presione Confirmar.
+- No se puede recibir más de lo pedido. Recibir todo en 0 está permitido.
+- Se suma al stock solo lo recibido y la orden queda cerrada como Recibida: no hay entregas pendientes (backorders). Si hubo diferencias, el sistema lo informa.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_REPORTES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_REPORTES', 10, N'Reportes en PDF', N'== QUÉ HACE
+Genera el Reporte de Ventas de un período (resumen, ventas por día y los 10 productos más vendidos) y permite exportarlo a PDF. Se abre en Reportes → Reporte de Ventas (permiso VerReportes).
+
+== PASOS
+1. Elija las fechas Desde y Hasta (por defecto, del día 1 del mes hasta hoy).
+2. Presione Generar: se muestra la vista previa.
+3. Para guardar el PDF presione Exportar a PDF, elija carpeta y nombre del archivo (.pdf) y confirme.
+4. Limpiar vacía la vista previa.
+
+== AVISOS
+- Desde no puede ser posterior a Hasta ni se admiten fechas futuras. Ambas fechas se incluyen en el período.
+- Si cambia una fecha después de generar, la vista previa se limpia: genere de nuevo.
+- Exportar solo se habilita si hubo ventas en el período.
+- Si el archivo ya existe, el sistema pregunta si desea sobrescribirlo. Si el PDF está abierto en otro programa, la exportación falla y el archivo original queda intacto.
+- Los importes usan el precio congelado de cada venta. Las fechas e importes se muestran según el idioma activo.
+- La exportación queda registrada en la bitácora (solo el nombre del archivo, sin importes).')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_BIT_EVENTOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_BIT_EVENTOS', 11, N'Bitácora de eventos', N'== QUÉ HACE
+Muestra el registro de lo que hicieron los usuarios en el sistema (ingresos, altas, modificaciones, bajas, cambios de idioma, etc.). Se abre en Admin → Bitacora → Bitacora de Eventos (permiso GestionBitacora).
+
+== PASOS
+1. Al abrir se ven los eventos de los últimos 30 días.
+2. Para filtrar escriba un usuario, elija una acción y ajuste las fechas inicial y final.
+3. Presione Buscar. Limpiar vuelve al listado inicial.
+4. La grilla muestra ID de registro, usuario, acción, fecha y detalle.
+
+== AVISOS
+- Es solo de lectura: los eventos no se pueden modificar ni borrar.
+- El detalle tiene la forma clave=valor (por ejemplo, dni=...). Nunca incluye contraseñas, direcciones ni importes.
+- Abrir la bitácora también queda registrado.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_BIT_CAMBIOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_BIT_CAMBIOS', 12, N'Bitácora de cambios', N'== QUÉ HACE
+Muestra el historial de versiones de cada producto (proveedor, nombre, descripción, stock, precio, stock mínimo y baja) y permite volver a una versión anterior. Se abre en Admin → Bitacora → Bitacora de Cambios (permiso GestionBitacoraCambios).
+Se guarda una versión nueva con cada alta, modificación, baja o reactivación, y también con cada venta, recepción, importación de lista o cambio de margen que modifique el producto.
+
+== PASOS
+1. Para filtrar escriba o elija un código y/o un nombre (coincide si contiene el texto).
+2. Para filtrar por fecha tilde Fecha inicial y/o Fecha final y elija los valores; sin tilde no hay filtro de fecha.
+3. Presione Aplicar. Limpiar quita los filtros.
+4. La versión vigente se ve resaltada en verde.
+5. Para volver a una versión anterior: elija esa fila (no vigente), presione Activar y confirme. La confirmación lista los valores que se van a restaurar.
+
+== AVISOS
+- ACTIVAR RESTAURA TAMBIÉN EL STOCK Y EL PRECIO de la versión elegida. Si hubo ventas o recepciones después de esa versión, el stock físico se pisa con el valor viejo.
+- El precio restaurado se vuelve a pisar en la próxima importación de lista de precios o cambio de margen del proveedor de referencia.
+- Solo se puede activar si el proveedor de esa versión existe y está activo.
+- El historial no se puede borrar. Activar no duplica versiones: deja como vigente la elegida.
+- Activar una versión queda registrado en la Bitácora de Eventos.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_BACKUP') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_BACKUP', 13, N'Backup y Restore', N'== QUÉ HACE
+Backup guarda una copia de toda la base de datos y mantiene un catálogo de copias. Restore reemplaza la base por una copia anterior. Ambos requieren el permiso GestionBackup: Admin → Backup y Admin → Restore.
+
+== PASOS PARA HACER UN BACKUP
+1. Abra Admin → Backup.
+2. Presione Realizar backup. Al terminar se verifica el archivo y se informa el resultado.
+3. Verificar archivos compara el catálogo con la carpeta: informa los registros sin archivo (faltantes) y los archivos .bak que no están en el catálogo (huérfanos).
+4. Eliminar borra el archivo seleccionado y su registro del catálogo (pide confirmación).
+
+== PASOS PARA RESTAURAR
+1. Abra Admin → Restore.
+2. Elija la copia en la lista y presione Restaurar.
+3. Lea la confirmación (muestra archivo y fecha; por defecto está en No) y confirme.
+4. Al terminar se cierra la sesión y vuelve el inicio de sesión.
+
+== AVISOS
+- RESTAURAR REEMPLAZA TODA LA BASE: se pierden los datos posteriores al backup.
+- El archivo lo escribe y lo lee el servicio de SQL Server, en la carpeta de backups predeterminada de la instancia; no se escribe en las carpetas del usuario de Windows. Si el servicio no tiene acceso, no hay espacio o la carpeta no existe, el mensaje lo explica: avise al encargado del servidor.
+- Las direcciones de los clientes se guardan cifradas con una clave de la aplicación (ClaveCifrado). Un backup restaurado en un equipo con otra clave deja esas direcciones sin poder descifrarse.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 1 AND [Clave] = N'AYUDA_USUARIOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (1, N'AYUDA_USUARIOS', 14, N'Usuarios y Perfiles', N'== QUÉ HACE
+Usuarios: alta, modificación, baja y desbloqueo de usuarios (Maestros → Usuarios o Admin → Gestion de Usuarios, permiso GestionUsuarios).
+Perfiles: define roles y familias de permisos que determinan qué opciones ve cada usuario (Admin → Perfiles, permiso GestionPerfiles).
+
+== PASOS: USUARIOS
+1. Crear: presione Crear Usuario, complete los datos, elija el rol y presione Guardar.
+2. Modificar: elija el usuario, presione Modificar Usuario, cambie los datos (también Activo) y presione Guardar.
+3. Baja: elija el usuario y presione Eliminar Usuario (confirma).
+4. Desbloquear: elija un usuario bloqueado y presione Desbloquear (confirma).
+5. Cancelar descarta los cambios en curso.
+
+== PASOS: PERFILES
+1. Para crear: escriba el nombre, elija si es Rol o Familia, tilde los permisos y familias disponibles que lo componen y presione Crear. El árbol muestra la jerarquía.
+2. Para modificar: elija el perfil existente en el desplegable Rol / Familia, ajuste los permisos tildados y presione Guardar.
+3. Para borrar: elija el perfil y presione Eliminar.
+4. Cancelar limpia la pantalla y vuelve a su estado inicial. Si presiona Crear sin tildar nada, el sistema pide seleccionar permisos o familias.
+
+== AVISOS
+- Reglas de los campos: usuario sin espacios ni caracteres especiales; nombre y apellido solo letras; DNI y teléfono solo números; dirección solo letras y números; e-mail con formato xxxx@xxx.xxx.
+- No se puede repetir el usuario ni el DNI.
+- Un usuario nuevo o recién desbloqueado debe cambiar su contraseña en el primer ingreso.
+- Los permisos se aplican al armar el menú al iniciar sesión: tras cambiar un perfil, el usuario afectado debería volver a iniciar sesión para ver el cambio.
+- Los roles que crea en Perfiles son los que aparecen para elegir al crear o modificar un usuario.')
+GO
+
+-- ===== EN =====
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_INICIO') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_INICIO', 1, N'Home', N'== ABOUT THIS HELP
+Here you will find how to use each FerreSV screen. Topics are listed on the left; the text of the selected topic is shown on the right.
+
+== HOW TO REACH A TOPIC
+1. Pick a topic from the list on the left.
+2. From any screen, press F1: the help opens on that screen''s topic. If the screen has no topic of its own, it opens on this one.
+3. You can also open it from the Help → Online Help menu.
+
+== NOTES
+- Help is available without signing in and needs no permission.
+- The menu options you see depend on your profile permissions. If a topic describes an option that is not in your menu, your profile does not have it: ask an administrator.
+- If you change the language while help is open, the tree and the text update automatically. If the chosen language has no translated help, it is shown in Spanish.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_LOGIN') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_LOGIN', 2, N'Sign in and change password', N'== WHAT IT DOES
+Lets you sign in with your user name and password. The menu then shows only the options your profile allows. It also lets you change your password.
+
+== STEPS TO SIGN IN
+1. Type your user name and password.
+2. Press Sign In.
+3. If that user already has an open session, the system asks whether you want to end it.
+4. On your first sign-in (new or just-unlocked user) the system asks you to choose a new password before opening the menu. That window cannot be cancelled: if you do not save the password, the session is closed.
+
+== STEPS TO CHANGE YOUR PASSWORD
+1. With your session open, go to the User → Change Password menu.
+2. Type the current password, the new one, and repeat the new one.
+3. Press Confirm.
+
+== NOTES
+- The new password must be different from the previous one and contain only letters and numbers.
+- After repeated wrong passwords the user is locked; only an administrator can unlock it (Admin → User Management → Unlock). After unlocking, a new password is required at the next sign-in.
+- Sign in offline opens the menu without a session: only options that need no permission remain, such as this help and the language change.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_IDIOMA') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_IDIOMA', 3, N'Language', N'== WHAT IT DOES
+Changes the language of the whole application (currently Spanish and English). Administrators can also create languages and edit their texts.
+
+== STEPS TO CHANGE LANGUAGE
+1. Open the User → Change Language menu.
+2. Pick the language. Open screens update immediately.
+
+== STEPS TO MANAGE LANGUAGES (GestionIdiomas permission)
+1. Open Admin → Languages.
+2. To create one: type the code (up to 5 characters) and the name (up to 50), optionally choose a translations file with Browse, and press Create Language.
+3. To edit texts: pick the language, edit the Texto column and press Save.
+
+== NOTES
+- If you are signed in, the chosen language is saved as your preferred one for your next session. Each language change is recorded in the log.
+- A new language starts with a copy of the Spanish translations: until you edit them you will see Spanish texts.
+- This help has its own text per language: if the language has no translated help, the Spanish help is shown.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_CARRITO') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_CARRITO', 4, N'Fill cart', N'== WHAT IT DOES
+Builds a customer''s cart: you pick products and quantities and the cart is saved, pending invoicing. Opens at Sales → Fill Cart (LlenarCarrito permission).
+
+== STEPS
+1. When the screen opens, the product selection appears. Pick the search criterion, type the value and press Search.
+2. Pick a product from the list, enter the quantity and add it to the cart. You can edit the quantity or delete cart lines before continuing.
+3. Press Finish. The cart summary with the total is shown.
+4. Type the customer name.
+5. If needed, select a line and press Remove.
+6. Press Confirm: the system reports the number of the cart created.
+
+== NOTES
+- The quantity cannot exceed the available stock.
+- Each product price is copied when it is added to the cart and does not change afterwards, even if the product price changes.
+- Building the cart does not reduce stock: stock is reduced when the receipt is generated in Make Sale.
+- Deactivated products do not appear in the search.
+- Without products or without a customer name the cart cannot be confirmed.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_VENTA') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_VENTA', 5, N'Make sale', N'== WHAT IT DOES
+Turns a pending cart into a sale: pick the cart, identify the customer, record the payment and generate the receipt. Opens at Sales → Make Sale (RealizarCobro permission).
+
+== STEPS
+1. Pick a cart from the list of carts pending invoicing. Its detail and total are shown.
+2. Type the customer ID number (DNI) and press Find Customer. If it does not exist, the system offers a quick registration.
+3. Press Charge and pick the payment method. For cards, fill in number (13 to 19 digits), expiry (MM/YY), CVV (3 or 4 digits), holder ID and holder name, and press Confirm Payment.
+4. Press Generate Receipt. The sale is saved and the receipt is shown; it can be printed.
+
+== NOTES
+- Charge is enabled only with a cart and a customer selected; Generate Receipt only after charging.
+- If you pick another cart, the previous payment is discarded: charge again.
+- Prices are those of the cart, not the current product price.
+- Generating the receipt reduces stock. If stock is no longer enough, or the product was deactivated, the whole sale is rejected and nothing is saved.
+- If the customer was deactivated, the quick registration warns that the ID exists but is inactive: reactivate it in Master Tables → Customers.
+- The receipt is printed from the print dialog; it is not saved as a file.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_CLIENTES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_CLIENTES', 6, N'Customers', N'== WHAT IT DOES
+Create, edit, deactivate and reactivate customers. Opens at Master Tables → Customers (RegistrarCliente permission, assigned to Cashier and Owner).
+
+== STEPS
+1. To create: press Create Customer, fill in the data and press Save.
+2. To edit: pick a customer in the grid, press Edit Customer, change the data and press Save.
+3. To deactivate: pick the customer and press Delete Customer.
+4. To reactivate: tick Show inactive, pick the customer (shown in gray) and press Reactivate Customer.
+5. Cancel discards the changes in progress.
+
+== FIELD RULES
+- ID number (DNI): a number greater than zero.
+- First and last name: required, up to 50 characters, letters, spaces and hyphens only.
+- Address: up to 100 characters.
+- Phone: optional, 6 to 15 digits.
+- A field with an error is painted red.
+
+== XML SERIALIZATION
+When no edit is in progress you can save customers to an XML file (Serialize: folder and file name, Documents by default) and view them again (Deserialize). Customers read from an XML are only shown in the grid: the database is not modified. Use Refresh to see the database customers again.
+
+== NOTES
+- Deactivation is logical: the customer is kept because invoices reference it. An inactive customer cannot be edited: reactivate it first.
+- A customer cannot be created with an ID number that already exists or is deactivated; the system does not reactivate it by itself.
+- The address is stored encrypted. Addresses loaded before encryption are flagged as unencrypted and get encrypted when you edit and save.
+- An inactive customer is not found in Make Sale.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_PRODUCTOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_PRODUCTOS', 7, N'Products', N'== WHAT IT DOES
+Manages the catalog: creates products from price-list items, links and unlinks supplier codes, edits data and deactivates or reactivates products. Opens at Master Tables → Products or Management → Products → Manage (GestionProductos permission).
+
+== STEPS
+1. Create a product: in the grid of items pending linking (can be filtered by supplier) pick an item and press Create product. Fill in code, name, description and minimum stock. The reference supplier is the item''s supplier and the sale price is calculated automatically: list price × (1 + supplier margin / 100).
+2. Link: pick a pending item and an existing product and press Link. Unlink: pick the product''s linked code and press Unlink.
+3. Edit: pick the product, press Modify, change the data and press Save.
+4. Deactivate: pick the product and press Deactivate (asks for confirmation). With a deactivated product selected the same button reads Reactivate.
+5. To see deactivated products tick Show inactive (they appear in gray).
+
+== NOTES
+- Linking does not change the reference supplier or the price.
+- Editing recalculates the price only if the reference supplier changes.
+- Unlinking the reference supplier''s code is rejected if the product has other linked codes. If it is the only link it is allowed and the product keeps its reference and its price.
+- LOGICAL DEACTIVATION: a deactivated product cannot be sold or purchased, does not appear in the cart or in Purchases, and cannot be edited until reactivated. If it has stock, the system warns you: that stock cannot be sold until reactivation.
+- The code of a deactivated product stays reserved. A purchase order already in progress can still be received.
+- Reactivating requires the reference supplier to be active.
+- Every creation, edit, deactivation or reactivation is recorded in the Change Log.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_PROVEEDORES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_PROVEEDORES', 8, N'Suppliers', N'== WHAT IT DOES
+Registers and maintains suppliers. There are two entries: Master Tables → Suppliers (full maintenance) and Management → Add Supplier (quick registration, RegistrarProveedor permission). Opening the master table requires GestionProductos; create, edit, delete and reactivate require RegistrarProveedor.
+
+== STEPS
+1. Create: press Create Supplier, fill in the data and press Save.
+2. Edit: pick the supplier, press Edit Supplier, change the data and press Save.
+3. Deactivate: pick the supplier and press Delete Supplier.
+4. Reactivate: tick Show inactive, pick the supplier and press Reactivate Supplier.
+
+== FIELDS
+- Required: name (up to 50 characters, must be unique), phone (digits only, 6 to 15) and margin (0 to 999.99 with up to 2 decimals).
+- Optional: specialty (up to 100), address (up to 50) and notes.
+
+== NOTES
+- The margin sets the sale price of the products whose reference supplier is this one: when you change it, those prices are recalculated and the system reports how many changed.
+- Deactivation is logical. A supplier that is the reference of any product cannot be deactivated (the message says how many).
+- An inactive supplier does not appear in Import List, cannot be the reference of a product and accepts no new lists. Its purchase orders in progress continue as usual.
+- An inactive supplier cannot be edited: reactivate it first.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_COMPRAS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_COMPRAS', 9, N'Purchases (orders, receipt and price list import)', N'== WHAT IT DOES
+Covers the purchasing cycle: importing a supplier price list, generating purchase orders for low-stock products, authorizing them and registering the receipt of goods. Paying the supplier is not included.
+An order goes through these states: Pendiente → Autorizada or Rechazada; Autorizada → EnEjecucion → Recibida.
+
+== IMPORT PRICE LIST (Management → Products → Import List, ImportarListaPrecios permission)
+1. Pick the supplier (or press New supplier).
+2. Press Browse and pick the .csv file (semicolon separator). A preview of the first 40 rows is shown.
+3. Choose which column is the code, which is the description and which is the price, and the row where data starts. The system suggests a mapping.
+4. Press Import. It reports how many items were imported, how many sale prices changed, how many items remain pending linking and how many rows were rejected (with the reason).
+- ONE price column is imported at a time: you decide which one to use (net or with tax).
+- The price must be greater than 0 with up to 2 decimals. A code repeated in the file: the first row is kept.
+- Items missing from the file are not deleted. If no row is valid, nothing is saved.
+- The sale price of linked products whose reference supplier is this one is recalculated.
+
+== GENERATE PURCHASE ORDERS (Purchases → Generate Purchase Orders, GenerarOrdenCompra permission)
+1. The screen lists the products below minimum stock. Those with no supplier price appear in gray and cannot be added.
+2. Pick a product: each supplier''s list price is shown, from lowest to highest.
+3. Pick supplier and quantity and press Add. Remove takes a line out of the purchase list.
+4. Review the total per supplier and press Generate Orders: one Pendiente order is created per supplier.
+- On confirming, the system re-reads each line''s list price: that price is frozen in the order. If a supplier no longer has a price, it is rejected.
+- If saving fails, no order is created.
+
+== AUTHORIZE ORDERS (Purchases → Authorize Purchase Orders, AutorizarOrdenCompra permission, Owner role)
+1. Pick the state to view (Pendiente by default) and an order from the list; its detail is shown below.
+2. Type notes if needed (up to 500 characters).
+3. Press Authorize or Reject and confirm. Rejecting requires a reason.
+- The buttons are enabled only for a Pendiente order. If someone else already resolved it, the system warns you.
+
+== REGISTER RECEIPT (Purchases → Register Goods Receipt, RegistrarRecepcion permission)
+1. Pick the state (Autorizada or EnEjecucion) and an order.
+2. With an Autorizada order press Register shipment: it becomes EnEjecucion.
+3. With an EnEjecucion order press Receive. In the dialog, correct the received quantity of each line (it starts equal to the ordered one), type notes (up to 500) and press Confirm.
+- You cannot receive more than ordered. Receiving everything as 0 is allowed.
+- Only what was received is added to stock and the order is closed as Recibida: there are no pending deliveries (backorders). If there were differences, the system reports it.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_REPORTES') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_REPORTES', 10, N'PDF reports', N'== WHAT IT DOES
+Generates the Sales Report for a period (summary, sales per day and the 10 best-selling products) and lets you export it to PDF. Opens at Reports → Sales Report (VerReportes permission).
+
+== STEPS
+1. Pick the From and To dates (by default, from the 1st of the month to today).
+2. Press Generate: the preview is shown.
+3. To save the PDF press Export to PDF, pick the folder and file name (.pdf) and confirm.
+4. Clear empties the preview.
+
+== NOTES
+- From cannot be later than To and future dates are not accepted. Both dates are included in the period.
+- If you change a date after generating, the preview is cleared: generate again.
+- Export is enabled only if there were sales in the period.
+- If the file already exists, the system asks whether to overwrite it. If the PDF is open in another program, the export fails and the original file stays intact.
+- Amounts use each sale''s frozen price. Dates and amounts are shown according to the active language.
+- The export is recorded in the log (file name only, no amounts).')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_BIT_EVENTOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_BIT_EVENTOS', 11, N'Event log', N'== WHAT IT DOES
+Shows the record of what users did in the system (sign-ins, creations, edits, deactivations, language changes, etc.). Opens at Admin → Logs → Event Log (GestionBitacora permission).
+
+== STEPS
+1. When opened it shows the events of the last 30 days.
+2. To filter, type a user, pick an action and adjust the start and end dates.
+3. Press Search. Clear goes back to the initial list.
+4. The grid shows record ID, user, action, date and detail.
+
+== NOTES
+- It is read-only: events cannot be edited or deleted.
+- The detail has the form key=value (for example, dni=...). It never includes passwords, addresses or amounts.
+- Opening the log is also recorded.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_BIT_CAMBIOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_BIT_CAMBIOS', 12, N'Change log', N'== WHAT IT DOES
+Shows each product''s version history (supplier, name, description, stock, price, minimum stock and deactivation) and lets you go back to an earlier version. Opens at Admin → Logs → Change Log (GestionBitacoraCambios permission).
+A new version is saved on every creation, edit, deactivation or reactivation, and also on every sale, receipt, list import or margin change that modifies the product.
+
+== STEPS
+1. To filter, type or pick a code and/or a name (matches if it contains the text).
+2. To filter by date tick Start date and/or End date and pick the values; unticked means no date filter.
+3. Press Apply. Clear removes the filters.
+4. The current version is highlighted in green.
+5. To go back to an earlier version: pick that (non-current) row, press Activate and confirm. The confirmation lists the values that will be restored.
+
+== NOTES
+- ACTIVATE ALSO RESTORES THE STOCK AND THE PRICE of the chosen version. If there were sales or receipts after that version, the physical stock is overwritten with the old value.
+- The restored price is overwritten again by the next price-list import or margin change of the reference supplier.
+- You can only activate if that version''s supplier exists and is active.
+- History cannot be deleted. Activating does not duplicate versions: it makes the chosen one current.
+- Activating a version is recorded in the Event Log.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_BACKUP') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_BACKUP', 13, N'Backup and Restore', N'== WHAT IT DOES
+Backup saves a copy of the whole database and keeps a catalog of copies. Restore replaces the database with an earlier copy. Both require the GestionBackup permission: Admin → Backup and Admin → Restore.
+
+== STEPS TO MAKE A BACKUP
+1. Open Admin → Backup.
+2. Press Create backup. When finished the file is verified and the result is reported.
+3. Check files compares the catalog with the folder: it reports records without a file (missing) and .bak files that are not in the catalog (orphans).
+4. Delete removes the selected file and its catalog record (asks for confirmation).
+
+== STEPS TO RESTORE
+1. Open Admin → Restore.
+2. Pick the copy in the list and press Restore.
+3. Read the confirmation (it shows file and date; the default answer is No) and confirm.
+4. When finished the session is closed and you return to the sign-in screen.
+
+== NOTES
+- RESTORING REPLACES THE WHOLE DATABASE: data after the backup is lost.
+- The file is written and read by the SQL Server service, in the instance''s default backup folder; it is not written to the Windows user''s folders. If the service has no access, there is no disk space or the folder does not exist, the message explains it: tell the server administrator.
+- Customer addresses are stored encrypted with an application key (ClaveCifrado). A backup restored on a machine with a different key leaves those addresses impossible to decrypt.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = 2 AND [Clave] = N'AYUDA_USUARIOS') INSERT [dbo].[AyudaTema] ([IdIdioma], [Clave], [Orden], [Titulo], [Contenido]) VALUES (2, N'AYUDA_USUARIOS', 14, N'Users and Profiles', N'== WHAT IT DOES
+Users: create, edit, deactivate and unlock users (Master Tables → Users or Admin → User Management, GestionUsuarios permission).
+Profiles: define roles and permission families that decide which options each user sees (Admin → Profiles, GestionPerfiles permission).
+
+== STEPS: USERS
+1. Create: press Create User, fill in the data, pick the role and press Save.
+2. Edit: pick the user, press Edit User, change the data (also Active) and press Save.
+3. Deactivate: pick the user and press Delete User (asks for confirmation).
+4. Unlock: pick a locked user and press Unlock (asks for confirmation).
+5. Cancel discards the changes in progress.
+
+== STEPS: PROFILES
+1. To create: type the name, choose whether it is a Role or a Family, tick the available permissions and families that make it up and press Create. The tree shows the hierarchy.
+2. To edit: pick the existing profile in the Role / Family drop-down, adjust the ticked permissions and press Save.
+3. To delete: pick the profile and press Delete.
+4. Cancel clears the screen back to its initial state. If you press Create with nothing ticked, the system asks you to select permissions or families.
+
+== NOTES
+- Field rules: user name without spaces or special characters; first and last name letters only; ID number and phone digits only; address letters and numbers only; e-mail in the format xxxx@xxx.xxx.
+- The user name and the ID number cannot be repeated.
+- A new or just-unlocked user must change the password at the first sign-in.
+- Permissions are applied when the menu is built at sign-in: after changing a profile, the affected user should sign in again to see the change.
+- The roles you create in Profiles are the ones offered when creating or editing a user.')
+GO
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'BKP_RESTORE_AVISO_CATALOGO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'BKP_RESTORE_AVISO_CATALOGO', N'El restore se completo, pero no se pudo actualizar la lista de backups: puede estar desactualizada y algun archivo de backup existente en disco podria no aparecer. Informe este mensaje al encargado.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'BKP_RESTORE_AVISO_CATALOGO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'BKP_RESTORE_AVISO_CATALOGO', N'The restore completed, but the backup list could not be updated: it may be out of date and an existing backup file on disk might not be listed. Report this message to the administrator.')
+GO
+-- Datos de prueba: permiso CargarDatosPrueba (solo Propietario) y textos DAT_* / MENU_CARGAR_DATOS_PRUEBA (ES/EN)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Permiso] WHERE [Nombre_Permiso] = N'CargarDatosPrueba') INSERT [dbo].[Permiso] ([Nombre_Permiso], [Tipo], [Rol], [Nombre_PermisoPadre]) VALUES (N'CargarDatosPrueba', N'Simple', 0, N'Propietario')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'MENU_CARGAR_DATOS_PRUEBA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'MENU_CARGAR_DATOS_PRUEBA', N'Cargar datos de prueba')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'MENU_CARGAR_DATOS_PRUEBA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'MENU_CARGAR_DATOS_PRUEBA', N'Load test data')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TITULO', N'Cargar datos de prueba')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TITULO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TITULO', N'Load test data')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_MSG_CONFIRMAR') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_MSG_CONFIRMAR', N'Se cargaran proveedores, una lista de precios, productos, clientes y usuarios de prueba. Antes se hace una copia de seguridad (PreDatosPrueba_fecha_hora.bak) para poder volver con Restore. Solo funciona en una base sin datos. ¿Desea continuar?')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_MSG_CONFIRMAR') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_MSG_CONFIRMAR', N'Test suppliers, a price list, products, customers and users will be loaded. A backup (PreDatosPrueba_date_time.bak) is made first so you can go back with Restore. It only works on a database with no data. Do you want to continue?')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_LBL_TRABAJANDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_LBL_TRABAJANDO', N'Cargando datos de prueba...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_LBL_TRABAJANDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_LBL_TRABAJANDO', N'Loading test data...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_VERIFICANDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_VERIFICANDO', N'Verificando que la base no tenga datos...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_VERIFICANDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_VERIFICANDO', N'Checking that the database has no data...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_BACKUP', N'Haciendo la copia de seguridad (backup) antes de cargar los datos...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_BACKUP', N'Making the backup before loading the data...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_SCRIPT') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_SCRIPT', N'Cargando proveedores, listas de precios y productos...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_SCRIPT') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_SCRIPT', N'Loading suppliers, price lists and products...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_CLIENTES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_CLIENTES', N'Cargando clientes...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_CLIENTES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_CLIENTES', N'Loading customers...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_USUARIOS', N'Creando los usuarios de prueba...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_USUARIOS', N'Creating the test users...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ETAPA_FIN') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ETAPA_FIN', N'Registrando en la bitacora...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ETAPA_FIN') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ETAPA_FIN', N'Writing to the log...')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ERR_PERMISO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ERR_PERMISO', N'No tiene permiso para cargar datos de prueba.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ERR_PERMISO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ERR_PERMISO', N'You do not have permission to load test data.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ERR_HAY_DATOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ERR_HAY_DATOS', N'La base ya tiene datos ({0}). Los datos de prueba solo se cargan en una base sin datos: no se cargo nada.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ERR_HAY_DATOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ERR_HAY_DATOS', N'The database already has data ({0}). Test data is only loaded into an empty database: nothing was loaded.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ERR_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ERR_BACKUP', N'No se pudo hacer la copia de seguridad previa, por eso no se cargo nada: {0}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ERR_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ERR_BACKUP', N'The previous backup could not be made, so nothing was loaded: {0}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_ERR_FALLO_CARGA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_ERR_FALLO_CARGA', N'No se pudo completar la carga de datos de prueba: {0} La copia de seguridad {1} se hizo antes de empezar: use Admin - Restore para volver al estado anterior.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_ERR_FALLO_CARGA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_ERR_FALLO_CARGA', N'The test data load could not be completed: {0} The backup {1} was made before starting: use Admin - Restore to go back to the previous state.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_OK') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_OK', N'Datos de prueba cargados.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_OK') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_OK', N'Test data loaded.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_CONTENIDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_CONTENIDO', N'Se cargaron {0} proveedores, {1} productos (con su lista de precios), {2} clientes y {3} usuarios.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_CONTENIDO') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_CONTENIDO', N'Loaded {0} suppliers, {1} products (with their price list), {2} customers and {3} users.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_BACKUP', N'Copia de seguridad previa: {0}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_BACKUP') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_BACKUP', N'Previous backup: {0}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_RESTORE') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_RESTORE', N'Para volver a este estado use Admin - Restore y elija ese archivo.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_RESTORE') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_RESTORE', N'To go back to that state use Admin - Restore and choose that file.')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_USUARIOS', N'Usuarios de prueba (deben cambiar la clave en el primer ingreso):')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_USUARIOS', N'Test users (they must change the password at first sign-in):')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_RES_USUARIO_FILA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_RES_USUARIO_FILA', N'Usuario: {0}   Rol: {1}   Clave: {2}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_RES_USUARIO_FILA') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_RES_USUARIO_FILA', N'User: {0}   Role: {1}   Password: {2}')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_PROVEEDORES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_PROVEEDORES', N'proveedores')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_PROVEEDORES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_PROVEEDORES', N'suppliers')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_PRODUCTOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_PRODUCTOS', N'productos')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_PRODUCTOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_PRODUCTOS', N'products')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_CLIENTES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_CLIENTES', N'clientes')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_CLIENTES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_CLIENTES', N'customers')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_FACTURAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_FACTURAS', N'ventas')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_FACTURAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_FACTURAS', N'sales')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_LISTAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_LISTAS', N'items de listas de precios')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_LISTAS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_LISTAS', N'price list items')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_ORDENES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_ORDENES', N'ordenes de compra')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_ORDENES') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_ORDENES', N'purchase orders')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_USUARIOS', N'usuarios adicionales al administrador')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_USUARIOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_USUARIOS', N'users besides the administrator')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 1 AND [Clave] = N'DAT_TABLA_CARRITOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (1, N'DAT_TABLA_CARRITOS', N'carritos')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Traduccion] WHERE [IdIdioma] = 2 AND [Clave] = N'DAT_TABLA_CARRITOS') INSERT [dbo].[Traduccion] ([IdIdioma], [Clave], [Texto]) VALUES (2, N'DAT_TABLA_CARRITOS', N'carts')
+GO

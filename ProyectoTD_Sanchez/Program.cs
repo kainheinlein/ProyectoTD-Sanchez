@@ -16,8 +16,24 @@ namespace TP_SanchezVillaverde
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
-        static void Main()
+        static int Main(string[] args)
         {
+            //Desinstalador: --eliminar-base elimina la base configurada (sin interfaz). Codigo 0 = ok; otro = error (detalle en el log del TEMP).
+            if (args != null && Array.Exists(args, a => string.Equals(a, "--eliminar-base", StringComparison.OrdinalIgnoreCase)))
+            {
+                try
+                {
+                    new InicializacionBLL_883SC().EliminarBase_883SC();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    try { System.IO.File.WriteAllText(System.IO.Path.Combine(System.IO.Path.GetTempPath(), "FerreSV_eliminar_base.log"), DateTime.Now.ToString("s") + " " + ex.Message + Environment.NewLine); }
+                    catch (Exception) { }
+                    return 1;
+                }
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -51,13 +67,14 @@ namespace TP_SanchezVillaverde
             {
                 //El usuario eligio no crear la base en la instancia alternativa: se cierra sin mensaje de error
                 InicializacionException_883SC cancelada = error as InicializacionException_883SC;
-                if (cancelada != null && cancelada.Motivo_883SC == MotivoInicializacion_883SC.CanceladaPorUsuario) { return; }
+                if (cancelada != null && cancelada.Motivo_883SC == MotivoInicializacion_883SC.CanceladaPorUsuario) { return 0; }
 
                 MessageBox.Show(MensajeDeError_883SC(error), "FerreSV", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return 1;
             }
 
             Application.Run(new frmLogin_883SC());
+            return 0;
         }
 
         private static string MensajeDeError_883SC(Exception ex)

@@ -3239,3 +3239,81 @@ BEGIN
     SELECT IdOrdenCompra, IdProveedor FROM @Ordenes ORDER BY IdOrdenCompra;
 END
 GO
+
+-- D02: Ayuda en linea (script 23): tabla AyudaTema y ListarAyudaTemas_SP
+IF OBJECT_ID(N'[dbo].[AyudaTema]', N'U') IS NULL
+BEGIN
+    CREATE TABLE [dbo].[AyudaTema](
+        [IdIdioma] [int] NOT NULL,
+        [Clave] [nvarchar](50) NOT NULL,
+        [Orden] [int] NOT NULL,
+        [Titulo] [nvarchar](100) NOT NULL,
+        [Contenido] [nvarchar](max) NOT NULL,
+        CONSTRAINT [PK_AyudaTema] PRIMARY KEY CLUSTERED ([IdIdioma] ASC, [Clave] ASC),
+        CONSTRAINT [FK_AyudaTema_Idioma] FOREIGN KEY ([IdIdioma]) REFERENCES [dbo].[Idioma]([Id])
+    )
+END
+GO
+CREATE OR ALTER PROCEDURE [dbo].[ListarAyudaTemas_SP]
+    @IdIdioma int
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @Id int = @IdIdioma;
+
+    -- Idioma sin temas (por ejemplo uno creado despues): se muestran los de Espanol
+    IF NOT EXISTS (SELECT 1 FROM [dbo].[AyudaTema] WHERE [IdIdioma] = @Id)
+        SELECT @Id = [Id] FROM [dbo].[Idioma] WHERE [Codigo] = N'ES';
+
+    SELECT [IdIdioma], [Clave], [Orden], [Titulo], [Contenido]
+    FROM [dbo].[AyudaTema]
+    WHERE [IdIdioma] = @Id
+    ORDER BY [Orden], [Clave];
+END
+GO
+-- Bug de Restore: catalogo Backups restituido tras el restore (script 24)
+IF NOT EXISTS (SELECT * FROM sys.types st JOIN sys.schemas ss ON st.schema_id = ss.schema_id WHERE st.name = N'TipoCatalogoBackup' AND ss.name = N'dbo')
+CREATE TYPE [dbo].[TipoCatalogoBackup] AS TABLE(
+    [IdBackup] [int] NOT NULL,
+    [NombreArchivo] [nvarchar](260) NOT NULL,
+    [Ruta] [nvarchar](260) NOT NULL,
+    [Fecha] [datetime] NOT NULL,
+    [Usuario] [nvarchar](50) NOT NULL,
+    [TamanioBytes] [bigint] NULL,
+    [Verificado] [bit] NOT NULL
+)
+GO
+CREATE OR ALTER PROCEDURE [dbo].[SincronizarCatalogoBackups_SP]
+    @Catalogo [dbo].[TipoCatalogoBackup] READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    -- Despues de un RESTORE la tabla Backups tiene el contenido que tenia al tomarse ese backup (sin ese backup ni los
+    -- posteriores). Se la deja igual al catalogo que habia justo antes del restore, con sus mismos IdBackup.
+    BEGIN TRANSACTION;
+    DELETE FROM [dbo].[Backups];
+    SET IDENTITY_INSERT [dbo].[Backups] ON;
+    INSERT INTO [dbo].[Backups] ([IdBackup], [NombreArchivo], [Ruta], [Fecha], [Usuario], [TamanioBytes], [Verificado])
+    SELECT [IdBackup], [NombreArchivo], [Ruta], [Fecha], [Usuario], [TamanioBytes], [Verificado] FROM @Catalogo;
+    SET IDENTITY_INSERT [dbo].[Backups] OFF;
+    COMMIT TRANSACTION;
+END
+GO
+-- Datos de prueba (script 25): SP de consulta
+CREATE OR ALTER PROCEDURE [dbo].[ContarDatosNegocio_SP]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    -- Cuenta los datos de negocio para decidir si se pueden cargar los datos de prueba (DatosPruebaBLL). Solo lectura.
+    SELECT
+        (SELECT COUNT(*) FROM dbo.Proveedores)  AS Proveedores,
+        (SELECT COUNT(*) FROM dbo.Productos)    AS Productos,
+        (SELECT COUNT(*) FROM dbo.Clientes)     AS Clientes,
+        (SELECT COUNT(*) FROM dbo.Facturas)     AS Facturas,
+        (SELECT COUNT(*) FROM dbo.ListaPrecio)  AS ListasPrecio,
+        (SELECT COUNT(*) FROM dbo.OrdenCompra)  AS OrdenesCompra,
+        (SELECT COUNT(*) FROM dbo.Carrito)      AS Carritos,
+        (SELECT COUNT(*) FROM dbo.Usuarios)     AS Usuarios;
+END
+GO

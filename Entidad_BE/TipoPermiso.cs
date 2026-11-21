@@ -26,6 +26,7 @@ namespace Entidad_BE
         ConsultarHistorial,
         GestionIdiomas,
         VerReportes,
-        GestionBitacoraCambios
+        GestionBitacoraCambios,
+        CargarDatosPrueba
     }
 }
