@@ -63,6 +63,8 @@ namespace TP_SanchezVillaverde
             btnVincular.Text = Traducir_883SC("PROD_BTN_VINCULAR");
             btnModificar.Text = Traducir_883SC("PROD_BTN_MODIFICAR");
             btnDesvincular.Text = Traducir_883SC("PROD_BTN_DESVINCULAR");
+            chkInactivos.Text = Traducir_883SC("PROD_CHK_INACTIVOS");
+            ActualizarBotonBaja_883SC();
             btnSalir.Text = Traducir_883SC("COMUN_SALIR");
             foreach (DataGridView dgv in new DataGridView[] { dgvProductos, dgvPendientes, dgvVinculados })
             {
@@ -154,11 +156,13 @@ namespace TP_SanchezVillaverde
         private void CargarProductos_883SC(string codigoSeleccionar)
         {
             dgvProductos.Rows.Clear();
-            foreach (ProductoBE_883SC p in productoBLL_883SC.ListarProductos_883SC())
+            foreach (ProductoBE_883SC p in productoBLL_883SC.ListarProductos_883SC(chkInactivos.Checked))
             {
                 int fila = dgvProductos.Rows.Add(p.Codigo_883SC, p.Nombre_883SC, p.Stock_883SC, p.StockMinimo_883SC,
                     NombreProveedor_883SC(p.Proveedor_883SC), p.Precio_883SC);
                 dgvProductos.Rows[fila].Tag = p;
+                //Los dados de baja se ven en gris
+                if (p.Baja_883SC) { dgvProductos.Rows[fila].DefaultCellStyle.ForeColor = System.Drawing.Color.Gray; }
                 if (p.Codigo_883SC == codigoSeleccionar) { dgvProductos.CurrentCell = dgvProductos.Rows[fila].Cells[0]; }
             }
             CargarVinculados_883SC();
@@ -232,6 +236,84 @@ namespace TP_SanchezVillaverde
         private void dgvProductos_SelectionChanged_883SC(object sender, EventArgs e)
         {
             CargarVinculados_883SC();
+            ActualizarBotonBaja_883SC();
+        }
+
+        //El boton alterna entre "Dar de baja" y "Reactivar" segun el producto elegido; un producto de baja no se modifica
+        private void ActualizarBotonBaja_883SC()
+        {
+            ProductoBE_883SC producto = ProductoSeleccionado_883SC();
+            btnBaja.Enabled = producto != null;
+            btnBaja.Text = Traducir_883SC(producto != null && producto.Baja_883SC ? "PROD_BTN_REACTIVAR" : "PROD_BTN_BAJA");
+            btnModificar.Enabled = producto != null && !producto.Baja_883SC;
+        }
+
+        private void chkInactivos_CheckedChanged_883SC(object sender, EventArgs e)
+        {
+            lblError.Text = "";
+            try
+            {
+                CargarProductos_883SC(null);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = Traducir_883SC("COMUN_ERROR_BD") + ex.Message;
+            }
+        }
+
+        private void btnBaja_Click_883SC(object sender, EventArgs e)
+        {
+            lblError.Text = "";
+            ProductoBE_883SC producto = ProductoSeleccionado_883SC();
+            if (producto == null)
+            {
+                lblError.Text = Traducir_883SC("PROD_ERR_SEL_PRODUCTO");
+                return;
+            }
+
+            bool reactivar = producto.Baja_883SC;
+            string mensaje;
+            if (reactivar)
+            {
+                mensaje = string.Format(Traducir_883SC("PROD_MSG_CONFIRMA_REACTIVAR"), producto.Nombre_883SC);
+            }
+            else if (producto.Stock_883SC > 0)
+            {
+                //Con stock se advierte que queda sin poder venderse
+                mensaje = string.Format(Traducir_883SC("PROD_MSG_CONFIRMA_BAJA_STOCK"), producto.Nombre_883SC, producto.Stock_883SC);
+            }
+            else
+            {
+                mensaje = string.Format(Traducir_883SC("PROD_MSG_CONFIRMA_BAJA"), producto.Nombre_883SC);
+            }
+            if (MessageBox.Show(mensaje, Traducir_883SC("COMUN_ATENCION"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                if (reactivar) { productoBLL_883SC.ReactivarProducto_883SC(producto); }
+                else { productoBLL_883SC.DarDeBajaProducto_883SC(producto); }
+            }
+            catch (ArgumentException ex)
+            {
+                //Estado que ya cambio, producto inexistente o proveedor de referencia dado de baja: se recarga el estado real
+                lblError.Text = ex.Message;
+                Refrescar_883SC(producto.Codigo_883SC);
+                return;
+            }
+            catch (Exception)
+            {
+                //El SP es transaccional: no se cambio nada
+                MessageBox.Show(Traducir_883SC("PROD_MSG_ERROR_BAJA"), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Refrescar_883SC(producto.Codigo_883SC);
+                return;
+            }
+
+            MessageBox.Show(string.Format(Traducir_883SC(reactivar ? "PROD_MSG_REACTIVADO_OK" : "PROD_MSG_BAJA_OK"), producto.Nombre_883SC),
+                "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Refrescar_883SC(producto.Codigo_883SC);
         }
 
         private void btnBuscar_Click_883SC(object sender, EventArgs e)
@@ -346,6 +428,11 @@ namespace TP_SanchezVillaverde
             if (producto == null)
             {
                 lblError.Text = Traducir_883SC("PROD_ERR_SEL_PRODUCTO");
+                return;
+            }
+            if (producto.Baja_883SC)
+            {
+                lblError.Text = Traducir_883SC("PROD_ERR_BAJA_MODIFICAR");
                 return;
             }
 

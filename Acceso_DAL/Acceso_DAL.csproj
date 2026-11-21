@@ -50,11 +50,16 @@
     <Compile Include="MP_Bitacora.cs" />
     <Compile Include="MP_HistorialUsuario.cs" />
     <Compile Include="MP_MetodoPago.cs" />
+    <Compile Include="ActivarVersionException.cs" />
+    <Compile Include="BajaProductoException.cs" />
+    <Compile Include="ProductoDadoDeBajaException.cs" />
     <Compile Include="MP_Producto.cs" />
+    <Compile Include="MP_ProductoC.cs" />
     <Compile Include="MP_ListaPrecio.cs" />
     <Compile Include="MP_OrdenCompra.cs" />
     <Compile Include="OrdenEstadoCambiadoException.cs" />
     <Compile Include="OrdenNoPendienteException.cs" />
+    <Compile Include="StockInsuficienteException.cs" />
     <Compile Include="MP_Proveedor.cs" />
     <Compile Include="MP_ReporteVentas.cs" />
     <Compile Include="MP_Instalacion.cs" />

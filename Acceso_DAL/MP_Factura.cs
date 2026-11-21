@@ -30,7 +30,19 @@ namespace Acceso_DAL
             parametros[6].SqlDbType = SqlDbType.Structured;
             parametros[6].TypeName = "dbo.TipoDetalleFactura";
 
-            return Convert.ToInt32(conexDB_883SC.EscribirRetornar_883SC("GuardarFactura_SP", parametros));
+            try
+            {
+                DataTable resultado = conexDB_883SC.LeerTabla_883SC("GuardarFactura_SP", parametros);
+                return Convert.ToInt32(resultado.Rows[0]["IDFactura"]);
+            }
+            catch (SqlException ex)
+            {
+                //50001 = el SP no pudo descontar el stock de algun producto (ya revirtio todo)
+                if (ex.Number == 50001) { throw new StockInsuficienteException_883SC(ex); }
+                //50002 = algun producto de la venta esta dado de baja
+                if (ex.Number == 50002) { throw new ProductoDadoDeBajaException_883SC(ex); }
+                throw;
+            }
         }
 
         //Las columnas van en el mismo orden que dbo.TipoDetalleFactura

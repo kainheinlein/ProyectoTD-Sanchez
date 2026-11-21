@@ -49,7 +49,23 @@ namespace Negocio_BLL
             UsuarioBE_883SC usuario = SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC();
             factura.IdUsuario_883SC = usuario.cod_883SC;
 
-            int id = mpFactura_883SC.GuardarFactura_883SC(factura);
+            int id;
+            try
+            {
+                id = mpFactura_883SC.GuardarFactura_883SC(factura);
+            }
+            catch (ProductoDadoDeBajaException_883SC ex)
+            {
+                //El SP revirtio todo: no hay factura y el carrito sigue pendiente
+                throw new InvalidOperationException(
+                    GestorDeIdioma_883SC.GetInstance_883SC.Traducir_883SC("PROD_ERR_BAJA_VENTA"), ex);
+            }
+            catch (StockInsuficienteException_883SC ex)
+            {
+                //El SP revirtio todo: no hay factura y el carrito sigue pendiente
+                throw new InvalidOperationException(
+                    GestorDeIdioma_883SC.GetInstance_883SC.Traducir_883SC("PROD_MSG_STOCK_INSUFICIENTE"), ex);
+            }
             factura.AsignarId_883SC(id);
 
             bitacora_883SC.RegistrarBitacora_883SC(usuario.user_883SC, TipoAccion_883SC.AltaFactura, "factura=" + id);

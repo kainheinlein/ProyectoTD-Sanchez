@@ -52,6 +52,9 @@ namespace Entidad_BE
         BajaProveedor = 42,
         ReactivacionProveedor = 43,
         InicializacionBase = 44,
-        GeneracionReporteVentas = 45
+        GeneracionReporteVentas = 45,
+        ActivacionVersionProducto = 46,
+        BajaProducto = 47,
+        ReactivacionProducto = 48
     }
 }

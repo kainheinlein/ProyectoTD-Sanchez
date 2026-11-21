@@ -55,7 +55,8 @@ namespace TP_SanchezVillaverde
             idiomasToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_IDIOMAS");
             backupToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BACKUP");
             restoreToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_RESTORE");
-            bitacoraToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BITACORA");
+            bitacoraToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_BITACORA");
+            bitacoraEventosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BITACORA_EVENTOS");
             tsUsuario.Text = gestorIdioma_883SC.Traducir_883SC("COMUN_USUARIO");
             cambiarClaveToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CAMBIAR_CLAVE");
             cambiarIdiomaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_CAMBIAR_IDIOMA");
@@ -64,6 +65,7 @@ namespace TP_SanchezVillaverde
             realizarVentaToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_REALIZAR_VENTA");
             tsMaestros.Text = gestorIdioma_883SC.Traducir_883SC("MENU_TS_MAESTROS");
             usuariosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_USUARIOS");
+            bitacoraCambiosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_BITACORA_CAMBIOS");
             clientesToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_CLIENTES");
             proveedoresToolStripMenuItem1.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PROVEEDORES");
             productosToolStripMenuItem.Text = gestorIdioma_883SC.Traducir_883SC("MENU_MAESTRO_PRODUCTOS");
@@ -165,10 +167,13 @@ namespace TP_SanchezVillaverde
             MostrarSi_883SC(idiomasToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionIdiomas.ToString()));
             MostrarSi_883SC(backupToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
             MostrarSi_883SC(restoreToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBackup.ToString()));
-            MostrarSi_883SC(bitacoraToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString()));
+            MostrarSi_883SC(bitacoraEventosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacora.ToString()));
             MostrarSi_883SC(llenarCarritoToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.LlenarCarrito.ToString()));
             MostrarSi_883SC(realizarVentaToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RealizarCobro.ToString()));
             MostrarSi_883SC(usuariosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionUsuarios.ToString()));
+            MostrarSi_883SC(bitacoraCambiosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionBitacoraCambios.ToString()));
+            //El submenu Bitacora se muestra si alguno de sus dos hijos esta habilitado
+            MostrarSi_883SC(bitacoraToolStripMenuItem, bitacoraEventosToolStripMenuItem.Available || bitacoraCambiosToolStripMenuItem.Available);
             MostrarSi_883SC(clientesToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.RegistrarCliente.ToString()));
             MostrarSi_883SC(proveedoresToolStripMenuItem1, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString()));
             MostrarSi_883SC(administrarProductosToolStripMenuItem, perfilBLL_883SC.TienePermiso_883SC(rol, TipoPermiso_883SC.GestionProductos.ToString()));
@@ -245,6 +250,11 @@ namespace TP_SanchezVillaverde
         {
             bitacora_883SC.RegistrarBitacora_883SC(SessionManager_883SC.GetInstance_883SC.UsuarioActual_883SC().user_883SC, TipoAccion_883SC.GestionUsuariosAbierta);
             OpenForm_883SC(tsMaestros, new frmUsuario_883SC());
+        }
+
+        private void bitacoraCambiosToolStripMenuItem_Click_883SC(object sender, System.EventArgs e)
+        {
+            OpenForm_883SC(tsAdmin, new frmBitacoraCambios_883SC());
         }
 
         private void clientesMaestro_Click_883SC(object sender, System.EventArgs e)

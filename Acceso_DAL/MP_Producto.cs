@@ -88,7 +88,47 @@ namespace Acceso_DAL
             parametros[4] = new SqlParameter("@IdProveedor", producto.Proveedor_883SC);
             parametros[5] = new SqlParameter("@Precio", producto.Precio_883SC);
 
-            conexDB_883SC.Escribir_883SC("ModificarProducto_SP", parametros);
+            try
+            {
+                //LeerTabla y no Escribir: Escribir abre una transaccion propia y su Rollback taparia la excepcion del SP
+                conexDB_883SC.LeerTabla_883SC("ModificarProducto_SP", parametros);
+            }
+            catch (SqlException ex)
+            {
+                //50007 = el producto esta dado de baja
+                if (ex.Number == 50007) { throw new ProductoDadoDeBajaException_883SC(ex); }
+                throw;
+            }
+        }
+
+        /// Baja logica. Lanza BajaProductoException_883SC (50001 no existe, 50002 ya esta de baja).
+        public void DarDeBaja_883SC(string codigo)
+        {
+            CambiarEstado_883SC("BajaProducto_SP", codigo);
+        }
+
+        /// Reactivacion. Lanza BajaProductoException_883SC (50001 no existe, 50002 no esta de baja, 50003 proveedor inactivo).
+        public void Reactivar_883SC(string codigo)
+        {
+            CambiarEstado_883SC("ReactivarProducto_SP", codigo);
+        }
+
+        private void CambiarEstado_883SC(string sp, string codigo)
+        {
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter("@Codigo", codigo);
+            try
+            {
+                conexDB_883SC.LeerTabla_883SC(sp, parametros);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 50001 || ex.Number == 50002 || ex.Number == 50003)
+                {
+                    throw new BajaProductoException_883SC(ex.Number, ex);
+                }
+                throw;
+            }
         }
 
         private ProductoBE_883SC MapearFila_883SC(DataRow dr)
@@ -104,6 +144,11 @@ namespace Acceso_DAL
             if (dr.Table.Columns.Contains("StockMinimo"))
             {
                 producto.StockMinimo_883SC = Convert.ToInt32(dr["StockMinimo"]);
+            }
+            //Solo SP_ExtTabla (listado del ABM) trae Bit_Lo_Bo; los SP de Ventas y Compras ya excluyen las bajas
+            if (dr.Table.Columns.Contains("Bit_Lo_Bo"))
+            {
+                producto.Baja_883SC = Convert.ToBoolean(dr["Bit_Lo_Bo"]);
             }
             return producto;
         }

@@ -1308,6 +1308,19 @@ BEGIN
         SELECT @nuevoId, d.Codigo, d.Cantidad, d.PrecioUnitario
         FROM @Detalle AS d;
 
+        -- Descuento de stock (CUN-004 / RNF-06): una sola sentencia de varias filas, agrupada por Codigo
+        -- (un producto puede venir en mas de una linea). Solo descuenta si Stock >= cantidad total.
+        UPDATE p
+        SET p.Stock = p.Stock - t.Total
+        FROM dbo.Productos AS p
+        INNER JOIN (SELECT Codigo, SUM(Cantidad) AS Total FROM @Detalle GROUP BY Codigo) AS t
+            ON t.Codigo = p.Codigo
+        WHERE p.Stock >= t.Total;
+
+        -- Si algun codigo no se actualizo (stock insuficiente o inexistente) se revierte todo
+        IF @@ROWCOUNT <> (SELECT COUNT(DISTINCT Codigo) FROM @Detalle)
+            THROW 50001, 'Stock insuficiente para completar la venta', 1;
+
         COMMIT TRANSACTION;
         SELECT @nuevoId AS IDFactura;
     END TRY
@@ -2788,4 +2801,441 @@ BEGIN
     COMMIT TRANSACTION;
 END
 
+GO
+
+-- T06b Bitacora de Cambios de Productos (mismo contenido que el script 22 de BaseDeDatos; los datos van en 02_DatosBase.sql).
+-- Productos.Bit_Lo_Bo, Productos_C, TR_Productos_Historial, TR_Productos_C_NoBorrar, los SP de historial y la baja logica de productos
+-- (Baja/ReactivarProducto_SP y la nueva version de BuscarProductos_SP, ListarBajoStock_SP, ModificarProducto_SP, GuardarFactura_SP y
+-- AltaOrdenesCompra_SP, que reemplazan a las definiciones anteriores de este archivo).
+-- 1. Baja logica de Productos (solo la columna)
+IF COL_LENGTH(N'dbo.Productos', N'Bit_Lo_Bo') IS NULL
+    ALTER TABLE [dbo].[Productos] ADD [Bit_Lo_Bo] [bit] NOT NULL
+        CONSTRAINT [DF_Productos_Bit_Lo_Bo] DEFAULT ((0));
+GO
+
+-- 2. Tabla historica
+IF OBJECT_ID(N'[dbo].[Productos_C]', N'U') IS NULL
+BEGIN
+    CREATE TABLE [dbo].[Productos_C](
+        [IdCambio] [int] IDENTITY(1,1) NOT NULL,
+        [Codigo] [nvarchar](50) NOT NULL,
+        [Fecha] [date] NOT NULL,
+        [Hora] [time](0) NOT NULL,
+        [Proveedor] [int] NOT NULL,
+        [Nombre] [nvarchar](50) NOT NULL,
+        [Descripcion] [nvarchar](max) NOT NULL,
+        [Stock] [int] NOT NULL,
+        [Precio] [decimal](18, 2) NOT NULL,
+        [StockMinimo] [int] NOT NULL,
+        [Bit_Lo_Bo] [bit] NOT NULL,
+        [Act] [bit] NOT NULL,
+     CONSTRAINT [PK_Productos_C] PRIMARY KEY CLUSTERED ([IdCambio] ASC),
+     CONSTRAINT [FK_Productos_C_Productos] FOREIGN KEY ([Codigo]) REFERENCES [dbo].[Productos] ([Codigo])
+    )
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = N'UX_Productos_C_Vigente' AND object_id = OBJECT_ID(N'[dbo].[Productos_C]'))
+    CREATE UNIQUE NONCLUSTERED INDEX [UX_Productos_C_Vigente] ON [dbo].[Productos_C] ([Codigo]) WHERE ([Act] = 1)
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = N'IX_Productos_C_Codigo' AND object_id = OBJECT_ID(N'[dbo].[Productos_C]'))
+    CREATE NONCLUSTERED INDEX [IX_Productos_C_Codigo] ON [dbo].[Productos_C] ([Codigo], [Fecha])
+GO
+
+-- 3. Carga inicial: una version vigente por cada producto que todavia no tenga ninguna
+INSERT INTO [dbo].[Productos_C] ([Codigo], [Fecha], [Hora], [Proveedor], [Nombre], [Descripcion], [Stock], [Precio], [StockMinimo], [Bit_Lo_Bo], [Act])
+SELECT p.[Codigo], CAST(SYSDATETIME() AS date), CAST(SYSDATETIME() AS time(0)), p.[Proveedor], p.[Nombre], p.[Descripcion],
+       p.[Stock], p.[Precio], p.[StockMinimo], p.[Bit_Lo_Bo], 1
+FROM [dbo].[Productos] AS p
+WHERE NOT EXISTS (SELECT 1 FROM [dbo].[Productos_C] AS c WHERE c.[Codigo] = p.[Codigo])
+GO
+
+-- 4. Trigger de historial
+CREATE OR ALTER TRIGGER [dbo].[TR_Productos_Historial]
+ON [dbo].[Productos]
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- ActivarVersionProducto_SP lo apaga durante su UPDATE
+    IF TRY_CONVERT(int, SESSION_CONTEXT(N'omitir_historial_productos')) = 1 RETURN;
+
+    -- Solo productos nuevos o con algun valor distinto (comparacion binaria: detecta cambios de mayusculas y acentos).
+    -- Fecha_Actualizacion no se compara.
+    DECLARE @Cambios TABLE ([Codigo] NVARCHAR(50) NOT NULL PRIMARY KEY);
+    INSERT INTO @Cambios ([Codigo])
+    SELECT i.[Codigo]
+    FROM inserted AS i
+    LEFT JOIN deleted AS d ON d.[Codigo] = i.[Codigo]
+    WHERE d.[Codigo] IS NULL
+       OR i.[Proveedor] <> d.[Proveedor]
+       OR i.[Nombre] COLLATE Latin1_General_BIN2 <> d.[Nombre] COLLATE Latin1_General_BIN2
+       OR i.[Descripcion] COLLATE Latin1_General_BIN2 <> d.[Descripcion] COLLATE Latin1_General_BIN2
+       OR i.[Stock] <> d.[Stock]
+       OR i.[Precio] <> d.[Precio]
+       OR i.[StockMinimo] <> d.[StockMinimo]
+       OR i.[Bit_Lo_Bo] <> d.[Bit_Lo_Bo];
+
+    IF NOT EXISTS (SELECT 1 FROM @Cambios) RETURN;
+
+    DECLARE @Ahora DATETIME2(0) = SYSDATETIME();
+
+    -- Primero deja sin vigencia la version anterior (el indice unico filtrado admite una sola Act = 1)
+    UPDATE c
+       SET c.[Act] = 0
+    FROM [dbo].[Productos_C] AS c
+    INNER JOIN @Cambios AS x ON x.[Codigo] = c.[Codigo]
+    WHERE c.[Act] = 1;
+
+    INSERT INTO [dbo].[Productos_C] ([Codigo], [Fecha], [Hora], [Proveedor], [Nombre], [Descripcion], [Stock], [Precio], [StockMinimo], [Bit_Lo_Bo], [Act])
+    SELECT i.[Codigo], CAST(@Ahora AS date), CAST(@Ahora AS time(0)), i.[Proveedor], i.[Nombre], i.[Descripcion],
+           i.[Stock], i.[Precio], i.[StockMinimo], i.[Bit_Lo_Bo], 1
+    FROM inserted AS i
+    INNER JOIN @Cambios AS x ON x.[Codigo] = i.[Codigo];
+END
+GO
+
+-- 5. El historial no se borra
+CREATE OR ALTER TRIGGER [dbo].[TR_Productos_C_NoBorrar]
+ON [dbo].[Productos_C]
+INSTEAD OF DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    THROW 50010, 'El historial de productos no se puede borrar', 1;
+END
+GO
+
+-- 6. Consultas
+CREATE OR ALTER PROCEDURE [dbo].[ListarProductosC_SP]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT [IdCambio], [Codigo], [Fecha], [Hora], [Proveedor], [Nombre], [Descripcion], [Stock], [Precio], [StockMinimo], [Bit_Lo_Bo], [Act]
+    FROM [dbo].[Productos_C]
+    ORDER BY [IdCambio] DESC;
+END
+GO
+
+-- Filtros opcionales y combinables. Codigo y nombre: contiene (sin distinguir mayusculas). Fechas inclusivas.
+CREATE OR ALTER PROCEDURE [dbo].[BuscarProductosC_SP]
+    @codigo NVARCHAR(50) = NULL,
+    @nombre NVARCHAR(50) = NULL,
+    @desde  DATE = NULL,
+    @hasta  DATE = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @pCodigo NVARCHAR(120) = NULL, @pNombre NVARCHAR(120) = NULL;
+    IF @codigo IS NOT NULL AND @codigo <> N''
+        SET @pCodigo = N'%' + REPLACE(REPLACE(REPLACE(@codigo, N'\', N'\\'), N'%', N'\%'), N'_', N'\_') + N'%';
+    IF @nombre IS NOT NULL AND @nombre <> N''
+        SET @pNombre = N'%' + REPLACE(REPLACE(REPLACE(@nombre, N'\', N'\\'), N'%', N'\%'), N'_', N'\_') + N'%';
+
+    SELECT [IdCambio], [Codigo], [Fecha], [Hora], [Proveedor], [Nombre], [Descripcion], [Stock], [Precio], [StockMinimo], [Bit_Lo_Bo], [Act]
+    FROM [dbo].[Productos_C]
+    WHERE (@pCodigo IS NULL OR [Codigo] LIKE @pCodigo ESCAPE N'\')
+      AND (@pNombre IS NULL OR [Nombre] LIKE @pNombre ESCAPE N'\')
+      AND (@desde IS NULL OR [Fecha] >= @desde)
+      AND (@hasta IS NULL OR [Fecha] < DATEADD(DAY, 1, @hasta))
+    ORDER BY [IdCambio] DESC;
+END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[ListarCodigosProductosC_SP]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT DISTINCT [Codigo] FROM [dbo].[Productos_C] ORDER BY [Codigo];
+END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[ListarNombresProductosC_SP]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT DISTINCT [Nombre] FROM [dbo].[Productos_C] ORDER BY [Nombre];
+END
+GO
+
+-- 7. Activar una version historica: restaura sus valores en Productos (incluye Stock, Precio, StockMinimo y Bit_Lo_Bo).
+-- THROW 50001 la version no existe, 50002 ya es la vigente, 50003 el proveedor de la version no existe o esta dado de baja.
+-- El UPDATE de Productos no genera version nueva (omitir_historial_productos); la version elegida pasa a Act = 1.
+-- La BLL lo llama con LeerTabla_883SC (Escribir abriria una transaccion propia y su Rollback taparia la excepcion).
+CREATE OR ALTER PROCEDURE [dbo].[ActivarVersionProducto_SP]
+    @IdCambio INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @Codigo NVARCHAR(50), @Proveedor INT, @Nombre NVARCHAR(50), @Descripcion NVARCHAR(MAX),
+                @Stock INT, @Precio DECIMAL(18,2), @StockMinimo INT, @Baja BIT, @Act BIT;
+
+        SELECT @Codigo = [Codigo], @Proveedor = [Proveedor], @Nombre = [Nombre], @Descripcion = [Descripcion],
+               @Stock = [Stock], @Precio = [Precio], @StockMinimo = [StockMinimo], @Baja = [Bit_Lo_Bo], @Act = [Act]
+        FROM [dbo].[Productos_C] WITH (UPDLOCK, HOLDLOCK)
+        WHERE [IdCambio] = @IdCambio;
+
+        IF @Codigo IS NULL
+            THROW 50001, 'La version no existe', 1;
+        IF @Act = 1
+            THROW 50002, 'La version elegida ya es la vigente', 1;
+
+        IF NOT EXISTS (SELECT 1 FROM [dbo].[Proveedores] WHERE [IDProveedor] = @Proveedor AND [Activo] = 1)
+            THROW 50003, 'El proveedor de la version esta dado de baja', 1;
+
+        EXEC sys.sp_set_session_context @key = N'omitir_historial_productos', @value = 1;
+
+        UPDATE [dbo].[Productos]
+        SET [Proveedor] = @Proveedor, [Nombre] = @Nombre, [Descripcion] = @Descripcion, [Stock] = @Stock,
+            [Precio] = @Precio, [StockMinimo] = @StockMinimo, [Bit_Lo_Bo] = @Baja, [Fecha_Actualizacion] = GETDATE()
+        WHERE [Codigo] = @Codigo;
+
+        EXEC sys.sp_set_session_context @key = N'omitir_historial_productos', @value = NULL;
+
+        UPDATE [dbo].[Productos_C] SET [Act] = 0 WHERE [Codigo] = @Codigo AND [Act] = 1;
+        UPDATE [dbo].[Productos_C] SET [Act] = 1 WHERE [IdCambio] = @IdCambio;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        EXEC sys.sp_set_session_context @key = N'omitir_historial_productos', @value = NULL;
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END
+GO
+
+-- 7b. Baja logica de productos (Productos.Bit_Lo_Bo). El trigger registra una version en Productos_C en cada baja o reactivacion.
+-- BajaProducto_SP / ReactivarProducto_SP: THROW 50001 el producto no existe, 50002 el estado no corresponde (ya esta de baja /
+-- no esta de baja), 50003 (solo Reactivar) el proveedor de referencia no existe o esta dado de baja.
+-- La BLL los llama con LeerTabla_883SC (mismo motivo que ActivarVersionProducto_SP).
+CREATE OR ALTER PROCEDURE [dbo].[BajaProducto_SP]
+    @Codigo NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    BEGIN TRANSACTION;
+
+    DECLARE @Baja BIT;
+    SELECT @Baja = [Bit_Lo_Bo] FROM [dbo].[Productos] WITH (UPDLOCK, HOLDLOCK) WHERE [Codigo] = @Codigo;
+    IF @Baja IS NULL
+        THROW 50001, 'El producto no existe', 1;
+    IF @Baja = 1
+        THROW 50002, 'El producto ya esta dado de baja', 1;
+
+    UPDATE [dbo].[Productos] SET [Bit_Lo_Bo] = 1, [Fecha_Actualizacion] = GETDATE() WHERE [Codigo] = @Codigo;
+
+    COMMIT TRANSACTION;
+END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[ReactivarProducto_SP]
+    @Codigo NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    BEGIN TRANSACTION;
+
+    DECLARE @Baja BIT, @Proveedor INT;
+    SELECT @Baja = [Bit_Lo_Bo], @Proveedor = [Proveedor] FROM [dbo].[Productos] WITH (UPDLOCK, HOLDLOCK) WHERE [Codigo] = @Codigo;
+    IF @Baja IS NULL
+        THROW 50001, 'El producto no existe', 1;
+    IF @Baja = 0
+        THROW 50002, 'El producto no esta dado de baja', 1;
+    IF NOT EXISTS (SELECT 1 FROM [dbo].[Proveedores] WHERE [IDProveedor] = @Proveedor AND [Activo] = 1)
+        THROW 50003, 'El proveedor de referencia esta dado de baja', 1;
+
+    UPDATE [dbo].[Productos] SET [Bit_Lo_Bo] = 0, [Fecha_Actualizacion] = GETDATE() WHERE [Codigo] = @Codigo;
+
+    COMMIT TRANSACTION;
+END
+GO
+
+-- Ventas: la busqueda no devuelve productos dados de baja
+CREATE OR ALTER PROCEDURE [dbo].[BuscarProductos_SP]
+    @criterio NVARCHAR(50),
+    @dato NVARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @criterio = 'Codigo'
+        SELECT Codigo, Nombre, Stock, Descripcion, Precio, Proveedor
+        FROM Productos WHERE Codigo = @dato AND Bit_Lo_Bo = 0;
+    ELSE IF @criterio = 'Nombre'
+        SELECT Codigo, Nombre, Stock, Descripcion, Precio, Proveedor
+        FROM Productos WHERE Nombre LIKE '%' + @dato + '%' AND Bit_Lo_Bo = 0;
+    ELSE IF @criterio = 'Tipo'
+        SELECT Codigo, Nombre, Stock, Descripcion, Precio, Proveedor
+        FROM Productos WHERE Descripcion LIKE '%' + @dato + '%' AND Bit_Lo_Bo = 0;
+    ELSE IF @criterio = 'Proveedor'
+        SELECT Codigo, Nombre, Stock, Descripcion, Precio, Proveedor
+        FROM Productos WHERE Proveedor = TRY_CAST(@dato AS INT) AND Bit_Lo_Bo = 0;
+    ELSE
+        SELECT Codigo, Nombre, Stock, Descripcion, Precio, Proveedor
+        FROM Productos WHERE 1 = 0;
+END
+GO
+
+-- Compras: los productos dados de baja no aparecen como bajo stock
+CREATE OR ALTER PROCEDURE [dbo].[ListarBajoStock_SP]
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT p.Codigo, p.Nombre, p.Stock, p.Descripcion, p.Precio, p.Proveedor, p.StockMinimo,
+           (SELECT COUNT(*) FROM ListaPrecio lp
+            INNER JOIN Proveedores pr ON pr.IDProveedor = lp.IdProveedor AND pr.Activo = 1
+            WHERE lp.Codigo = p.Codigo) AS CantProveedores
+    FROM Productos p
+    WHERE p.Stock < p.StockMinimo AND p.Bit_Lo_Bo = 0
+    ORDER BY (p.StockMinimo - p.Stock) DESC, p.Codigo;
+END
+GO
+
+-- Un producto dado de baja no se modifica (primero se reactiva): THROW 50007
+CREATE OR ALTER PROCEDURE [dbo].[ModificarProducto_SP]
+    @Codigo NVARCHAR(50),
+    @Nombre NVARCHAR(50),
+    @Descripcion NVARCHAR(MAX),
+    @StockMinimo INT,
+    @IdProveedor INT,
+    @Precio DECIMAL(18,2)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    BEGIN TRANSACTION;
+
+    DECLARE @ProveedorActual INT, @Baja BIT;
+    SELECT @ProveedorActual = Proveedor, @Baja = Bit_Lo_Bo FROM Productos WITH (UPDLOCK, HOLDLOCK) WHERE Codigo = @Codigo;
+    IF @ProveedorActual IS NULL
+        THROW 50003, 'El producto no existe', 1;
+    IF @Baja = 1
+        THROW 50007, 'El producto esta dado de baja', 1;
+
+    IF @ProveedorActual <> @IdProveedor
+       AND NOT EXISTS (SELECT 1 FROM ListaPrecio WHERE IdProveedor = @IdProveedor AND Codigo = @Codigo)
+        THROW 50006, 'El proveedor de referencia debe tener un codigo vinculado al producto', 1;
+
+    UPDATE Productos
+    SET Nombre = @Nombre, Descripcion = @Descripcion, StockMinimo = @StockMinimo,
+        Proveedor = @IdProveedor, Precio = @Precio, Fecha_Actualizacion = GETDATE()
+    WHERE Codigo = @Codigo;
+
+    COMMIT TRANSACTION;
+END
+GO
+
+-- Venta: igual que antes, pero rechaza (50002) un producto dado de baja. 50001 sigue siendo stock insuficiente.
+CREATE OR ALTER PROCEDURE [dbo].[GuardarFactura_SP]
+    @IDUsuario          INT,
+    @DNI                INT,
+    @IDCarrito          INT,
+    @IDMetodoPago       INT,
+    @CodigoAutorizacion VARCHAR(50) = NULL,
+    @FechaVenta         DATETIME2(3),
+    @Detalle            dbo.TipoDetalleFactura READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM dbo.Productos AS p WITH (UPDLOCK, HOLDLOCK)
+                   INNER JOIN @Detalle AS d ON d.Codigo = p.Codigo
+                   WHERE p.Bit_Lo_Bo = 1)
+            THROW 50002, 'Hay un producto dado de baja en la venta', 1;
+
+        DECLARE @nuevoId INT;
+        SELECT @nuevoId = ISNULL(MAX(IDFactura), 0) + 1
+        FROM dbo.Facturas WITH (UPDLOCK, HOLDLOCK);
+
+        INSERT INTO dbo.Facturas (IDFactura, fecha_venta, IDUsuario, DNI, IDCarrito, IDMetodoPago, CodigoAutorizacion)
+        VALUES (@nuevoId, @FechaVenta, @IDUsuario, @DNI, @IDCarrito, @IDMetodoPago, @CodigoAutorizacion);
+
+        INSERT INTO dbo.Detalle_Factura (IDFactura, Codigo, cantidad, PrecioUnitario)
+        SELECT @nuevoId, d.Codigo, d.Cantidad, d.PrecioUnitario
+        FROM @Detalle AS d;
+
+        -- Descuento de stock (CUN-004 / RNF-06): una sola sentencia de varias filas, agrupada por Codigo
+        -- (un producto puede venir en mas de una linea). Solo descuenta si Stock >= cantidad total.
+        UPDATE p
+        SET p.Stock = p.Stock - t.Total
+        FROM dbo.Productos AS p
+        INNER JOIN (SELECT Codigo, SUM(Cantidad) AS Total FROM @Detalle GROUP BY Codigo) AS t
+            ON t.Codigo = p.Codigo
+        WHERE p.Stock >= t.Total;
+
+        -- Si algun codigo no se actualizo (stock insuficiente o inexistente) se revierte todo
+        IF @@ROWCOUNT <> (SELECT COUNT(DISTINCT Codigo) FROM @Detalle)
+            THROW 50001, 'Stock insuficiente para completar la venta', 1;
+
+        COMMIT TRANSACTION;
+        SELECT @nuevoId AS IDFactura;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END
+GO
+
+-- Compras: igual que antes, pero rechaza (50004) una linea de un producto dado de baja
+CREATE OR ALTER PROCEDURE [dbo].[AltaOrdenesCompra_SP]
+    @IdUsuario INT,
+    @Detalle dbo.TipoDetalleOrdenCompra READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+    BEGIN TRANSACTION;
+
+    IF NOT EXISTS (SELECT 1 FROM @Detalle)
+        THROW 50001, 'La lista de compra esta vacia', 1;
+
+    -- Cada linea debe corresponder a un producto vinculado a ese proveedor
+    IF EXISTS (SELECT 1 FROM @Detalle d
+               WHERE NOT EXISTS (SELECT 1 FROM ListaPrecio lp
+                                 WHERE lp.IdProveedor = d.IdProveedor AND lp.Codigo = d.Codigo))
+        THROW 50002, 'El producto no esta vinculado al proveedor', 1;
+
+    -- No se generan ordenes nuevas para un proveedor dado de baja
+    IF EXISTS (SELECT 1 FROM @Detalle d
+               INNER JOIN Proveedores pv ON pv.IDProveedor = d.IdProveedor
+               WHERE pv.Activo = 0)
+        THROW 50003, 'El proveedor esta dado de baja', 1;
+
+    -- Ni para un producto dado de baja
+    IF EXISTS (SELECT 1 FROM @Detalle d
+               INNER JOIN Productos pr WITH (UPDLOCK, HOLDLOCK) ON pr.Codigo = d.Codigo
+               WHERE pr.Bit_Lo_Bo = 1)
+        THROW 50004, 'Hay un producto dado de baja en la lista de compra', 1;
+
+    DECLARE @Base INT;
+    SELECT @Base = ISNULL(MAX(IdOrdenCompra), 0) FROM OrdenCompra WITH (UPDLOCK, HOLDLOCK);
+
+    DECLARE @Ordenes TABLE (IdProveedor INT PRIMARY KEY, IdOrdenCompra INT NOT NULL);
+    INSERT INTO @Ordenes (IdProveedor, IdOrdenCompra)
+    SELECT IdProveedor, @Base + ROW_NUMBER() OVER (ORDER BY IdProveedor)
+    FROM (SELECT DISTINCT IdProveedor FROM @Detalle) x;
+
+    INSERT INTO OrdenCompra (IdOrdenCompra, IdProveedor, Estado, FechaCreacion, IdUsuarioCreacion)
+    SELECT IdOrdenCompra, IdProveedor, 'Pendiente', SYSDATETIME(), @IdUsuario FROM @Ordenes;
+
+    INSERT INTO DetalleOrdenCompra (IdOrdenCompra, Codigo, Cantidad, PrecioUnitario)
+    SELECT o.IdOrdenCompra, d.Codigo, d.Cantidad, d.PrecioUnitario
+    FROM @Detalle d INNER JOIN @Ordenes o ON o.IdProveedor = d.IdProveedor;
+
+    COMMIT TRANSACTION;
+
+    SELECT IdOrdenCompra, IdProveedor FROM @Ordenes ORDER BY IdOrdenCompra;
+END
 GO

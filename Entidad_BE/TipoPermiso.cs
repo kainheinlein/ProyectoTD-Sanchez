@@ -25,6 +25,7 @@ namespace Entidad_BE
         AutorizarOrdenCompra,
         ConsultarHistorial,
         GestionIdiomas,
-        VerReportes
+        VerReportes,
+        GestionBitacoraCambios
     }
 }

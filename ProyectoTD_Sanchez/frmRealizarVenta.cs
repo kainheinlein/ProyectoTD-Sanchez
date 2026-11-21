@@ -244,6 +244,8 @@ namespace TP_SanchezVillaverde
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //El stock pudo cambiar (o la venta no se guardo): se recargan los pendientes desde la base
+                CargarPendientes_883SC();
                 return;
             }
 

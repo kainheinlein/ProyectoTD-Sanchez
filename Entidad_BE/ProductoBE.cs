@@ -44,6 +44,14 @@ namespace Entidad_BE
             set { _stockMinimo_883SC = value; }
         }
 
+        //true = el producto esta dado de baja logica (Productos.Bit_Lo_Bo): no se vende ni se compra
+        private bool _baja_883SC;
+        public bool Baja_883SC
+        {
+            get { return _baja_883SC; }
+            set { _baja_883SC = value; }
+        }
+
         private int _proveedor_883SC;
         public int Proveedor_883SC
         {

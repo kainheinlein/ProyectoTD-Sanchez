@@ -121,6 +121,7 @@ namespace TP_SanchezVillaverde
                 OcultarColumna_883SC("StockMinimo_883SC");
                 OcultarColumna_883SC("CantidadProveedores_883SC");
                 OcultarColumna_883SC("CantidadFaltante_883SC");
+                OcultarColumna_883SC("Baja_883SC");
             }
         }
 

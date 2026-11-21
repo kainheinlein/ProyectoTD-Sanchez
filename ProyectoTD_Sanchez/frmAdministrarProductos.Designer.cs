@@ -37,6 +37,8 @@ namespace TP_SanchezVillaverde
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnDesvincular = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.btnBaja = new System.Windows.Forms.Button();
+            this.chkInactivos = new System.Windows.Forms.CheckBox();
             this.dgvPendientes = new System.Windows.Forms.DataGridView();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -66,6 +68,8 @@ namespace TP_SanchezVillaverde
             this.pAdmin.Controls.Add(this.btnCrear);
             this.pAdmin.Controls.Add(this.btnDesvincular);
             this.pAdmin.Controls.Add(this.btnModificar);
+            this.pAdmin.Controls.Add(this.btnBaja);
+            this.pAdmin.Controls.Add(this.chkInactivos);
             this.pAdmin.Controls.Add(this.dgvPendientes);
             this.pAdmin.Controls.Add(this.btnBuscar);
             this.pAdmin.Controls.Add(this.txtBuscar);
@@ -161,6 +165,31 @@ namespace TP_SanchezVillaverde
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click_883SC);
+            // 
+            // btnBaja
+            // 
+            this.btnBaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBaja.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnBaja.Location = new System.Drawing.Point(240, 545);
+            this.btnBaja.Name = "btnBaja";
+            this.btnBaja.Size = new System.Drawing.Size(110, 29);
+            this.btnBaja.TabIndex = 18;
+            this.btnBaja.Text = "Dar de baja";
+            this.btnBaja.UseVisualStyleBackColor = false;
+            this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click_883SC);
+            // 
+            // chkInactivos
+            // 
+            this.chkInactivos.AutoSize = true;
+            this.chkInactivos.Location = new System.Drawing.Point(440, 87);
+            this.chkInactivos.Name = "chkInactivos";
+            this.chkInactivos.Size = new System.Drawing.Size(105, 17);
+            this.chkInactivos.TabIndex = 19;
+            this.chkInactivos.Text = "Mostrar inactivos";
+            this.chkInactivos.UseVisualStyleBackColor = true;
+            this.chkInactivos.CheckedChanged += new System.EventHandler(this.chkInactivos_CheckedChanged_883SC);
             // 
             // dgvPendientes
             // 
@@ -418,6 +447,8 @@ namespace TP_SanchezVillaverde
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.DataGridView dgvPendientes;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnBaja;
+        private System.Windows.Forms.CheckBox chkInactivos;
         private System.Windows.Forms.Button btnDesvincular;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnVincular;

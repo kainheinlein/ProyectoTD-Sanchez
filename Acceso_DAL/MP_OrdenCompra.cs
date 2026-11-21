@@ -19,7 +19,17 @@ namespace Acceso_DAL
             parametros[1].TypeName = "dbo.TipoDetalleOrdenCompra";
 
             //LeerTabla porque el SP devuelve un id por cada proveedor (EscribirRetornar devuelve un solo valor)
-            DataTable dt = conexDB_883SC.LeerTabla_883SC("AltaOrdenesCompra_SP", parametros);
+            DataTable dt;
+            try
+            {
+                dt = conexDB_883SC.LeerTabla_883SC("AltaOrdenesCompra_SP", parametros);
+            }
+            catch (SqlException ex)
+            {
+                //50004 = alguna linea es de un producto dado de baja (no se guarda ninguna orden)
+                if (ex.Number == 50004) { throw new ProductoDadoDeBajaException_883SC(ex); }
+                throw;
+            }
             foreach (DataRow dr in dt.Rows)
             {
                 int idProveedor = Convert.ToInt32(dr["IdProveedor"]);

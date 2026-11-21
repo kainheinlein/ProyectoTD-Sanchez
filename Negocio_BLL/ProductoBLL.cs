@@ -17,9 +17,67 @@ namespace Negocio_BLL
         private const int CODIGO_MAX_883SC = 50;
         private const int NOMBRE_MAX_883SC = 50;
 
-        public List<ProductoBE_883SC> ListarProductos_883SC()
+        /// Todos los productos; los dados de baja solo si incluirInactivos es true.
+        public List<ProductoBE_883SC> ListarProductos_883SC(bool incluirInactivos = true)
         {
-            return mpProducto_883SC.ListarProductos_883SC();
+            List<ProductoBE_883SC> productos = mpProducto_883SC.ListarProductos_883SC();
+            if (!incluirInactivos)
+            {
+                productos = productos.FindAll(p => !p.Baja_883SC);
+            }
+            return productos;
+        }
+
+        /// Baja logica: el producto no se vende ni se compra hasta reactivarlo (el stock se conserva). Queda en Productos_C.
+        /// Ya dado de baja o inexistente: ArgumentException con el mensaje traducido. Error de base: sube la excepcion original.
+        public void DarDeBajaProducto_883SC(ProductoBE_883SC producto)
+        {
+            if (producto == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_PRODUCTO"));
+            }
+            try
+            {
+                mpProducto_883SC.DarDeBaja_883SC(producto.Codigo_883SC);
+            }
+            catch (BajaProductoException_883SC ex)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC(ClaveErrorEstado_883SC(ex.Numero_883SC, "PROD_ERR_BAJA_YA")));
+            }
+
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.BajaProducto,
+                "codigo=" + producto.Codigo_883SC);
+        }
+
+        /// Reactivacion. Con el proveedor de referencia dado de baja se bloquea (PROD_ERR_REACT_PROV_INACTIVO).
+        public void ReactivarProducto_883SC(ProductoBE_883SC producto)
+        {
+            if (producto == null)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_PRODUCTO"));
+            }
+            try
+            {
+                mpProducto_883SC.Reactivar_883SC(producto.Codigo_883SC);
+            }
+            catch (BajaProductoException_883SC ex)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC(ClaveErrorEstado_883SC(ex.Numero_883SC, "PROD_ERR_NO_BAJA")));
+            }
+
+            bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.ReactivacionProducto,
+                "codigo=" + producto.Codigo_883SC);
+        }
+
+        //50001 no existe, 50003 proveedor inactivo; 50002 (estado que no corresponde) depende de la operacion
+        private static string ClaveErrorEstado_883SC(int numero, string claveEstado)
+        {
+            switch (numero)
+            {
+                case 50001: return "PROD_MSG_INEXISTENTE";
+                case 50003: return "PROD_ERR_REACT_PROV_INACTIVO";
+                default: return claveEstado;
+            }
         }
 
         public List<ProductoBE_883SC> BuscarProductos_883SC(string criterio, string dato)
@@ -68,6 +126,11 @@ namespace Negocio_BLL
             {
                 throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_SEL_PRODUCTO"));
             }
+            //Un producto dado de baja no se modifica: primero se reactiva
+            if (producto.Baja_883SC)
+            {
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_BAJA_MODIFICAR"));
+            }
             ValidarDatos_883SC(producto);
 
             //El stock y el precio vigentes salen de la base, no de lo que trae la pantalla
@@ -92,7 +155,15 @@ namespace Negocio_BLL
                 producto.Precio_883SC = CalcularPrecioVenta_883SC(item);
             }
 
-            mpProducto_883SC.ModificarProducto_883SC(producto);
+            try
+            {
+                mpProducto_883SC.ModificarProducto_883SC(producto);
+            }
+            catch (ProductoDadoDeBajaException_883SC)
+            {
+                //Respaldo: otro usuario lo dio de baja despues de cargar la pantalla
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_BAJA_MODIFICAR"));
+            }
 
             bitacora_883SC.RegistrarBitacora_883SC(UsuarioActual_883SC(), TipoAccion_883SC.ModificacionProducto,
                 "codigo=" + producto.Codigo_883SC);

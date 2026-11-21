@@ -147,7 +147,15 @@ namespace Negocio_BLL
                 orden.Detalle_883SC.Add(detalle);
             }
 
-            mpOrdenCompra_883SC.GuardarOrdenes_883SC(usuario.cod_883SC, ordenes);
+            try
+            {
+                mpOrdenCompra_883SC.GuardarOrdenes_883SC(usuario.cod_883SC, ordenes);
+            }
+            catch (ProductoDadoDeBajaException_883SC)
+            {
+                //El SP no guardo ninguna orden
+                throw new ArgumentException(gestorIdioma_883SC.Traducir_883SC("PROD_ERR_BAJA_ORDEN"));
+            }
 
             foreach (OrdenCompraBE_883SC orden in ordenes)
             {
